@@ -1,0 +1,55 @@
+<tpl name="FC" class="adebug">
+	<header>
+    	<label>BLANK F017 - FINANCIAL CHECK ver 01</label>
+    	<logo></logo>
+    </header>
+    <container>
+=============================================================
+{{d.check.mainname}}, {{d.check.depindex}}
+{{d.check.depname}}
+ИИН/БИН 		<b>{{d.check.deptax}} {{dsys}}</b>
+Квитанция №		<b>{{d.check.code}} ({{d.check.paytype}})</b> Оп.дата <b>{{d.check.dreg}}</b>
+Код клиента		<b>{{d.check.clicode}}</b>
+Наим. клиента 	<b>{{d.check.cliname}}</b>
+Номер договора 	<b>{{d.check.deacode}}</b>
+ИИН/БИН плат. 	<b>{{d.check.clitax}}</b>
+=============================================================<span ng-repeat="m in d.mails">
+<b>{{m.mailType}} № {{m.code}}</b> {{m.mailCategory}}
+    Вес: {{m.actualWeight}}
+    Ценность: {{m.value}}
+    Куда: {{m.to.dept}} {{m.to.city}}
+    Кому: {{m.to.name}} {{m.to.contact}}
+    Отправитель: {{m.from.name}}
+    <span ng-repeat="i in ::m.check.items">	{{i.dscr}} 					{{i.sum}}</span>
+Итого:  {{m.check.totalSum}} (В том числе НДС: 12% {{m.check.totalVat}})
+</span>=============================================================
+Все претензии по приему почтовых отправлений принимаются 
+в теч. 6 мес со дня проведения операции
+Оператор: {{d.check.username}}
+=============================================================
+<b>КОНТРОЛЬНЫЙ ЧЕК БКС, Приказ МФ от 30.12.2007 г. за №635</b>
+<b>№ {{d.check.code}}</b> от <b>{{d.check.dsys}}</b>
+{{d.check.mainname}} ИИН/БИН {{d.check.maintax}}
+Поставлен на учет НДС серия {{d.check.taxinfo}}
+{{d.check.depaddress}}<span ng-repeat="i in ::d.check.totalItems">
+    {{i.serv}}						{{i.sdok}}
+</span><b>ИТОГО: {{d.check.sdok}} KZT</b>
+<b>Кассир	{{d.check.username}}</b>
+
+─────────────────   Линия отрыва   ───────────────────
+
+Квитанция № {{d.check.code}} ({{d.check.paytype}}) Оп.дата {{d.check.dreg}}<span ng-repeat="i in ::d.check.totalItems">
+    {{i.serv}}						{{i.sdok}}
+</span><b>ИТОГО: {{d.check.sdok}} KZT</b>
+<b>КАССИР  {{d.check.username}}</b>
+
+Код клиента		{{d.check.clicode}}
+Наим. клиента	{{d.check.cliname}}
+Номер договора	{{d.check.deacode}}
+Подпись клиента/или доверенного лица ____________________
+
+	</container>
+    <footer>
+    	<toolpar></toolpar> Information Logystics System .  © 2016 АО Казпочта. CallCenter 1499
+    </footer>
+<tpl>

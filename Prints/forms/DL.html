@@ -1,0 +1,56 @@
+﻿<tpl name="DL" class="adebug">
+	<header>
+    	<label>BLANK F008 - DESTINATION LIST ver 01</label>
+    	<logo></logo>
+        <barcode>{{ d.code }}</barcode>
+    </header>
+    <container>
+<h2>S-Накладная</h2>
+Список: <b>{{ d.code }}</b>
+Дата создания: <b>{{ d.created }}</b>
+Документ создан: <b>{{ d.createdBy }}</b>
+<!--
+Категория РПО: 			<b>{{ d.check.mainname }}</b>
+Вид РПО: 				<b>{{ d.check.mainname }}</b>-->
+Откуда:				<b>{{ d.fromDept }}</b>
+Куда:				<b>{{ d.toDept }}</b>
+Примечание: 			<b>{{ d.notes }}</b>
+
+<table border="1" ng-show="d.packetLists">
+	<thead>
+    <tr>
+        <th style="width:20px;">№</th>
+        <th style="width:120px;">Идентификатор</th>
+        <th>Откуда</th>
+        <th style="width:165px;">Куда</th>
+        <th style="width:165px;">Отметка</th>
+        <th style="width:64px;">Кол-во</th>
+        <th style="width:64px;">Вес</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="i in ::d.packetLists">
+    	<td>{{ $index+1 }}</td>
+        <td>{{ i.code }}</td>
+        <td>{{ i.fromDept }}</td>
+        <td>{{ i.toDept }}</td>
+        <td>{{ i.notes }}</td>
+        <td>{{ i.mailCount }}</td>
+        <td>{{ i.totalWeight }}</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <th colspan="5">ИТОГО :</th>
+        <th>{{ d.count }}</th>
+        <th>{{ d.totalWeight }}</th>
+    </tr>
+    </tfoot>
+</table>
+Итого: <b>{{ d.count }}</b> шт
+
+    </container>
+    <footer>
+    	<toolpar></toolpar> Information Logystics System .  © 2016 АО Казпочта. CallCenter 1499
+    </footer>
+</tpl>

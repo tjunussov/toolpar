@@ -1,0 +1,110 @@
+﻿<tpl name="ACT" class="adebug">
+	<header>
+    	<label>BLANK F016 - INVOICE ACT ver 01</label>
+    	<logo></logo>
+    </header>
+    <container><div style="text-align:right; font-size:11px; line-height:11px;">
+    Приложение 
+    к приказу Министра финансов 
+    Республики Казахстан 
+    от с 22 декабря 2014 года. № 458.
+    
+    Форма P-1
+</div>
+<table style="font-size:14px;">
+	<tr>
+    	<td width="140">Заказчик</td>
+        <td><b>{{ d.invoice.payername }} {{ d.invoice.payeradr }}</b><hr /></td>
+        <td width="30"></td>
+        <td rowspan="3" valign="top" align="center">ИИН/БИН
+
+            <table border="1" style="width:200px; font-size:14px; line-height:25px;">
+                <tr><th>{{ d.invoice.payertax }}</th></tr>
+                <tr><th>{{ d.invoice.userdeptax }}</th></tr>
+            </table>
+
+        </td>
+    </tr>
+    <tr><td>Исполнитель</td><td><b>{{ d.check.mainname }}, {{ d.check.depname }} [{{ d.check.depindex }}]</b><hr /></td></tr>
+    <tr><td>Договор (контракт)</td><td><b>___________________ № {{d.invoice.dealnum}} , {{d.invoice.dealdate}} </b></td></tr>
+</table>
+
+<table border="1" style="width:300px;font-size:14px; line-height:25px;" align="right">
+	<tr><th>Номер документа</th><th>Дата составления</th></tr>
+    <tr><th>{{d.invoice.code}}</th><th>{{d.invoice.calcdate}}</th></tr>
+</table>
+
+
+
+
+<h2>АКТ ВЫПОЛНЕННЫХ РАБОТ</h2>
+<table border="1" ng-show="d.mails">
+	<thead>
+    <tr>
+        <th rowspan="2" style="width:30px;">Номер по порядку</th>
+        <th rowspan="2">Наименование работ (услуг) (в разрезе их подвидов в соотвествии с технической спецификацией, заданием, графиком выполнения работ (услуг) при их наличии)</th>
+        <th rowspan="2" style="width:120px;">Дата выполнения работа(оказания услуг)**</th>
+        <th rowspan="2" style="width:120px;">Сведения об отчете прочих услугах ( дата, номер, кол-во )</th>
+        <th rowspan="2" style="width:64px;">Единица измерения</th>
+        <th colspan="3">Выполнено работ (оказано услуг)</th>
+    </tr>
+    <tr>
+        <th style="width:80px;">количество</th>
+        <th style="width:80px;">цена за единицу</th>
+        <th style="width:80px;">стоимость</th>
+    </tr>
+    <tr>
+        <th>1</th>
+        <th>2</th>
+        <th>3</th>
+        <th>4</th>
+        <th>5</th>
+        <th>6</th>
+        <th>7</th>
+        <th>8</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="i in ::d.check.totalItems">
+    	<th>{{ $index+1 }}</th>
+        <td>{{ i.serv }}</td>
+        <td>{{ d.invoice.calcdate }}</td>
+        <td></td>
+        <td></td>
+        <td>{{ i.ndok }}</td>
+        <td>{{ i.netto_sum }}</td>
+        <td>{{ i.sdok }}</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <th colspan="5">ИТОГО:</th>
+        <th>{{ d.check.totalSum }}</th>
+        <th>{{ d.check.totalVat }}</th>
+        <th>{{ d.check.total }}</th>
+    </tr>
+    </tfoot>
+</table>
+
+
+Сведения об использовании запасов, полученных от заказчика   ________________________________________________________
+
+Приложение: Перечень документации  _____________________________________________________________________________
+
+<dl>
+	<dd>
+<b>Сдал </b>
+(Исполнитель) _____________/___________/____________
+<sup>должность подпись расшифровка подписи</sup>
+	</dd>
+	<dd>
+<b>Принял </b>
+(Заказчик) _____________/___________/____________
+<sup>должность подпись расшифровка подписи</sup>
+</dd>
+</dl>
+    </container>
+    <footer>
+    	<toolpar></toolpar> Information Logystics System .  © 2016 АО Казпочта. CallCenter 1499 
+    </footer>
+</tpl>

@@ -1,0 +1,151 @@
+body {
+	background-color:#014e94;
+	font-family: monospace;
+	font-size: 18px;
+	text-align: center;
+	color: #fff;
+}
+
+
+.page-content {
+	height: 70%;
+	width: 680px;
+	margin: auto;
+	padding: 0;
+	position: absolute;
+	top: 0; left: 0; bottom: 0; right: 0;
+}
+
+.footer {
+	background:none;
+	color: #fff;
+	font-size: 11px;
+	font-weight: 300;
+	padding: 0;
+	bottom: 20px;
+	height: 40px;
+	position: absolute;
+	text-align: center;
+	display: block;
+}
+
+/********************/
+
+body.code307 .page-content {
+	height: 60%;
+}
+
+body.code307 .page-content:before {
+	color: #000;
+}
+
+
+body.code307 {
+	background:#fdc010 url(../static/_img/307_checker.svg) repeat-x top center;
+	color: #000;
+}
+
+
+body.code307 h1 {
+	color: #000;
+}
+
+body.code307 h2 {
+	color: #fdc010;
+	background:#000;
+}
+
+body.code307 .footer {
+	color: #000;
+	padding-bottom: 80px;
+	bottom: 0px;
+	background:#fdc010 url(../static/_img/307_checker.svg) repeat-x bottom center;
+}
+
+
+body.code307 .construction {
+	background: url(../static/_img/307_construction.png) no-repeat center center;
+	width: 300px;
+	height: 250px;
+	margin-top: 50px;
+	display: inline-block;
+}
+
+/********************/
+
+body.code500 .page-content {
+	height: 50%;	
+}
+
+.badsmile {
+	background: url(../static/_img/500_smile.svg) no-repeat center center;
+	height: 250px;
+	position: absolute;
+	width: 200px;
+	margin-left: -300px;
+}
+
+/********************/
+
+body.code503 .footer {
+	bottom:80px;
+}
+
+body.code503 {
+	background-image:url(../static/_img/503_waves.svg);
+	background-repeat:repeat-x;
+	background-position: bottom center;
+}
+
+.failwhale {
+	background: url(../static/_img/503_fail_whale.svg) no-repeat center center;
+	width: 500px;
+	height: 470px;
+	margin-top: 50px;
+	margin-left: 70px;
+	display: inline-block;
+}
+
+/********************/
+
+h2 {
+	background-color: #c0c0c0;
+	color: #014e94;
+	padding: 4px 18px;
+	font-size: 18px;
+	display: inline-block;
+}
+
+.page-content:before {
+	content: attr(code);
+	display: block;
+	padding: 4px 0;
+	position: absolute;
+}
+
+h1 {
+	font:700 32px 'Open Sans';
+	margin: 22px 0 10px 0;
+	color: #fff;
+}
+
+h1 span {
+	font-weight:300;
+	position: absolute;
+	margin-left: -70px;
+}
+
+span[name] {
+	border-bottom: 2px solid currentColor;
+	font-weight: bold;
+}
+
+pre {
+	text-align: left;
+}
+
+progressbar {display: inline-block; }
+progressbar d { -webkit-animation: 1s blink step-end infinite; width:auto; height:auto; background-color:transparent; }
+progressbar.dots d { content:'.' }
+
+

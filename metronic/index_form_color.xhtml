@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="_templates/template.xsl"?>
+<ui:page xmlns:ui="ui" name="Toolpar CPILS">
+	
+	<title>Прием - КГПО Тимур Джунусов</title>
+
+	<link href="_css/app.scss" rel="stylesheet" type="text/css" />
+	<link href="_css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="_css/form.css" rel="stylesheet" type="text/css" />
+	<link href="_css/form_color_alt.css" rel="stylesheet" type="text/css" />
+
+	<link rel="prefetch" name="branch_tpl" href="_templates/template.xsl" type="text/xml"/>
+
+	<script src="static/_js/nprogress.js"></script>
+	<script src="static/_js/jquery.ajax-progress.js"></script>
+	<script src="static/_js/xml2json.js"></script>
+	<script src="static/_js/jquery.knob.min.js"></script>
+	<script src="static/_js/jquery.easing.1.3.min.js"></script>
+	<script src="static/_js/ion.sound.min.js"></script>
+
+	<script src="_js/app.js"></script>
+
+	<script src="http://localhost:35729/livereload.js?snipver=1"></script>
+
+	<ui:menu/>
+
+	<ui:head>
+		
+		<div class="head">
+
+			<div class="sidebar">
+				<label for="toggler" class="toggler"></label>
+				<logo-horse></logo-horse>
+				<logo></logo>
+			</div>
+
+			<button>Создать</button>
+			<input class="search" type="text" placeholder="Поиск посылки, клиента, адреса, документов ... " />
+
+			<right>
+				<a href="#">Inbox</a>
+				<a href="#">Outbox</a>
+				<a href="#">Монитор</a>
+				<a href="#">Quick Guide</a>
+
+				
+				<a badge="5"><i class="icon-notifications"></i></a>
+				<a><i class="icon-messages"></i></a>
+
+				<user-profile class="dropdown-menu">
+					<a>
+	                    <img class="img-circle" src="static/_img/avatar-small.jpg"/>
+	                    <span class="username">Астана Аселька</span>
+	                    <i class="fa fa-angle-down"></i>
+	                </a>
+					<ul class="dropdown-menu-content">
+                        <li><a>КГПО г.Астана</a></li>
+                        <li><a>Прием почты</a></li>
+                        <li><a>Смена языка</a></li>
+                        <li><a>Смена пароля</a></li>
+                        <li><a>Тема</a></li>
+                        <li><a href="#/account"><i class="icon-user"></i>Мой профиль</a></li>
+                    </ul>
+				</user-profile>
+				<a href="#/logout">
+	                <i class="icon-logout"></i>
+	            </a>
+			</right>
+		</div>
+	</ui:head>
+	
+	<ui:body>
+		<div class="page-content">
+
+			<div class="page-breadcrumb">
+				<a>Прием</a>
+				<a>Посылка EP123456789KZ</a>
+			</div>
+
+			<h1>
+				<i class="icon-service"></i>
+				<sup>P101</sup>
+				Прием - Письмо РК
+				<right>
+					<button class="prefered">Принять</button>
+					<button>Назад</button>
+				</right>
+			</h1>
+
+			<form>
+
+				<fieldset order="1">
+					<legend>
+						Отправитель 
+						<right>
+							<input class="faded" type="checkbox" id="fromRESIDENT" name="fromRESIDENT"/>
+							<label for="fromRESIDENT">Не резидент</label>
+						</right>
+					</legend>
+
+					<row>
+
+						<input-group>
+							<input type="text" placeholder="ИИН" name="IIN" tabindex="1" size="12" required="yes" value="811104301997" />
+							<input type="text" placeholder="ФИО" name="FIO" tabindex="1" size="30" required="yes" value="Джунусов Тимур Канатович" />
+						</input-group>
+						<input type="text" name="TEL" placeholder="Телефон" tabindex="1"					 size="14" required="yes" value="7779005000" />
+
+					</row>
+					<row>
+
+						<textarea required="yes" placeholder="Адрес" name="ADDRESS">Абая, 16, кв 9</textarea>
+
+					</row>
+					<row>
+
+						<input-group>
+							<input type="text" placeholder="Индекс" name="ZIP" size="10" value="050001" />
+							<input type="text" placeholder="Лондекс" name="INDEX" size="7" value="A01W05" />
+							<input type="text" placeholder="ОПС Отправки" name="OPS" value="КГПО г.Алматы" />
+						</input-group>
+
+					</row>
+
+				</fieldset>
+
+
+				<fieldset order="2">
+					<legend>
+						Получатель
+						<right>
+							<input class="faded" type="checkbox" id="toRESIDENT" name="toRESIDENT"/><label for="toRESIDENT">Не резидент</label>
+							<input type="checkbox" id="MULTIRECEPIENT" name="MULTIRECEPIENT"/><label for="MULTIRECEPIENT">Разные получатели</label>
+						</right>
+					</legend>
+					<row>
+
+						<input-group tabindex="3">
+							<input type="text" placeholder="ИИН" name="IIN" required="yes" size="12" />
+							<input type="text" placeholder="ФИО" name="FIO" required="yes" size="30" />
+						</input-group>
+						<input type="text" name="TEL" placeholder="Телефон" size="14" />
+
+					</row>
+					<row>
+
+						<textarea required="yes" placeholder="Адрес" name="ADDRESS"></textarea>
+
+					</row>
+					<row>
+
+						<input-group tabindex="4">
+							<input type="text" placeholder="Индекс" name="Index" size="10" />
+							<input type="text" placeholder="Лондекс" name="PostIndex" size="7" />
+							<input type="text" placeholder="ОПС Отправки" name="OPS"/>
+						</input-group>
+
+					</row>
+				</fieldset>
+
+
+				<fieldset order="3" class="fulen">
+					<legend>Детали отправления</legend>
+
+					<row>
+
+						<select placehodler="Тип отправления" required="yes">
+							<option>P101 Письмо РК</option>
+						</select>
+
+						<select required="yes">
+							<option>Наземный</option>
+						</select>
+
+						<select required="yes">
+							<option>Обыкновенная</option>
+						</select>
+
+						<select required="yes">
+							<option>Разряд отправления</option>
+						</select>
+
+					</row>
+					<row>
+
+						<input style="flex-basis:50%" type="text" placeholder="Особые отметки" list="modules" required="yes"/>
+
+						<datalist id="modules">
+						  <option value="Прием"/>
+						  <option value="Сортировка"/>
+						  <option value="Сорт-Центр"/>
+						</datalist>
+
+						<select style="flex-basis:25%">
+							<option>ЗПО</option>
+						</select>
+
+						<input style="flex-basis:25%" type="number" name="COST" placeholder="Стоимость" size="10" />
+
+					</row>
+
+				</fieldset>
+
+				<fieldset order="4" class="fulen">
+					<legend>Отправления <input type="text" size="3" class="package-number" value="40"/>шт</legend>
+					<row class="noshrink">
+						<input type="text" name="WPI" placeholder="ШПИ" required="yes" maxlength="13" size="13" />
+						<input type="text" name="WEIGHT" placeholder="Вес" class="sum" required="yes" size="14" />
+					</row>
+				</fieldset>
+
+
+				<div>
+					<right>
+						<button class="prefered">Принять</button>
+						<button>Назад</button>
+					</right>
+				</div>
+
+
+
+			</form>
+
+		</div>
+	</ui:body>
+
+</ui:page>

@@ -1,0 +1,46 @@
+﻿<tpl name="PL" class="adebug">
+	<header>
+    	<label>BLANK F009 - DELIVERY LIST ver 01</label>
+    	<logo></logo>
+        <barcode>{{ d.code }}</barcode>
+    </header>
+    <container>
+<h2>Доставочный Лист</h2>
+Список: <b>{{ d.code }}</b>
+Дата создания: <b>{{ d.created }}</b>
+Документ создан: <b>{{ d.createdBy }}</b>
+
+На дату:			<b>{{ d.created }}</b>
+Департамент:		<b>{{ d.dept }}</b>
+
+<table border="1" ng-show="d.mails">
+	<thead>
+    <tr>
+        <th style="width:20px;">№</th>
+        <th style="width:120px;">ШПИ</th>
+        <th>Отправитель</th>
+        <th>Получатель</th>
+        <th style="width:64px;">Вес</th>
+        <th>Заметка</th>
+        <th style="width:64px;">Подпись</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="i in ::d.mails">
+    	<td>{{ $index+1 }}</td>
+        <td>{{ i.code }}</td>
+        <td>{{ i.from.name }}</td>
+        <td>{{ i.to.name }}</td>
+        <td>{{ i.actualWeight }}</td>
+        <td>{{ i.notes }}</td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+Итого: <b>{{ d.count }}</b> шт
+
+    </container>
+    <footer>
+    	<toolpar></toolpar> Information Logystics System .  © 2016 АО Казпочта. CallCenter 1499
+    </footer>
+</tpl>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="_templates/template_index.xsl"?>
+<ui:page xmlns:ui="ui" name="Toolpar CPILS">
+	
+	<title>Monitor - Тимур Джунусов</title>
+
+	<link href="_css/app.scss" rel="stylesheet" type="text/css" />
+	<link href="_css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="_css/monitor.css" rel="stylesheet" type="text/css" />
+
+	<link href="static/_css/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+
+	
+
+	<link rel="prefetch" name="tpl" href="_templates/template.xsl" type="text/xml"/>
+
+	<!--script src="static/_js/nprogress.js"></script>
+	<script src="static/_js/jquery.ajax-progress.js"></script>
+	<script src="static/_js/xml2json.js"></script>
+	<script src="static/_js/jquery.knob.min.js"></script>
+	<script src="static/_js/jquery.easing.1.3.min.js"></script>
+	<script src="static/_js/ion.sound.min.js"></script-->
+
+	<script src="_js/xpolyfill.js"></script>
+	<script src="_js/app.js"></script>
+    
+    <link href="monitor/parcello/_css/nprogress.css" rel="stylesheet" type="text/css" />
+	<link href="monitor/parcello/_css/parcello.css" rel="stylesheet" type="text/css" />
+
+	<link rel="prefetch" name="branch_tpl" href="monitor/parcello/_templates/branch.xsl" type="text/xml"/>
+    <link rel="prefetch" name="all_tpl" href="monitor/parcello/_templates/all.xsl" type="text/xml"/>
+
+	<script src="monitor/parcello/_js/nprogress.js"></script>
+	<script src="monitor/parcello/_js/jquery.ajax-progress.js"></script>
+	<script src="monitor/parcello/_js/xml2json.js"></script>
+	<script src="monitor/parcello/_js/jquery.knob.min.js"></script>
+	<script src="monitor/parcello/_js/jquery.easing.1.3.min.js"></script>
+	<script src="monitor/parcello/_js/ion.sound.min.js"></script>
+	<script>
+		$(function() {
+			_URLS["BranchDetails"] = "monitor/_data/branch.json";
+			_URLS["Stats"] = "monitor/_data/all.json";
+			_URLS["BranchDetailsSettings"] = "monitor/_data/kazpost-010000.json";
+			_URLS["ColvirServices"] = "monitor/_data/getuserchecksbyid.html";
+		});
+	</script>
+	<script src="monitor/parcello/_js/parcello.js"></script>
+    
+
+	<ui:menu/>
+
+	<ui:head>
+		
+		<div class="head">
+
+			<div class="sidebar">
+				<label for="toggler" class="toggler" title="Alt+m" accessKey="m"></label>
+				<a href="index.xhtml">
+                    <logo-horse></logo-horse>
+                    <logo></logo>
+                </a>
+			</div>
+
+			<button class="create" title="Alt+c" accessKey="c" onclick="location.href='service.xhtml'">Создать</button>
+
+			<div class="search dropdown-menu" style="width: 35%;">
+				<input class="search var2" type="text" placeholder="Поиск посылки, клиента, адреса, документов ... " title="Alt+s" accessKey="s" />
+
+				<ul class="dropdown-menu-content">
+	                <li>
+	                	<a href="#">
+		                	<i class="icon-envelope"></i> ШПИ <b>GD222231995KZ</b><br/>
+		                 	Возврат с хранения - Астана 11.06.2016 17:43 <loader></loader>
+		                 </a>
+	                 </li>
+	                 <li>
+	                	<a href="#">
+		                	<i class="icon-envelope"></i> ШПИ <b>GD222231995KZ</b><br/>
+		                 	Возврат с хранения - Астана 11.06.2016 17:43
+		                 </a>
+	                 </li>
+	                 <li>
+	                	<a href="#">
+		                	<i class="icon-envelope"></i> ШПИ <b>GD222231995KZ</b><br/>
+		                 	Возврат с хранения - Астана 11.06.2016 17:43
+		                 </a>
+	                 </li>
+	                <li><a href="#">Расширенный поиск...</a></li>
+	            </ul>
+	        </div>
+
+			<right>
+				
+
+
+				<a badge="2" href="503.xhtml" title="Alt+i" accessKey="i">Inbox</a>
+
+				<div class="cloudq">
+					<div class="cloudq-content">
+						<h3>367</h3>
+						<span>10</span>
+						<span>00:05</span>
+						<button><i class="icon-arrow-right"></i></button>
+					</div>
+				</div>
+
+				<a href="500.xhtml" title="Alt+o" accessKey="o">Outbox</a>
+				<a href="../monitor/index.xhtml" title="Alt+v" accessKey="v">Монитор</a>
+
+				
+				<a badge="5"><i class="icon-bell"></i></a>
+				<a><i class="icon-envelope-open"></i></a>
+
+
+
+				<user-profile class="dropdown-menu">
+					<a>
+	                    <img class="img-circle" src="static/_img/avatar-small.jpg"/>
+	                    <span class="username">Астана Аселька</span>
+	                    <i class="arrow-down"></i>
+	                </a>
+					<ul class="dropdown-menu-content">
+                        <li><a>КГПО г.Астана</a></li>
+                        <li><a>Прием почты</a></li>
+                        <li><a>Смена языка</a></li>
+                        <li><a>Смена пароля</a></li>
+                        <li><a>Тема</a></li>
+                        <li><a href="#/account"><i class="icon-user"></i>Мой профиль</a></li>
+                    </ul>
+				</user-profile>
+				<a href="login.xhtml" title="Alt+]" accessKey="]">
+	                <i class="icon-logout"></i>
+	            </a>
+			</right>
+		</div>
+	</ui:head>
+	
+	<ui:body>
+    
+        
+            
+		<div class="page-content">
+
+            <div class="oblivion">
+                <div id="container_branch_details"></div>
+                <div id="container_branch"></div>
+                <div id="colvir_services"></div>
+            </div>
+            
+		</div>
+	</ui:body>
+
+</ui:page>

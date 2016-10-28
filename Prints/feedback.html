@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html ng-app="feedbackApp">
+	<head>
+		<title>Toolpar Feedback</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700&subset=latin,cyrillic-ext,cyrillic,latin-ext' rel='stylesheet' type='text/css'>
+		<style type="text/css" media="screen">
+		html, body { height:100%; background-color: #ffffff; }
+		body { margin:0; padding:0; overflow:hidden; }
+		button.feedback { 
+			position: absolute; left: 0; top:50%; 
+			transform:rotate(-90deg); transform-origin:top left; margin-top: -50px; 
+			cursor: pointer; background: #fc0; color:#000; border:none; padding: 3px 20px;
+			font-weight: bold;
+		}
+
+		dialog info { display: block; border:1px solid #91c89c; padding: 10px 30px 10px 50px; margin-bottom: 20px; 
+			background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA1klEQVR42qWTUQqCQBCGfdKCuogu+qBeoot0kl7TBwU9S3QLyega9ZBh1L/wLyyDLGkLHzj/vzPM7o6eXLv9IQRH0IMnuVAL7b0y0QcVeIPPFPQasJ5KPlkbW5CDFcmpGf8MfLtATeMGEqObBCuOwJV6ZYsjxVhrsoDQEuojiLRQmLa9H5d1nEIHPYOMvrMD6hm9XgcDg2BGgYDesLTAlt596RFSep3jEp0FWnqlDtTMZ4ytZ1SuQZJLDlLtGuUGpNQ3/G7kKP/5M7nbLNnqCzxAR03J/V+HSh9XtOsatQAAAABJRU5ErkJggg==) no-repeat 20px center #f3f9f4;
+ 		}
+ 		dialog form { border:1px solid #ccc; padding: 20px; box-sizing:border-box; margin-bottom: 10px; background-color: #fff; }
+		dialog.feedback { position:relative; padding:40px 40px 20px 40px; border:none; box-shadow: 0 0 4px rgba(0,0,0,0.3); line-height: 30px; min-width:940px; width: 50%; font-family: 'Open Sans', sans-serif; box-sizing:border-box; background-color: #f0f0f0; }
+		dialog.feedback::backdrop {  position: fixed;  top: 0;  left: 0;  right: 0;  bottom: 0;  background-color: rgba(0, 0, 0, 0.3);}
+		dialog.feedback input, dialog.feedback textarea { margin-top:20px; width:100%; padding: 10px; border:none; border-bottom:1px dotted #ddd; }
+		dialog.feedback input, dialog.feedback textarea, dialog.feedback button  { font:normal 12pt 'Open Sans',sans-serif; box-sizing: border-box;  cursor: pointer;}
+		dialog.feedback h2 { margin:0 0 20px 0; letter-spacing: -1px; }
+		dialog.feedback .close { position:absolute; right:10px; top:10px; text-decoration: none;} dialog.feedback .close:before { content:'\00d7'; color:#ccc; font-size:40px; }
+		 dialog.feedback button { position:absolute; right:40px; bottom:20px; } 
+
+		dialog.feedback input[type="radio"] { display: none; }	dialog.feedback .feedback_type { padding:5px 15px; border-bottom:2px solid transparent; cursor: pointer;  }
+		dialog.feedback input[type="radio"]:checked + label, dialog.feedback input[type="radio"]:checked + label:active { border-bottom-color:#aaa; }
+
+
+		dialog.error {
+			-webkit-animation: shake .5s linear;
+		}
+
+		dialog.error input {
+			border-color:#f00;
+		}
+
+
+		/* also need keyframes and -moz-keyframes */
+		 @-webkit-keyframes shake {
+		    8%, 41% {
+		        -webkit-transform: translateX(-10px);
+		    }
+		    25%, 58% {
+		        -webkit-transform: translateX(10px);
+		    }
+		    75% {
+		        -webkit-transform: translateX(-5px);
+		    }
+		    92% {
+		        -webkit-transform: translateX(5px);
+		    }
+		    0%, 100% {
+		        -webkit-transform: translateX(0);
+		    }
+		}
+
+		[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak { display: none !important;}
+		</style>
+		<script src="js/angular.min.js"></script>
+	</head>
+	<body ng-controller="formController" ng-keydown="close($event)">
+		<dialog id="feedback" class="feedback" ng-class="{error: isError}">
+			<h2>Форма обратной связи</h2>
+			<info><b>Внимание!</b> Пишите по существу, четко и коротко</info>
+			<form ng-submit="submit()">
+				
+				<div ng-hide="formAccepted">
+
+			        <input type="radio" id="r1" name="feedback_type" ng-model="formData.type" value="Идея" checked="checked" ><label class="feedback_type" for="r1">Идея</label>
+			        <input type="radio" id="r2" name="feedback_type" ng-model="formData.type" value="Ошибка"><label class="feedback_type" for="r2">Ошибка</label>
+			        <input type="radio" id="r3" name="feedback_type" ng-model="formData.type" value="Вопрос"><label class="feedback_type" for="r3">Вопрос</label>
+
+					<input type="text" placeholder="Тема" required ng-model="formData.title"/>
+					<input type="text" placeholder="Модуль" list="modules" required ng-model="formData.module"/>
+					<datalist id="modules">
+					  <option value="Прием">
+					  <option value="Сортировка">
+					  <option value="Сорт-Центр">
+					  <option value="Отчеты">
+					  <option value="Интеграция">
+					  <option value="Удобство">
+					</datalist>
+
+					<textarea required placeholder="Полное описание ... " rows="10" ng-model="formData.body"></textarea>
+					
+					<button type="submit">Отправить</button>
+				</div>
+
+				<div ng-show="formAccepted">
+					Запрос <a target="_blank" ng-href="https://my.kazpost.kz/pages/viewpage.action?pageId={{formAccepted}}">{{ formAccepted }}</a> принят!
+					<button ng-click="reset(); showForm=true">Создать еще...</button>
+				</div>
+
+			</form>
+
+			<small>© 2016 Copyright my.kazpost.kz - <a href="https://my.kazpost.kz/pages/viewpage.action?pageId=23658793">Форум всех замечаний</a> &nbsp;&nbsp;&nbsp; Тел.: TOOLPAR &nbsp;&nbsp;&nbsp; Email : support@toolpar.com</small>
+			<a href="#" class="close" ng-click="reset();"></a>
+
+		</dialog>
+    	<button class="feedback" ng-click="showForm=true">Feedback</button>
+	</body>
+
+	<script>
+
+var feedbackApp = angular.module('feedbackApp', []).run(function($rootScope,$http){
+
+});
+
+
+feedbackApp.controller('formController',function($scope, $http,  $timeout, $rootScope) {
+
+	var dialog = document.getElementById('feedback');
+
+	$scope.$watch('showForm', function() {
+		console.log("toggle",$scope.showForm);
+		if($scope.showForm != undefined ) 
+			if($scope.showForm) {
+				if(!feedback.open) dialog.showModal();
+			}
+			else {
+				if(feedback.open) dialog.close();
+			}
+		else document.getElementById('feedback').showModal();
+	});
+
+	
+
+	$scope.formData = {
+		"title":"В форме 103, не хватает полей которые нужны",
+		"type":"Идея",
+		"module":"",
+		"user":"",
+		"body":"Пожалуйста добавьте формы полей для дополнительных данных"
+	};
+
+	$scope.submit = function() {
+		//$http.post("http://idea@toolpar.com:idea@172.30.75.41:8091/rest/api/content/?os_authType=basic",$scope.formData).success(function (data) {
+
+		var formData = {
+			"type":"page",
+			"ancestors":[{"type":"page","id":23658793}], // page Общие замечания https://my.kazpost.kz/pages/viewpage.action?pageId=23658793
+			"title":$scope.formData.title,
+			"space":{"key":"PRTLP"},
+			"body":{"storage":{"value":"<p>Тип : "+$scope.formData.type+"</p>"+"<p>Модуль : "+$scope.formData.module+"</p>"+"<p>"+$scope.formData.body+"</p>","representation":"storage"}}
+		};
+
+		$scope.formAccepted = JSON.stringify(formData); return;
+
+		$http.post("http://172.30.75.207/idea",formData).success(function (data) {
+			//$scope.formAccepted = JSON.stringify(data);
+			$scope.formAccepted = data.id;
+		}).error(function (data) {
+			$scope.isError = true;
+			$scope.formAccepted = data;
+		}).finally(function(){
+			//$scope.$apply();
+		});
+	};
+
+	$scope.reset = function() {
+		$scope.formData = {"type":"Идея"};
+		$scope.formAccepted = false;
+		$scope.showForm = false;
+		$scope.isError = false;
+	};
+
+	$scope.close = function($event) {
+		if ($event.keyCode == 27) { // on ESC
+			$scope.showForm = false;
+			$event.stopPropagation();
+		}
+	};
+
+	/*dialog.addEventListener('close', function(e) {
+		console.log("close",this.open);
+	 	 //angular.element(dialog).scope().showForm = false;
+	 	 $scope = angular.element(dialog).scope();
+	 	 $scope.$apply(function(){
+	 	 	$scope.showForm = undefined;
+	 	 });
+	});*/
+
+});
+
+</script>
+	
+</html>

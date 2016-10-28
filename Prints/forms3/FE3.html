@@ -1,0 +1,131 @@
+﻿<tpl name="FE3" class="adebug">
+<style>
+	tpl[name='FE3'] { width: 980px; height:600px;  }
+	tpl[name='FE3'] logo { top:0px; bottom:0px; background:url(img/kazpost.svg) no-repeat; background-size:contain; outline:0px solid #f00; width:360px; height:75px; } 
+	tpl[name='FE3'] header { padding-top:0px; height: 80px; margin-top: -20px; }
+	tpl[name='FE3'] header right{ text-align: right; }
+	tpl[name='FE3'].debug:before {	background:url(../preview/FE3.png) no-repeat 0px 0px; }
+	tpl barcode { top:0px; position: relative; }
+	container { 
+		position:relative; 
+		width:100%; 
+		outline:0px solid #0f0; 
+		display:block; 
+		font-size:18px; 
+		line-height: 22px;
+		white-space: pre-line !important; 
+	}
+	container right, container left {
+		width:45%;
+		outline:0px solid #f00;
+	}
+	
+	container right {
+		float:right;
+		right:0px;
+		top:50px;
+		text-align:right;
+	}
+	
+	container left {
+		float:left;
+		left:0px;
+		width:45%;
+		top:-5px;
+	}
+	
+	tpl .stamp { position:absolute; top:20px; right:0px; padding:8px 25px;  left:auto; font-size:11px; text-align:right; line-height:20px; white-space:normal; border:none; background:url(img/stamp.svg) no-repeat center center; background-size:cover;   }
+	tpl .stamp barcode{ position:relative; top:0; background-position:center -5px; height:45px; }
+
+	.address { /*font-family:'Consolas', "Lucida Console", monospace;*/ }
+	.address b { color:#ccc;}
+	z { font-size:30px; line-height: 35px;}
+	.weight { position:absolute; top:-10px; right:300px; display:inline-block; background:url(img/gira.svg) no-repeat center center; background-size:contain; height:150px; width:150px;  outline:0px solid #0f0; padding-top:70px; box-sizing:border-box; text-align:center; font-weight: bold;}
+	center { clear: both; }
+	
+	h3 { font-size:20px; margin:0; color:#ccc; border-bottom:2px solid #ccc; padding-bottom:20px;  }
+	cut { display:block; border:1px dashed #ccc; margin:0px -30px 0px -30px }
+
+	.total {
+		display: flex;
+		font-size: 12px;
+		line-height: 15px;
+		height: 30px;
+	}
+	.total > * { 
+		margin: 0 5px;
+	}
+	.center { text-align: center; }
+	vr { width: 3px; min-height:10px; height: 100%; background-color: #000; display: block;  }
+
+	checkbox { display: inline-block; width: 12px; height: 12px; border: 2px solid #000; margin-bottom: -2px; position: relative; }
+
+
+checkbox.checked:before, checkbox.checked:after {
+  position: absolute;
+  left: 5px;
+  content: ' ';
+  height: 12px;
+  width: 2px;
+  background-color: #000;
+}
+checkbox.checked:before {
+  transform: rotate(45deg);
+}
+checkbox.checked:after {
+  transform: rotate(-45deg);
+}
+
+	
+</style>
+<header>
+	<left>
+		<logo></logo>
+	</left>
+	<right>
+		<barcode></barcode>NP485203995KZ
+	</right>
+</header>
+<container><left>
+<h3>ОТ КОГО / FROM</h3>
+ТОО АРНУР-СЕРВИС
+БИН: 959997890619 Тел: 87172501098, 87017771530
+E-MAIL: abc@post.kz
+УЛИЦА ГАБИТ МУСИРЕПОВ 10/3
+ГОРОД АСТАНА, ВЕЛИКОБРИТАНИЯ <z>Z05K5K8</z>
+
+<div class="total">
+	<div class="center">ОБЪЯВЛЕННАЯ ЦЕННОСТЬ
+		10000 тг
+	</div>
+	<vr></vr>
+	<div class="center">НАЛОЖЕННЫЙ ПЛАТЕЖ
+		8000 тг
+	</div>
+</div>
+<div style="font-size: 12px; line-height: 12px;">
+	<checkbox class="checked"></checkbox>  Кайтарылмасын / Не возвращать
+</div></left>
+<div class="weight">0.500 кг.</div>
+<right>
+	
+	<h3>КИМГЕ / КОМУ / TO</h3>
+	АЙДАРАЛИЕВА ДАНА КИКБАЕВНА
+	ИИН: 959997890615 ТЕЛ: 87019136313
+	EMAIL: abc@post.kz
+	УЛИЦА М.АУЭЗОВА, ДОМ 22, КВ 22,
+	ГОРОД АСТАНА, КАЗАХСТАН
+	<z>Z05K5K8</z>
+</right>
+
+
+<center style="width:700px; margin:0 auto; font-size:12px; line-height: 15px;">
+Жөнелтімдердін ішінде тиым салынған заттар жоғын растаймын. Жөнелтімдердің негізгі ережелерімен таныспын. Жиынға және дербес деректер өңдеумен сақтауға келісем. 
+Я подтверждаю, что отправление не содержит предметы, запрещенные в пересылке. С основными правилами пересылки ознакомлен. Согласен на сбор, обработку и хранение персональных данных.
+
+___________________________ Қолтаңба/Подпись
+</center>
+
+</container>
+<cut></cut>
+</tpl>

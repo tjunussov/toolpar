@@ -1,0 +1,270 @@
+form {
+	display: flex;
+	flex-wrap:wrap;
+	align-items: flex-start;
+	outline: 0px dotted #f00;
+
+}
+
+form fieldset {
+	flex-grow:1;
+	flex-basis: 0;
+	min-width: 100px;
+	transition: background ease-out .3s;
+}
+
+
+
+/*
+form > fieldset:not(:last-child) {
+	margin-right: 10px;
+}*/
+
+/*********************/
+
+form input,form textarea,form select {
+	background-color:#fff;
+	border:1px dotted #ccc;
+	padding: 2px 9px 5px 9px;
+	outline: 0px dotted #f00;
+	font-size: 14px;
+	font-family: 'Open Sans';
+	line-height: 12px;
+	color: #000;
+	/*text-decoration:underline;*/
+	resize: none;
+	transition: background ease-out .3s;
+}
+
+form input[required], form textarea[required], form select[required], form input:required {
+	background-color:#f0edee;
+	border:1px solid #b2b2b2;
+}
+form input[type='tel'] {
+	min-width:100px;
+}
+
+form input {
+	height: 26px;
+}
+
+form input::-webkit-input-placeholder  {
+	color: #ccc;
+}
+
+form input-group {
+	display: flex;
+	background-color:#f0edee;
+	border:1px solid #b2b2b2;
+	height: 26px;
+	outline: none;
+	overflow: hidden;
+
+}
+
+form input-group input {
+	background-color:transparent !important;
+	border:none !important;
+	box-shadow:none !important;
+	flex-grow:1;
+}
+
+form textarea {
+	width: 100%;
+	padding: 5px 9px;
+	margin: 0;
+	min-height: 50px;
+	display: block;
+	line-height: 14px;
+}
+
+form input[type='checkbox'] {
+	width: 13px;
+	height: 13px;
+	outline:1px solid #ccc;
+	border:1px solid #fff;
+	background-color: #f0edee;
+	-webkit-appearance:none;
+	padding: 0;
+	margin-bottom: -2px;
+}
+
+form input[type='checkbox']:checked, form input[type='checkbox']:checked:focus {
+	background-color: #36c6d3 !important;
+}
+
+form input[type='checkbox']:focus  {
+	background-color: #f0edee !important;
+}
+
+form input:not(:checked).faded, form input:not(:checked).faded + label {
+	opacity: 0.5;
+}
+
+/*************/
+
+form fieldset {
+	border:none;
+	padding: 10px 10px 10px 50px;
+	margin:20px 0 0 0;
+	position: relative;
+	outline: 0px dotted #f00;
+	
+}
+
+form fieldset:before {
+	content: attr(order);
+	position: absolute;
+	display: block;
+	left: 0px;
+	top: 0;
+	height: 100%;
+	color: #ccc;
+	font-size: 28px;
+	border-right: 2px solid #ccc;
+	padding: 0 10px 0 5px;
+	line-height: 28px;
+}
+
+
+form fieldset legend {
+	color: #526172;
+	font-size: 22px;
+	font-family: 'Open Sans';
+	font-weight: 300;
+	padding: 0 0 10px 0;
+	border-bottom: 2px solid #ccc;
+	width: 100%;
+	line-height: 22px;
+	margin-bottom: 10px;
+	float:left;
+}
+
+form fieldset legend + * {
+    clear: both;
+	margin-top: 60px;
+}
+
+
+
+
+form fieldset legend right > *:not(:last-child) {
+	margin-right: 10px;
+}
+
+form fieldset legend label {
+	font-size: 12px;
+	font-family: 'Open Sans';
+	display: inline-block;
+}
+
+
+
+/*************/
+
+fieldset.fulen, fieldset.fulllength { 
+	flex-basis: 100%;
+}
+
+form row {
+	display: flex;
+	flex-wrap:nowrap;
+}
+
+form row {
+	margin: 0 0 20px 0; /* MAIN LINEHEIGHT */
+}
+
+form row:not(.noshrink) > * {
+	flex-grow:1;
+}
+
+
+
+form row > *:not(:last-child) {
+	margin-right: 10px;
+}
+
+
+
+form row label {
+	display: none;
+}
+
+.showLabels row {
+	margin-top: 15px;
+}
+
+form fieldset.showLabels legend + * {
+	margin-top: 65px;
+}
+
+
+.showLabels row label {
+	display: block;
+	text-transform: uppercase;
+	position: absolute;
+	margin-top: -25px;
+	color: #777;
+	white-space: nowrap;
+}
+
+
+
+
+
+input[tel]] {
+	font-family: monospace;
+}
+/****************/
+
+form fieldset:focus, form fieldset.focus {
+	background-color: rgba(82,180,255,0.05);
+	outline:1px solid rgba(82,180,255,0.5);
+}
+
+form fieldset input:focus, form fieldset textarea:focus {
+	background-color: #faffbd !important;
+}
+form fieldset input-group:focus  {
+	background-color: #faffbd !important;
+}
+
+/*************/
+
+
+data-grid {
+	display: block;
+	overflow-y: scroll;
+	margin-bottom: 40px;
+}
+
+data-grid input[readonly] {
+	border:none;
+	border-bottom:1px dotted #ccc;
+}
+
+
+data-grid::-webkit-scrollbar {
+    width: 4px;
+    height: 18px;
+}
+
+data-grid::-webkit-scrollbar-thumb {
+    height: 6px;
+    border: 8px solid rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+    border-radius: 10px;
+    background-color:#f00;
+}
+
+data-grid::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+    display: none;
+}
+data-grid::-webkit-scrollbar-corner {
+    /*background-color: transparent;*/
+}
+
+

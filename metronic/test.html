@@ -1,0 +1,21 @@
+<html>
+<script type="text/javascript" src="static/_js/jquery-1.11.1.min.js"></script>
+<body>
+<h2>Unicornshit is like marshmellows laced with rainbows. Would you eat it?</h2>
+<form action="">
+    <input type="radio" name="opinion" value="yes"/>Yes<br>
+    <input type="radio" name="opinion" value="no"/>No
+</form>
+
+<script>
+//on jquery ready
+$(function(){
+    $('input').mousedown(function(e){
+    	alert('Chuk' + $(this).prop('checked'));
+        $(e.currentTarget).click();
+    })
+})
+
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="_templates/template.xsl"?>
+<ui:page xmlns:ui="ui" name="очереди">
+	
+	<title>Карта посылок</title>
+
+	<link href="parcello/_css/nprogress.css" rel="stylesheet" type="text/css" />
+	<link href="parcello/_css/parcello.css" rel="stylesheet" type="text/css" />
+
+	<link rel="prefetch" name="branch_tpl" href="parcello/_templates/branch.xsl" type="text/xml"/>
+    <link rel="prefetch" name="all_tpl" href="parcello/_templates/all.xsl" type="text/xml"/>
+
+	<script src="parcello/_js/nprogress.js"></script>
+	<script src="parcello/_js/jquery.ajax-progress.js"></script>
+	<script src="parcello/_js/xml2json.js"></script>
+	<script src="parcello/_js/jquery.knob.min.js"></script>
+	<script src="parcello/_js/jquery.easing.1.3.min.js"></script>
+	<script src="parcello/_js/ion.sound.min.js"></script>
+	<script>
+		$(function() {
+			_URLS["BranchDetails"] = "_data/branch.json";
+			_URLS["Stats"] = "_data/all.json";
+			_URLS["BranchDetailsSettings"] = "_data/kazpost-010000.json";
+			_URLS["ColvirServices"] = "_data/getuserchecksbyid.html";
+		});
+	</script>
+	<script src="parcello/_js/parcello.js"></script>
+
+	<ui:body>
+		<div class="oblivion">
+			<div id="container_branch_details"></div>
+			<div id="container_branch"></div>
+			<div id="colvir_services"></div>
+		</div>
+	</ui:body>
+
+</ui:page>

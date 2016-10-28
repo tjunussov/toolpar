@@ -1,0 +1,232 @@
+body {
+	background:url(../keycloak/_img/background_mail.jpg);
+	background-size: cover;
+	transform-style: preserve-3d;
+	position: relative;
+	padding-bottom:60px;
+}
+
+.body {
+	min-height:100%;
+	position:relative;
+}
+
+.page-content {
+	color: #fff;
+	height: 50%;
+	width: 980px;
+	margin: auto;
+	position: absolute;
+	top: 0; left: 0; bottom: 0; right: 0;
+}
+
+logo {
+	background-image: url(../static/_img/toolpar_hero_logo.svg);
+	width: 250px;
+	height: 50px;
+}
+
+logo-horse {
+	width: 116px;
+	height: 60px;
+	position: absolute;
+	margin-left: -125px;
+	margin-top: -5px;
+}
+
+.footer {
+	background:none;
+	width: 980px;
+	color: #fff;
+	font-size: 11px;
+	font-weight: 300;
+	padding: 0 100px;
+	bottom: 0;
+	height: 40px;
+	left: 50%;
+	right:50%;
+	margin-left: -460px;
+	position: absolute;
+}
+
+.footer right a {
+	color: #fff;
+}
+
+.footer right a:hover {
+	color: #ffb400;
+	text-decoration:none;
+}
+
+/**************/
+
+.head {
+	background:none;
+	height: 85px;
+
+}
+
+.head a {
+	color: #bdc2ca;
+	line-height: 22px;
+	outline: none;
+	padding: 3px 5px;
+	margin-left: 10px;
+	min-width: 28px;
+	border:none;
+	text-align: center;
+	transition: all ease-out .4s;
+}
+
+.head a.selected, .head a:hover {
+	color: #bdc2ca;
+	background-color: #fff;
+	border-radius: 100%;
+	
+}
+
+/**************/
+
+.login {
+	float: right;
+	
+  	margin-top: 5px;
+  	position: relative;
+  	perspective: 2000px;
+  	z-index: 1;
+}
+
+.login .fliper {
+	height:400px;
+	transform-style: preserve-3d;
+  	transition: all 1s;
+}
+
+.login.flip .fliper {
+	height:200px;
+	transform: rotateY( 180deg );
+}
+
+fieldset:last-child {
+	transform: rotateY( 180deg );
+	line-height: 200px
+}
+
+fieldset {
+	background-color: #e8eaeb;
+	border:none;
+	line-height: 44px;
+	padding: 0;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	color: #555;
+	text-align: center;
+	backface-visibility: hidden;
+}
+
+fieldset form {
+	padding: 20px 30px;
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 30px;
+}
+
+fieldset legend {
+	color: #44bbc7;
+	font-size: 24px;
+	font-weight: 600;
+	text-align: center;
+	width: 100%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+fieldset input {
+	background-color: #cdd3dc;
+	border:1px solid transparent;
+	padding:22px 14px;
+	font-size: 14px;
+	margin-bottom: 15px;
+	width: 100%;
+	text-transform: uppercase;
+	font-weight: 600;
+	transition: all ease .75s;
+}
+
+fieldset input::-webkit-input-placeholder {
+	color: #737f90;
+	font-weight: 400;
+}
+
+fieldset input:focus {
+    border: 1px solid #9ca3ab;
+    background-color: #c3cddb;
+}
+
+fieldset button {
+	background-color: #44bbc7;
+	border:none;
+	padding:11px 14px;
+	font-size: 14px;
+	text-transform: uppercase;
+	color: #fff;
+}
+
+fieldset button:hover {
+	background-color: #26a1ab;
+}
+
+fieldset .login-powered {
+	background-color: #737f90;
+	border:none;
+	color: #fff;
+	height: 54px;
+	line-height: 50px;
+	text-align: center;
+}
+
+
+
+/******************/
+
+.stats {
+	font-size: 22px;
+	font-weight: 300;
+	width: 440px;
+	float: left;
+	line-height: 28px;
+}
+
+.stats h1 {
+	font-size: 36px;
+	font-weight: 700;
+	color:#fff;
+	line-height: 36px;
+	letter-spacing: -1px;
+	margin: 0 0 30px 0;
+}
+
+
+.stats span {
+	color: #ffb400;
+	font-weight: normal;
+}
+
+
+
+/*****************/
+
+.twitter {
+	font-size: 14px;
+	font-style: italic;
+	margin-top: 40px;
+	width: 300px;
+	line-height: 20px;
+}
+
+.twitter button {
+	margin-top: 20px;
+	border:1px solid #fff;
+	background:none;
+	color: #fff;
+}

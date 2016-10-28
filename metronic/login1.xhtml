@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="_templates/template.xsl"?>
+<ui:page xmlns:ui="ui" name="Toolpar Auth">
+	
+	<title>Авторизация - PLS™</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700,700italic,300italic,300&amp;subset=latin,cyrillic" rel="stylesheet" type="text/css"/>
+
+	<link href="_css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="_css/form.css" rel="stylesheet" type="text/css" />
+	<link href="_css/layout_login.css" rel="stylesheet" type="text/css" />
+	
+
+	<script src="_js/xpolyfill.js"></script>
+	<script src="_js/app.js"></script>
+
+	<script src="keycloak/_js/jquery.animateNumber.min.js"></script>
+	<script type="text/javascript">
+
+	$(function () {
+		window.setTimeout(function(){
+			$('span[name]').each(function(index,element){
+				var n = $(element).text();
+				$(element).animateNumber({ number: n, numberStep:$.animateNumber.numberStepFactories.separator(',') });
+			});
+		},500);
+
+
+		function randomize(top,bottom){
+			var time = ( Math.floor( Math.random() * ( 1 + top - bottom ) ) + bottom ) * 100;
+			//console.log(time);
+			window.setTimeout(function(){
+				var indx = Math.floor(Math.random()*10);
+				$('span[name]').each(function(index,element){
+					if(indx != index) return;
+					var n = Number($(element).text().replace(',',''));
+					var r = n + Math.floor(Math.random()*100)*Math.floor(Math.random()*10);
+					//console.log(n,r);
+					$(element).prop('number',n).animateNumber({ number: r, numberStep:$.animateNumber.numberStepFactories.separator(',') });
+				});
+				randomize(10,2);
+			},time);
+		}
+
+		randomize(10,2);
+	});
+
+	</script>
+
+
+	<ui:body>
+		<div class="body">
+		<div class="page-content">
+
+			<div class="head">
+				<logo-horse></logo-horse>
+				<logo></logo>
+				<right>
+					<a href="#">EN</a> <a class="selected" href="#">RU</a> <a href="#">KZ</a>
+				</right>
+			</div>
+
+
+
+			<div class="stats">
+
+				<h1>Почтово-Логистическая система АО Казпочта</h1>
+
+				Свыше <span name="count">941585</span> посылок принято<br/>
+				За сегодня <span name="count">56255</span> почтовых отправлений<br/>
+				Онлайн операторов <span name="count">856</span> из <span name="count">12050</span><br/>
+				На выдачу <span name="count">41585</span> посылок<br/>
+
+				<div class="twitter">
+					<div class="twitter-item">
+						Запущена новая услуга “EMS отправления”, для подключения просьба обратится 
+						Владимиру Колесников, тел: 7560
+					</div>
+					<button onclick="location.href = 'index.xhtml'">Новости</button>
+				</div>
+
+			</div>
+
+			<div class="login" style="width:400px;">
+				<div class="fliper">
+
+				<fieldset>
+					<form>
+						<legend>Вход в систему</legend>
+						<input type="text" placeholder="Пользователь AD ..." autofocus="yes" />
+						<input type="password" placeholder="Пароль ... " />
+						<div style="margin:20px 0 5px 0;">
+							<button onclick="$('.login').addClass('flip'); return false;">Войти</button> <right style="width:240px; text-align: right"><a href="#">Забыли пароль ?</a></right>
+						</div>
+					</form>
+					<div class="login-powered">Powered by <img src="keycloak/_img/keycloak-logo.png" width="100"  style="vertical-align:middle; margin-top: -3px;" /></div>
+				</fieldset>
+				<fieldset onclick="$('.login').removeClass('flip'); return false;">
+					<h3 class="blink">Происходит вход в систему ... </h3>
+				</fieldset>
+
+				</div>
+			</div>
+
+		</div>
+		</div>
+	</ui:body>
+
+
+	<ui:footer>
+		<div class="footer">
+			© 2016  Toolpar - Почтово-Логистистическая Cистема
+			<right style="width:500px; text-align: right">
+				<a href="www.toolpar.com">www.toolpar.com</a>   |   Email: <a href="mailto:info@toolpar.com">info@toolpar.com</a>   |   <img src="keycloak/_img/transtelecom.png"  style="vertical-align:middle; margin-top: -4px;" />
+			</right>
+		</div>
+    </ui:footer>
+
+</ui:page>

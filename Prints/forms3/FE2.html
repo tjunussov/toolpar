@@ -1,0 +1,85 @@
+﻿<tpl name="FE2" class="adebug">
+<style>
+	tpl[name='FE2'] { width: 980px; height:490px;  }
+	tpl[name='FE2'] logo { top:auto; bottom:0px; background:url(img/post.kz.svg) no-repeat; background-size:contain; outline:0px solid #f00; width:360px; height:75px; } 
+	tpl[name='FE2'].debug:before {	background:url(preview/E2.png) no-repeat 8px 8px; }
+	container { position:relative; width:100%; height: 100%; outline:0px solid #0f0; display:block; font-size:20px; line-height:30px; white-space: pre-line !important; }
+	container right, container left {
+		height:270px;
+		width:45%;
+		outline:0px solid #f00;
+		position:absolute;
+	}
+	
+	container right {
+		float:right;
+		right:0px;
+		top:155px;
+	}
+	
+	container left {
+		float:left;
+		left:0px;
+		width:38%;
+		top:-25px;
+	}
+	
+	tpl .stamp { position:absolute; top:20px; right:0px; padding:8px 25px;  left:auto; font-size:11px; text-align:right; line-height:20px; white-space:normal; border:none; background:url(img/stamp.svg) no-repeat center center; background-size:cover;   }
+	tpl .stamp barcode{ position:relative; top:0; background-position:center -5px; height:45px; }
+	
+	.seal { position:absolute; top:25px; width:100%; outline:0px solid #f00; text-align:center }
+	.seal span { position:relative; display:inline-block; background-color:#fff; padding:10px !important; color:#333; line-height:20px;  }
+	.seal span:after { 
+		content:' ';
+		position:absolute;
+		display:block;
+		top:-10px;
+		left:-10px;
+		outline:0px solid #f00;
+		right:-10px;
+		bottom:-10px;
+		background:repeating-linear-gradient( -45deg,
+		  #fff,
+		  #fff 5px,
+		  #000 8px,
+		  #000 8px
+		);
+		z-index:-1;
+	}
+	.address { /*font-family:'Consolas', "Lucida Console", monospace;*/ }
+	.address b { color:#ccc;}
+	z { font-size:40px;}
+	
+	h3 { font-size:20px; margin:0; color:#ccc; border-bottom:2px solid #ccc; padding-bottom:20px;  }
+	
+</style>
+<container>
+<left>
+<h3>ОТ КОГО / FROM</h3>
+ДЕМИДОВИЧ АРТЕМ,
+Тестовая организация
+7012042858, 7012042858
+<z>Z05K5K8</z>, ГОРОД АСТАНА,
+УЛИЦА ОРЫНБОР, 8, 1
+
+
+№ Партии <b>FD464643545543</b>
+</left>
+
+<right>
+<h3>КИМГЕ / КОМУ / TO</h3>
+АО "Казпочта"
+7172113344
+ОБЛАСТЬ ЗАПАДНО-КАЗАХСТАНСКАЯ,
+УЛИЦА ПОБЕДЫ
+</right>
+
+
+
+
+<div class="stamp">КАЗАХСТАН<barcode></barcode>FD464643545543 KAZAKHSTAN</div>
+<div class="seal"><span>Толенген<br />Оплаченный</span></div>
+<logo></logo>
+
+</container>
+</tpl>

@@ -1,0 +1,12 @@
+.body-wrapper {
+	background-color: transparent;
+}
+
+.footer-content {
+  background:transparent;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.page-content {
+	padding:0;
+}

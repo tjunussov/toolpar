@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<title>Toolpar Prints {{pageTitle}}</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<!--script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script-->
+		<style type="text/css" media="screen">
+		html, body { height:100%; background-color: #ffffff;}
+		body { margin:0; padding:0; overflow:hidden; }
+		[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak { display: none !important;}
+		</style>
+        <link rel="stylesheet" href="css/print_templates.css" type="text/css"/>
+		<script src="js/angular.min.js"></script>
+		<script src="js/jquery-1.9.1.min.js"></script>
+		<!--script src="print_templates.js"></script-->
+	</head>
+	<body>
+<div style="padding:5px; background-color:#ccc; font:11px sans-serif">
+	Печатать <input type="checkbox" ng-model="isToPrint" style="height:15px; width:15px; margin-bottom:2px; vertical-align: bottom;"/>
+    <!--| 
+    <button ng-click='print({type:"FC",data:"data/CL.json"});'>
+    	<input type="checkbox" ng-model="isPrintBulk" style="margin:1px 0 -3px 0"/>FC
+    </button-->
+    &nbsp;|&nbsp;
+    <button onclick='PrintTemplates.print({type:"FC",data:"data/CL.json"});'>FC</button>
+    <button onclick='PrintTemplates.print({type:"PC",data:"data/CL.json"});'>PC</button>
+    <button onclick='PrintTemplates.print({url:"forms2/F103.html"});'>PC F103</button>
+    <button onclick='PrintTemplates.print({type:"INVOICE",data:"data/CL.json"});'>Invoice</button>
+    <button onclick='PrintTemplates.print({type:"ACT",data:"data/CL.json"});'>Act</button>
+    &nbsp;|&nbsp;
+    <button onclick='PrintTemplates.print({type:"PL",data:"data/PL.json"});'>PL</button>
+    <button onclick='PrintTemplates.print({type:"DL",data:"data/DL.json"});'>DL</button>
+    <button onclick='PrintTemplates.print({type:"TL",data:"data/TL.json"});'>TL</button>
+    &nbsp;|&nbsp;
+    <button onclick='PrintTemplates.print({type:"DLV",data:"data/DLV.json"});'>DLV</button>
+    <button onclick='PrintTemplates.print({url:"forms2/F8.html"});'>DLV F8</button>
+    &nbsp;|&nbsp;
+    <button onclick='PrintTemplates.print({type:"C",data:"data/CL.json"});' disabled>C</button>
+    <button onclick='PrintTemplates.print({type:"L",data:"data/CL.json"});' disabled>L</button>
+    &nbsp;|&nbsp;
+    <button onclick='PrintTemplates.print({url:"forms2/F20.html"});'>F20</button>
+    <button onclick='PrintTemplates.print({url:"forms2/F30.html"});'>F30</button>
+    <button onclick='PrintTemplates.print({url:"forms2/F51.html"});'>F51</button>
+    
+    <button onclick='PrintTemplates.print({url:"forms2/F116.html"});'>F116</button>
+    
+</div>
+
+<div id="print_templates" ng-controller="PTemplate" ng-cloak class="printable">
+
+	<div ng-include="template"></div>
+</div>
+<script>
+	//PrintTemplates.init({container:'print_templates',swf:'Toolpar_Checks.swf',debug:false});
+	//PrintTemplates.print({type:"DL",data:"data/DL.json"});
+	var PrintTemplates = {}
+	PrintTemplates.print = function (data){
+		angular.element(document.getElementById('print_templates')).scope().print(data);
+	}
+	
+	document.body.onload = function (){
+		//PrintTemplates.print({type:"DLV",data:"data/DLV.json"});
+		//PrintTemplates.print({type:"INVOICE",data:"data/CL.json"});
+		//PrintTemplates.print({type:"ACT",data:"data/CL.json"});
+		//PrintTemplates.print({type:"FC",data:"data/CL.json"});
+		//PrintTemplates.print({type:"PC",data:"data/CL.json"});
+		//PrintTemplates.print({type:"PL",data:"data/PL.json"});
+		//PrintTemplates.print({type:"DL",data:"data/DL.json"});
+		//PrintTemplates.print({type:"TL",data:"data/TL.json"});
+		//PrintTemplates.print({type:"DLV",data:"data/DLV.json"});
+		//PrintTemplates.print({url:"forms2/F8.html"});
+
+		// auto click saved button
+		$('button').click(function(){
+			console.log($(this).text());
+			localStorage.setItem("form",$(this).text());
+		});
+
+		if(localStorage.getItem("form"))
+			$('button:contains("'+localStorage.getItem("form")+'")').trigger('click');
+		else 		
+			$('button:contains("F20")').trigger('click');
+
+		
+		
+
+	}
+	
+	
+	
+</script>
+<script>
+var myApp = angular.module('myApp', []).run(function($rootScope,$templateCache,$http){
+	//$templateCache.put('DLV.html', 'DLV template');
+	/*$http.get('forms/DLV.html', {cache:$templateCache});
+	$http.get('forms/DL.html', {cache:$templateCache});
+	$http.get('forms/PL.html', {cache:$templateCache});
+	$http.get('forms/TL.html', {cache:$templateCache});
+	
+	$http.get('forms/PC.html', {cache:$templateCache});
+	$http.get('forms/FC.html', {cache:$templateCache});
+	$http.get('forms/ACT.html', {cache:$templateCache});
+	$http.get('forms/INVOICE.html', {cache:$templateCache});*/
+	
+	$rootScope.print = function(data) {
+		console.log(this.isPrintBulk,data);
+	};
+});
+
+myApp.controller('PTemplate',function($scope, $http,  $timeout, $rootScope) {
+	$scope.print = function(data) {
+		if(data.url){
+			console.log(data.url);
+			$scope.template = data.url;// ? data.url : 'forms/'+data.type + '.html';
+		} else {
+			$scope.template = 'forms/'+data.type + '.html';
+		}
+		if(data.data){
+			$scope.getData(data.data);
+		} else {
+			$scope.d = null;
+ 			$scope.$apply(); // изза того что данные ненужны, а переменная template изменилась делаем update view
+		}
+
+		
+	}
+	$scope.getData = function(url) {
+		$http.get(url).success(function (data, status) {
+			$scope.d = data;
+		});
+	}
+	$scope.$on('$includeContentLoaded', function () {
+
+		 $rootScope.pageTitle = $('tpl').attr('name');
+
+		if($rootScope.isToPrint)
+			$timeout(function () { 
+			  window.print();
+			}, 10, false);
+	});
+});
+</script>
+	</body>
+	
+</html>

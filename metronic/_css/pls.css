@@ -1,0 +1,18 @@
+/********************/
+
+logo {
+	background-image: url(../static/_img/pls_logo.svg);
+	width: 333px;
+	height: 46px;
+}
+
+logo-horse {
+	background-image: url(../static/_img/pls_horse.svg);
+	width: 95px;
+	height: 42px;
+	margin: 0;
+	margin-left: -88px;
+}
+
+
+

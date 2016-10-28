@@ -1,0 +1,116 @@
+{
+    "id": 61,
+    "code": "CL20160122092847036",
+    "totalWeight": "1.000",
+    "count": 1,
+    "fromDept": "КГПО г.Астана - [802201]",
+	"from": {
+            "name": "11",
+            "address": "123",
+            "contact": "+7123123"
+        },
+    "mails": [{
+        "id": 55,
+        "code": "JJ123123123JJ",
+        "mailType": "Крупно-габаритное отправление",
+        "routeType": "Внутреннее",
+        "paymentType": "1",
+        "mailCategory": "3",
+        "claimedWeight": null,
+        "actualWeight": "1.000",
+        "from": {
+            "name": "11",
+            "address": "123",
+            "contact": "+7123123"
+        },
+        "to": {
+            "name": "МУЛДАШЕВ НУРЛАН КУРМАНГАЛИЕВИЧ",
+            "address": "",
+            "contact": "+7777777777"
+        },
+        "mailStatus": "Arrived",
+        "arrivalStatus": "Confirmed",
+        "created": "20/01/2016",
+        "notes": null,
+        "check": {
+            "totalSum": "1 080.00",
+			"totalVat": "118",
+            "items": [{
+                "dscr": "Пересылка посылки РК",
+                "sum": "1 080.00",
+                "vat": "118.8"
+            }]
+        }
+    }],
+    "notes": "Not implemented yet",
+    "created": "20/01/2016",
+    "createdBy": "Алпысович Астана",
+    "totalSum": 1080,
+    "totalVat": 118.8,
+
+	"check": {
+            "paytype": "Наличными",
+            "mainname": "Акционерное Общество \"Казпочта\"",
+            "depname": "Пункт по приему и выдачи КГПО",
+            "depindex": "801321",
+            "deptax": "991141005284",
+            "dsys": "22.01.2016 14:13:51",
+            "sdok": "    2 199.00",
+            "deacode": "Догор 1",
+            "dreg": "22.01.16",
+            "code": "216061069",
+            "usersname": "MANG_BEKBAEV",
+            "username": "Бекбаев Ардак",
+            "depaddress": "г.Актау, мкр.14, д.61, бизнес-центр \"Звезда Актау\"",
+            "taxinfo": "62001 № 0016657 от 05.10.12г.",
+            "maintax": "000140002217",
+            "incomfl": "1",
+            "mailcnt": "2",
+            "ml": "1",
+            "clitax": "БИН 12309238",
+            "clicode": "81111321656",
+            "cliname":  "ТОО Лоигитекс",
+			
+			"total": "1 118.00",
+			"totalSum": "1 080.00",
+			"totalVat": "118",
+            "totalItems": [{
+                "serv": "Пересылка посылки РК",
+				"ndok": "2",
+				"price":"100",
+				"netto_sum":"200",
+                "sdok": "1 080.00",
+                "val_nds": "12%",
+                "sum_nds": "118.8"
+            }]
+    },
+
+	"invoice": {
+		"chief": "Сатыбалдиев Ильяс Егизбаевич",
+		"buch": "Тунгатарова Дария Тургынбековна",
+		"code": "4548007803",
+		"calcdate": "21.01.16",
+		"maindepname": "Акционерное общество \"Казпочта \"",
+		"maindeptax": "БИН 000140002217",
+		"maindepadr": "010000, РЕСПУБЛИКА КАЗАХСТАН, Г.АСТАНА, УЛ.АУЭЗОВА №13",
+		"userdeptax": "БИН 991141005284",
+		"userdepadr": "Г.АКТАУ, МКР.14, Д.61, БИЗНЕС-ЦЕНТР \"ЗВЕЗДА АКТАУ \"",
+		"reqpayacc": "KZ21563R101000004701",
+		"taxinf": "62001 № 0016657 от 05.10.12г.",
+		"bankrec": "АО \"КАЗПОЧТА \"",
+		"bankcode": "KPSTKZKA",
+		"sendmethod": "Наземный",
+		"dealdate": "Без договора",
+		"dealnum": null,
+		"payername": "ТОО Лоигитекс",
+		"payertax": "БИН 000140002217",
+		"payeradr": "Г.АСТАНА, УЛ.АУЭЗОВА №999",
+		"payeracc": null,
+		"payerbankcode": null,
+		"payerbankname": null,
+		"summnetto": "     964.29",
+		"summnds": "     115.71",
+		"sdok": "    1 080.00",
+		"summprop": "Всего по счету: Одна тысяча восемьдесят тенге 00 тиын"
+	}
+}

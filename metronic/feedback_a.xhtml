@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="_templates/template_index.xsl"?>
+<ui:page xmlns:ui="ui" name="Toolpar CPILS">
+	
+	<title>Прием - КГПО Тимур Джунусов</title>
+
+	<link href="_css/app.scss" rel="stylesheet" type="text/css" />
+	<link href="_css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="_css/feedback.css" rel="stylesheet" type="text/css" />
+
+	<link href="static/_css/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+
+	
+
+	<link rel="prefetch" name="branch_tpl" href="_templates/template.xsl" type="text/xml"/>
+
+	<!--script src="static/_js/nprogress.js"></script>
+	<script src="static/_js/jquery.ajax-progress.js"></script>
+	<script src="static/_js/xml2json.js"></script>
+	<script src="static/_js/jquery.knob.min.js"></script>
+	<script src="static/_js/jquery.easing.1.3.min.js"></script>
+	<script src="static/_js/ion.sound.min.js"></script-->
+
+	<script src="_js/xpolyfill.js"></script>
+	<script src="_js/app.js"></script>
+
+	<ui:menu/>
+
+	<ui:head>
+		
+		<div class="head">
+
+			<div class="sidebar">
+				<label for="toggler" class="toggler" title="Alt+m" accessKey="m"></label>
+				<a href="index.xhtml">
+                    <logo-horse></logo-horse>
+                    <logo></logo>
+                </a>
+			</div>
+
+			<button class="create" title="Alt+c" accessKey="c" onclick="location.href='service.xhtml'">Создать</button>
+
+			<div class="search dropdown-menu" style="width: 35%;">
+				<input class="search var2" type="text" placeholder="Поиск посылки, клиента, адреса, документов ... " title="Alt+s" accessKey="s" />
+
+				<ul class="dropdown-menu-content">
+	                <li>
+	                	<a href="#">
+		                	<i class="icon-envelope"></i> ШПИ <b>GD222231995KZ</b><br/>
+		                 	Возврат с хранения - Астана 11.06.2016 17:43 <loader></loader>
+		                 </a>
+	                 </li>
+	                 <li>
+	                	<a href="#">
+		                	<i class="icon-envelope"></i> ШПИ <b>GD222231995KZ</b><br/>
+		                 	Возврат с хранения - Астана 11.06.2016 17:43
+		                 </a>
+	                 </li>
+	                 <li>
+	                	<a href="#">
+		                	<i class="icon-envelope"></i> ШПИ <b>GD222231995KZ</b><br/>
+		                 	Возврат с хранения - Астана 11.06.2016 17:43
+		                 </a>
+	                 </li>
+	                <li><a href="#">Расширенный поиск...</a></li>
+	            </ul>
+	        </div>
+
+			<right>
+				
+
+
+				<a badge="2" href="503.xhtml" title="Alt+i" accessKey="i">Inbox</a>
+
+				<div class="cloudq">
+					<div class="cloudq-content">
+						<h3>367</h3>
+						<span>10</span>
+						<span>00:05</span>
+						<button><i class="icon-arrow-right"></i></button>
+					</div>
+				</div>
+
+				<a href="500.xhtml" title="Alt+o" accessKey="o">Outbox</a>
+				<a href="../monitor/index.xhtml" title="Alt+v" accessKey="v">Монитор</a>
+
+				
+				<a badge="5"><i class="icon-bell"></i></a>
+				<a><i class="icon-envelope-open"></i></a>
+
+
+
+				<user-profile class="dropdown-menu">
+					<a>
+	                    <img class="img-circle" src="static/_img/avatar-small.jpg"/>
+	                    <span class="username">Астана Аселька</span>
+	                    <i class="arrow-down"></i>
+	                </a>
+					<ul class="dropdown-menu-content">
+                        <li><a>КГПО г.Астана</a></li>
+                        <li><a>Прием почты</a></li>
+                        <li><a>Смена языка</a></li>
+                        <li><a>Смена пароля</a></li>
+                        <li><a>Тема</a></li>
+                        <li><a href="#/account"><i class="icon-user"></i>Мой профиль</a></li>
+                    </ul>
+				</user-profile>
+				<a href="login.xhtml" title="Alt+]" accessKey="]">
+	                <i class="icon-logout"></i>
+	            </a>
+			</right>
+		</div>
+	</ui:head>
+	
+	<ui:body>
+    
+        
+            
+		<div class="page-content">
+
+			<div class="page-breadcrumb">
+				<a>Прием</a>
+				<a>Чек 123456789KZ</a>
+			</div>
+
+			<h1>
+				<i class="icon-service"></i>
+				Feedback
+			</h1>
+            
+            <button onClick="$('#feedback')[0].showModal();">Feedback</button>
+            
+		</div>
+        
+        <dialog id="feedback" class="feedback" ng-class="{error: isError}">
+                <h2>Форма обратной связи</h2>
+                <info><b>Внимание!</b> Пишите по существу, четко и коротко</info>
+                <form ng-submit="submit()">
+                    
+                    <div ng-hide="formAccepted">
+            
+                        <input type="radio" id="r1" name="feedback_type" ng-model="formData.type" value="Идея" checked="checked" /><label class="feedback_type" for="r1">Идея</label>
+                        <input type="radio" id="r2" name="feedback_type" ng-model="formData.type" value="Ошибка"/><label class="feedback_type" for="r2">Ошибка</label>
+                        <input type="radio" id="r3" name="feedback_type" ng-model="formData.type" value="Вопрос"/><label class="feedback_type" for="r3">Вопрос</label>
+            
+                        <input type="text" placeholder="Тема" required="required" ng-model="formData.title"/>
+                        <input type="text" placeholder="Модуль" list="modules" required="required" ng-model="formData.module"/>
+                        <input type="text" placeholder="Пользователь" value="timurj" ng-model="formData.user" style="display:none;" />
+            
+                        
+                        <datalist id="modules">
+                          <option value="Прием"/>
+                          <option value="Сортировка"/>
+                          <option value="Сорт-Центр"/>
+                          <option value="Отчеты"/>
+                          <option value="Интеграция"/>
+                          <option value="Удобство"/>
+                        </datalist>
+            
+                        <textarea required="required" placeholder="Полное описание ... " rows="10" ng-model="formData.body"></textarea>
+                        
+                        <button type="submit">Отправить</button>
+                    </div>
+            
+                    <div ng-show="formAccepted">
+                        Запрос <a target="_blank" ng-href="https://my.kazpost.kz/pages/viewpage.action?pageId={{formAccepted}}">{{ formAccepted }}</a> принят!
+                        <button ng-click="reset();" showForm="true">Создать еще...</button>
+                    </div>
+            
+                </form>
+            
+                <small>© 2016 Copyright my.kazpost.kz - <a href="https://my.kazpost.kz/pages/viewpage.action?pageId=23659110">Форум всех замечаний</a>  Тел.: TOOLPAR  Email : support@toolpar.com</small>
+                <a href="#" class="close" onclick="$('#feedback')[0].close();"></a>
+            
+            </dialog>
+	</ui:body>
+
+</ui:page>

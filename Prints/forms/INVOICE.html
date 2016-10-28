@@ -1,0 +1,101 @@
+﻿<tpl name="INVOICE" class="adebug">
+	<header>
+    	<label>BLANK F005 - INVOICE</label>
+    	<logo></logo>
+        <barcode>{{ d.code }}</barcode>
+    </header>
+    <container>
+<h2>Счет-Фактура № {{d.invoice.code}} <span style="font-weight:normal">от</span> {{d.invoice.calcdate}}</h2>
+<hr/>
+<b>Поставщик: {{ d.check.mainname }}, {{ d.check.depname }} [{{ d.check.depindex }}]</b><hr/>
+БИН и адрес места нахождения поставщика: БИН {{ d.check.deptax }} / {{ d.check.maintax }}, Республика Казахстан, {{ d.check.depaddress }}, Свидетельство о постановке на регистраницонный учет по НДС, серия {{ d.check.taxinfo }}<hr/>
+ИИК поставщика: <b>{{ d.invoice.reqpayacc }} в {{ d.invoice.bankrec }}, {{ d.invoice.bankcode }}</b><hr/>
+Договор(контракт) на поставку товаров(работа, услуг) <b>№ {{ d.invoice.dealnum }} {{ d.invoice.dealdate }}</b><hr/>
+Условия оплаты по договору(контракту): <b>{{ d.check.paytype }}</b><hr/>
+Пункт назначения поставляемых товаров(работ,услуг): <b>Республика Казахстан</b><hr/>
+Поставка товаров осуществляется по доверенности: <b>##</b><hr/>
+Способ отправления : <b>{{ d.invoice.sendmethod }}</b><hr/>
+Товарно-транспортная накладная : Акт выполненных работ<b> № {{d.invoice.code}} от {{d.invoice.calcdate}}</b> <hr/>
+Грузоотправитель : <b>{{ d.invoice.userdeptax }} {{ d.invoice.userdepadr }}</b><hr/>
+Грузополучатель :<b> {{ d.invoice.payertax }} {{ d.invoice.payeradr }}</b><hr/>
+Получатель :<b> {{ d.invoice.payernam }}</b><hr/>
+БИН и адрес места нахождения получателя : <b>{{ d.invoice.payertax }} {{ d.invoice.payeradr }}</b><hr/>
+ИИК получателя : <b>{{ d.invoice.payeracc }}, {{ d.invoice.payerbankname }},  БИК {{ d.invoice.payerbankcode }}</b>
+
+<table border="1" ng-show="d.mails">
+	<thead>
+    <tr>
+        <th rowspan="2" style="width:10px;">№ n/n</th>
+        <th rowspan="2">Наименование товаров 
+( работ,услуг )</th>
+        <th rowspan="2" style="width:65px;">Ед. изм.</th>
+        <th rowspan="2" style="width:65px;">Кол-во (объем)</th>
+        <th rowspan="2" style="width:64px;">Цена</th>
+        <th rowspan="2" style="width:110px;">Стоимость товаров(работ,
+услуг) без НДС</th>
+        <th colspan="2">НДС</th>
+        <th rowspan="2" style="width:110px;">Всего стоимость реализации</th>
+        <th colspan="2">Акциз</th>
+    </tr>
+    <tr>
+        <th style="width:40px;">Ставка</th>
+        <th style="width:80px;">Сумма</th>
+        <th style="width:30px;">Ставка</th>
+        <th style="width:60px;">Сумма</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="i in ::d.check.totalItems">
+    	<td>{{ $index+1 }}</td>
+        <td>{{ i.serv }}</td>
+        <td></td>
+        <td>{{ i.ndok }}</td>
+        <td>{{ i.price }}</td>
+        <td>{{ i.netto_sum }}</td>
+        <td>{{ i.val_nds }}</td>
+        <td>{{ i.sum_nds }}</td>
+        <td>{{ i.sdok }}</td>
+        <td></td>
+        <td></td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <th colspan="5">Всего по счету:</th>
+        <th>{{ d.check.totalSum }}</th>
+        <th colspan="2">{{ d.check.totalVat }}</th>
+        <th>{{ d.check.total }}</th>
+        <th colspan="2"></th>
+    </tr>
+    </tfoot>
+</table>
+
+
+<dl>
+	<dd>
+И.о директор филиала /<b>{{ d.invoice.chief }}</b>/
+
+Уполномоченное лицо     _____________________
+
+Главный бухгалтер организации /<b>{{ d.invoice.buch }}</b>/
+
+Уполномоченное лицо     _____________________ 
+<div class="stamp">М.П.</div>
+	</dd>
+	<dd>
+        ВЫДАЛ (уполномоченный на подписание счетов-фактур)
+        
+	        	___________________________________
+                 			<sup>(должность)</sup>
+        
+        
+	        	___________________________________
+                 			<sup>( Ф.И.О. подпись )</sup>
+</dd>
+</dl>
+
+    </container>
+    <footer>
+    	<toolpar></toolpar> Information Logystics System .  © 2016 АО Казпочта. CallCenter 1499
+    </footer>
+</tpl>

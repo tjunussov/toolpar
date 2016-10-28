@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="_templates/template.xsl"?>
+<ui:page xmlns:ui="ui" name="Toolpar Auth">
+	
+	<title>503 - Server Temproraly Unavailable Toolpar™</title>
+
+	<link type="image/x-icon" rel="shortcut icon" href="static/_img/favicon_error?v2.png" /> 
+    <link type="image/x-icon" rel="icon" href="static/_img/favicon_error.png?v1" /> 
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700,700italic,300italic,300&amp;subset=latin,cyrillic" rel="stylesheet" type="text/css"/>
+
+	<link href="_css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="_css/form.css" rel="stylesheet" type="text/css" />
+	<link href="_css/layout_error.css" rel="stylesheet" type="text/css" />
+
+	<script src="keycloak/_js/jquery.animateNumber.min.js"></script>
+	<script type="text/javascript">
+
+	$(function () {
+		$('span[name="counter"]').each(function(index,element){
+			var n = Number($(element).text());
+			$(element).prop('number', n).animateNumber({ number: 0, numberStep: function(now, tween) {
+					var target = $(tween.elem), rounded_now = Math.round(now);
+					if(now === tween.end) {
+						target.text('Перезагрузка!'); 
+						location.reload();
+					} else 
+						target.text(rounded_now);
+				}},n * 1000,'linear');
+		});
+	});
+
+	</script>
+
+	<ui:body class="code503">
+		<div class="page-content" code="503">
+
+			<h2>Toolpar</h2>
+
+			<h1>Обслуживание временно недоступно</h1>
+
+			Toolpar crashed again. I am the Blue Screen of Death. No one 
+			hears your screams. Попробуйте зайти попозже<br/>
+			Через <span name="counter" classz="blink">30</span> секунд <progressbar class="dots"><d>.</d><d>.</d><d>.</d></progressbar> <br/>
+
+			<div class="failwhale"></div>
+
+
+		</div>
+	</ui:body>
+
+
+	<ui:footer>
+		<div class="footer">
+			© 2016 Copyright Toolpar, All Rights Reserved. Scala Play Framework.
+		</div>
+    </ui:footer>
+
+</ui:page>

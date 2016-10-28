@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="_templates/template_index_default.xsl"?>
+<ui:page xmlns:ui="ui" name="Toolpar CPILS" ng-app="feedbackApp">
+	
+	<title>Прием - КГПО Тимур Джунусов</title>
+    
+    <link href="_css/feedback.css" rel="stylesheet" type="text/css" />
+	
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
+	<script type="text/javascript" src="_js/app_feedback.js"></script>
+	<!--script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular-route.min.js"></script-->
+  	
+    <ui:body ng-controller="formController" ng-keydown="close($event)">
+
+			<h1>Отзыв</h1>
+            
+            Оставить отзыв, идею или баг 
+            <br/>
+            <div></div>
+            <br/>
+            
+            <button onClick="$('#feedback')[0].showModal();">Feedback</button>
+            
+            <dialog id="feedback" class="feedback" ng-class="{error: isError}">
+                <h2>Форма обратной связи</h2>
+                <info><b>Внимание!</b> Пишите по существу, четко и коротко</info>
+                <form ng-submit="submit()">
+                    
+                    <div ng-hide="formAccepted">
+            
+                        <input type="radio" id="r1" name="feedback_type" ng-model="formData.type" value="Идея" checked="checked" /><label class="feedback_type" for="r1">Идея</label>
+                        <input type="radio" id="r2" name="feedback_type" ng-model="formData.type" value="Ошибка"/><label class="feedback_type" for="r2">Ошибка</label>
+                        <input type="radio" id="r3" name="feedback_type" ng-model="formData.type" value="Вопрос"/><label class="feedback_type" for="r3">Вопрос</label>
+            
+                        <input type="text" placeholder="Тема" required="required" ng-model="formData.title"/>
+                        <input type="text" placeholder="Модуль" list="modules" required="required" ng-model="formData.module"/>
+                        <input type="text" placeholder="Пользователь" value="timurj" ng-model="formData.user" style="display:none;" />
+            
+                        
+                        <datalist id="modules">
+                          <option value="Прием"/>
+                          <option value="Сортировка"/>
+                          <option value="Сорт-Центр"/>
+                          <option value="Отчеты"/>
+                          <option value="Интеграция"/>
+                          <option value="Удобство"/>
+                        </datalist>
+            
+                        <textarea required="required" placeholder="Полное описание ... " rows="10" ng-model="formData.body"></textarea>
+                        
+                        <button type="submit" class="prefered">Отправить</button>
+                    </div>
+            
+                    <div ng-show="formAccepted">
+                        Запрос <a target="_blank" ng-href="https://my.kazpost.kz/pages/viewpage.action?pageId={{formAccepted}}">{{ formAccepted }}</a> принят!
+                        <button ng-click="reset();" class="prefered" showForm="true">Создать еще...</button>
+                    </div>
+            
+                </form>
+            
+                <small>© 2016 Copyright my.kazpost.kz - <a href="https://my.kazpost.kz/pages/viewpage.action?pageId=23659110">Форум всех замечаний</a>  Тел.: TOOLPAR  Email : support@toolpar.com</small>
+                <a href="#" class="close" onclick="$('#feedback')[0].close();"></a>
+            
+            </dialog>
+	</ui:body>
+
+</ui:page>

@@ -1,0 +1,51 @@
+﻿<tpl name="DL" class="adebug">
+	<header>
+    	<label>BLANK F009 - TRANSPORT LIST ver 01</label>
+    	<logo></logo>
+        <barcode>{{ d.code }}</barcode>
+    </header>
+    <container>
+<h2>T-Накладная</h2>
+Список: <b>{{ d.code }}</b>
+Дата создания: <b>{{ d.created }}</b>
+Документ создан: <b>{{ d.createdBy }}</b>
+
+Маршрут:						<b>{{ d.itinerary.title }}</b>
+Вид маршрута / Транспорт :			<b>{{ d.itinerary.itineraryType }} / {{ d.itinerary.transportType }}</b>
+Сопровождающий: 				<b>{{ d.escort }}</b>
+Время отправления ( Акт/План ):		<b>{{ d.actualDepartTime }} / {{ d.scheduledDepartTime }}</b>
+Особые отметки : 					<b>{{ d.notes }}</b>
+
+<div ng-repeat="i in ::d.destinationLists">
+<b>{{ $index+1 }} {{ i.code }} - {{ i.dept }}</b>
+
+<table border="1">
+	<thead>
+    <tr>
+        <th style="width:20px;">№</th>
+        <th colspan="2" style="width:120px;">Идентификатор</th>
+        <th>Направление</th>
+    </tr>
+    </thead>
+    <tbody ng-repeat="p in ::i.packetLists">
+        <tr>
+            <td style="width:20px;">{{ $index+1 }}</td>
+            <td colspan="2">{{ p.code }}</td>
+            <td>{{ p.fromDept }} - {{ p.toDept }}</td>
+        </tr>
+		<tr ng-repeat="m in ::p.mails">
+	        <td></td>
+            <td style="width:20px;">{{ $index+1 }}</td>
+            <td>{{ m.code }}</td>
+            <td>{{ m.from.name }} - {{ m.from.addr }}</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+Итого: <b>{{ d.count }}</b> шт.		 Общий вес <b>{{ d.totalWeight }}</b>
+
+    </container>
+    <footer>
+    	<toolpar></toolpar> Information Logystics System .  © 2016 АО Казпочта. CallCenter 1499
+    </footer>
+</tpl>

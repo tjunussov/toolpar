@@ -1,0 +1,57 @@
+﻿<tpl name="F103" class="adebug">
+<style>
+	tpl[name='F103'] logo { top:20px; } 
+	tpl[name='F103'] header { padding-top:20px; }
+</style>
+<header>
+	<left>
+		<label>BLANK F103 - POSTAL CHECK BULK</label>
+		<logo></logo>
+	</left>
+	<right>
+		<barcode></barcode>
+		Форма F-103
+	</right>
+</header>
+<container>
+
+<h2>ПРИЕМ ПОСЫЛОК</h2>
+
+Направление: <b>{{ d.code }}</b>
+Вид РПО: <b>{{ d.created }}</b>
+Категория РПО: <b>{{ d.createdBy }}</b>
+Отправитель:			<b>{{ d.created }}</b>
+Регион назначения:		<b>{{ d.dept }}</b>
+Индекс ОПС места:		<b>{{ d.dept }}</b>
+
+<table border="1" class="center" xng-show="d.mails">
+	<thead>
+    <tr>
+        <th style="width:20px;">№ п.п.
+        <th style="width:110px;">ШПИ
+        <th style="width:60px;">Индекс
+        <th>Ф.И.О. Адресата, Адрес места назначения
+        <th style="width:40px;">Вес <small>(кг)</small>
+        <th style="width:80px;">Сумма<small>объявленной ценности</small>
+        <th style="width:80px;">Сумма<small>наложенного платежа</small>
+    </tr>
+    </thead>
+    <tbody>
+    <tr xng-repeat="i in ::d.mails">
+    	<td>{{ $index+1 }}
+        <td>CO050275612KZ{{  }}
+        <td>010000{{  }}
+        <td class="left">Жуманов Казбек{{  }} <br>Астана, ул Кубрина 22-1 114, тел. 7172-949350{{  }} <br>{{  }}
+        <td>0.040{{  }}
+        <td class="right">4 550 &#8376{{  }}
+        <td class="right">4 550 &#8376{{  }}
+    </tr>
+    </tbody>
+</table>
+Всего РПО: <b>{{ d.count }}</b> шт
+
+    </container>
+    <footer>
+    	<toolpar></toolpar> Information Logystics System .  © 2016 АО Казпочта. CallCenter 1499
+    </footer>
+</tpl>

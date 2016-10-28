@@ -1,0 +1,35 @@
+{
+    "id": 1,
+    "code": "LL20160119022151398",
+    "totalWeight": 1000,
+	"ondate":"12/01/2016 12:51",
+    "count": 1,
+    "dept": "КГПО г.Караганда - [801401]",
+    "mails": [{
+        "id": 21,
+        "code": "kk123123123kk",
+        "mailType": "Посылка спец. связи",
+        "routeType": "Внутреннее",
+        "paymentType": "Счета к получению",
+        "mailCategory": "С объявленной ценностью",
+        "claimedWeight": 1000,
+        "actualWeight": 1000,
+        "from": {
+            "name": "11",
+            "address": "123",
+            "contact": "+7123123"
+        },
+        "to": {
+            "name": "11",
+            "address": "123",
+            "contact": "+7123123"
+        },
+        "mailStatus": "Delivered",
+        "arrivalStatus": "Unconfirmed",
+        "created": "05/01/2016",
+        "createdBy": null,
+        "notes": null
+    }],
+    "created": "12/01/2016",
+    "createdBy": "SYSTEM"
+}

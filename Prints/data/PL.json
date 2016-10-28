@@ -1,0 +1,60 @@
+{
+    "id": 23,
+    "code": "PL20160112110547855",
+    "totalWeight": 2000,
+    "count": 2,
+	"created": 1452079570710,
+    "createdBy": "SYSTEM",
+    "fromDept": "КГПО г.Астана - [802201]",
+    "toDept": "КГПО г.Караганда - [801401]",
+    "mails": [{
+        "id": 23,
+        "code": "kk123123123kk",
+        "mailType": "Посылка спец. связи",
+        "routeType": "Внутреннее",
+        "paymentType": "Счета к получению",
+        "mailCategory": "С объявленной ценностью",
+        "claimedWeight": 1000,
+        "actualWeight": 1000,
+        "from": {
+            "name": "Толганбаева Анара Маратовна",
+            "address": "г.Актау, мкр.14, д.61, бизнес-центр \"Звезда Актау\"",
+            "contact": "+7123123"
+        },
+        "to": {
+            "name": "МУЛДАШЕВ НУРЛАН КУРМАНГАЛИЕВИЧ",
+            "address": "г.Актау, мкр.14, д.61, бизнес-центр \"Звезда Актау\"",
+            "contact": "+7123123"
+        },
+        "mailStatus": "Arrived",
+        "arrivalStatus": "Unconfirmed",
+        "created": 1452575147232,
+        "createdBy": null,
+        "notes": null
+    }, {
+        "id": 24,
+        "code": "mm123123123mm",
+        "mailType": "Посылка спец. связи",
+        "routeType": "Внутреннее",
+        "paymentType": "Счета к получению",
+        "mailCategory": "С объявленной ценностью",
+        "claimedWeight": 2000,
+        "actualWeight": 1000,
+        "from": {
+            "name": "11",
+            "address": "123",
+            "contact": "+7123123"
+        },
+        "to": {
+            "name": "11",
+            "address": "123",
+            "contact": "+7123123"
+        },
+        "mailStatus": "Arrived",
+        "arrivalStatus": "Unconfirmed",
+        "created": 1452575147232,
+        "createdBy": null,
+        "notes": null
+    }],
+    "notes": "Not implemented yet"
+}

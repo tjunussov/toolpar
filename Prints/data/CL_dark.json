@@ -1,0 +1,74 @@
+{
+    "id": 61,
+    "code": "CL20160122092847036",
+    "totalWeight": "1.000",
+    "count": 1,
+    "fromDept": "КГПО г.Астана - [802201]",
+	"from": {
+            "name": "11",
+            "address": "123",
+            "contact": "+7123123"
+        },
+    "toDept": "КГПО г.Караганда - [801401]",
+    "mails": [{
+        "id": 55,
+        "code": "JJ123123123JJ",
+        "mailType": "Крупно-габаритное отправление",
+        "routeType": "Внутреннее",
+        "paymentType": "1",
+        "mailCategory": "3",
+        "claimedWeight": null,
+        "actualWeight": "1.000",
+        "from": {
+            "name": "11",
+            "address": "123",
+            "contact": "+7123123"
+        },
+        "to": {
+            "name": "МУЛДАШЕВ НУРЛАН КУРМАНГАЛИЕВИЧ",
+            "address": "",
+            "contact": "+7777777777"
+        },
+        "mailStatus": "Arrived",
+        "arrivalStatus": "Confirmed",
+        "created": "20/01/2016",
+        "notes": null,
+        "checkDetails": {
+            "paytype": "Наличными",
+            "mainname": "Акционерное Общество \"Казпочта\"",
+            "depname": "Пункт по приему и выдачи КГПО",
+            "depindex": "801321",
+            "deptax": "991141005284",
+            "dsys": "22.01.2016 14:13:51",
+            "sdok": "    2 199.00",
+            "deacode": null,
+            "dreg": "22.01.16",
+            "code": "216061069",
+            "usersname": "MANG_BEKBAEV",
+            "username": "Бекбаев Ардак",
+            "depaddress": "г.Актау, мкр.14, д.61, бизнес-центр \"Звезда Актау\"",
+            "taxinfo": "62001 № 0016657 от 05.10.12г.",
+            "maintax": "000140002217",
+            "incomfl": "1",
+            "mailcnt": "2",
+            "ml": "1",
+            "clitax": null,
+            "clicode": null,
+            "cliname": null,
+            "items": [{
+                "dscr": "Пересылка посылки РК",
+                "sum": "1 080.00",
+                "vat": "118.8"
+            }]
+        },
+        "totalCheckDetails": [{
+            "dscr": "Пересылка посылки РК",
+            "sum": "1 080.00"
+        }]
+    }],
+    "notes": "Not implemented yet",
+    "created": "20/01/2016",
+    "createdBy": "Алпысович Астана",
+    "totalSum": 1080,
+    "totalVat": 118.8
+}

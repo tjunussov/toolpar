@@ -1,0 +1,56 @@
+{
+	"actInfo": {
+		"customeradr": "   ",
+		"performeradr": "Акционерное общество \"Казпочта \" г.Актау, мкр.14, д.61, бизнес-центр \"Звезда Актау \" ",
+		"customertax": null,
+		"performertax": "991141005284",
+		"dealdate": "Без договора",
+		"dealnum": null,
+		"ndok": "     1.00",
+		"sdok": "    1 080.00",
+		"detials": [{
+			"serv": "Пересылка посылки РК",
+			"dord": "2016-01-21",
+			"ndok": "1.00",
+			"sdok": "1 080.00",
+			"sdok1": "1080"
+		}]
+	},
+	"invoiceInfo": {
+		"username": "Бекбаев Ардак",
+		"chief": "Сатыбалдиев Ильяс Егизбаевич",
+		"buch": "Тунгатарова Дария Тургынбековна",
+		"code": "4548007803",
+		"calcdate": "21.01.16",
+		"maindepname": "Акционерное общество \"Казпочта \"",
+		"maindeptax": "БИН 000140002217",
+		"maindepadr": "010000, РЕСПУБЛИКА КАЗАХСТАН, Г.АСТАНА, УЛ.АУЭЗОВА №13",
+		"userdeptax": "БИН 991141005284",
+		"userdepadr": "Г.АКТАУ, МКР.14, Д.61, БИЗНЕС-ЦЕНТР \"ЗВЕЗДА АКТАУ \"",
+		"reqpayacc": "KZ21563R101000004701",
+		"taxinf": "62001 № 0016657 от 05.10.12г.",
+		"bankrec": "АО \"КАЗПОЧТА \"",
+		"bankcode": "KPSTKZKA",
+		"sendmethod": "Наземный",
+		"dealdate": "Без договора",
+		"dealnum": null,
+		"payername": null,
+		"payertax": "БИН ",
+		"payeradr": null,
+		"payeracc": null,
+		"payerbankcode": null,
+		"payerbankname": null,
+		"summnetto": "     964.29",
+		"summnds": "     115.71",
+		"sdok": "    1 080.00",
+		"summprop": "Всего по счету: Одна тысяча восемьдесят тенге 00 тиын",
+		"details": [{
+			"serv": "Пересылка посылки РК",
+			"ndok": "1.00",
+			"val_nds": "12",
+			"netto_sum": "964.29",
+			"sum_nds": "115.71",
+			"sdok": "1 080.00"
+		}]
+	}
+}

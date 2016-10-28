@@ -1,0 +1,239 @@
+{
+    "id": 2,
+    "code": "TL20160105013248",
+    "scheduledDepartTime": 1452147120000,
+    "actualDepartTime": 1452575163198,
+    "status": "Arrived",
+    "created": 1451979166640,
+    "createdBy": "SYSTEM",
+    "itinerary": {
+        "id": 21,
+        "title": "12",
+        "itineraryType": "Daily",
+        "transportType": "Train",
+        "created": 1451979166349,
+        "createdBy": "SYSTEM",
+        "entries": [{
+            "dept": "КГПО г.Астана - [802201]",
+            "index": 0,
+            "arrivalTime": "12:12:00.000",
+            "departureTime": "12:12:00.000"
+        }, {
+            "dept": "КГПО г.Караганда - [801401]",
+            "index": 1,
+            "arrivalTime": "12:12:00.000",
+            "departureTime": "12:12:00.000"
+        }]
+    },
+    "destinationLists": [{
+        "id": 8,
+        "code": "DL20160106052610637",
+        "index": 1,
+        "status": null,
+        "created": 1452079570710,
+        "createdBy": "SYSTEM",
+        "dept": "КГПО г.Караганда - [801401]",
+        "packetLists": [{
+            "id": 23,
+            "code": "PL20160112110547855",
+            "totalWeight": 2000,
+            "mailCount": 2,
+            "fromDept": "КГПО г.Астана - [802201]",
+            "toDept": "КГПО г.Караганда - [801401]",
+            "mails": [{
+                "id": 23,
+                "code": "kk123123123kk",
+                "mailType": "Посылка спец. связи",
+                "routeType": "Внутреннее",
+                "paymentType": "Счета к получению",
+                "mailCategory": "С объявленной ценностью",
+                "claimedWeight": 1000,
+                "actualWeight": 1000,
+                "from": {
+                    "name": "11",
+                    "address": "123",
+                    "contact": "+7123123"
+                },
+                "to": {
+                    "name": "11",
+                    "address": "123",
+                    "contact": "+7123123"
+                },
+                "mailStatus": "Arrived",
+                "arrivalStatus": "Unconfirmed",
+                "created": 1452575147232,
+                "createdBy": null,
+                "notes": null
+            }],
+
+            "notes": "Not implemented yet"
+        },{
+            "id": 23,
+            "code": "PL20160112110547855",
+            "totalWeight": 2000,
+            "mailCount": 2,
+            "fromDept": "КГПО г.Астана - [802201]",
+            "toDept": "КГПО г.Караганда - [801401]",
+            "mails": [ {
+                "id": 24,
+                "code": "mm123123123mm",
+                "mailType": "Посылка спец. связи",
+                "routeType": "Внутреннее",
+                "paymentType": "Счета к получению",
+                "mailCategory": "С объявленной ценностью",
+                "claimedWeight": 2000,
+                "actualWeight": 1000,
+                "from": {
+                    "name": "11",
+                    "address": "123",
+                    "contact": "+7123123"
+                },
+                "to": {
+                    "name": "11",
+                    "address": "123",
+                    "contact": "+7123123"
+                },
+                "mailStatus": "Arrived",
+                "arrivalStatus": "Unconfirmed",
+                "created": 1452575147232,
+                "createdBy": null,
+                "notes": null
+            }],
+            "notes": "Not implemented yet"
+        }],
+        "packetListCount": 1,
+        "totalWeight": 2000,
+        "notes": "Not implemented yet"
+    },{
+        "id": 8,
+        "code": "DL20160106052610637",
+        "index": 1,
+        "status": null,
+        "created": 1452079570710,
+        "createdBy": "SYSTEM",
+        "dept": "КГПО г.Караганда - [801401]",
+        "packetLists": [{
+            "id": 23,
+            "code": "PL20160112110547855",
+            "totalWeight": 2000,
+            "mailCount": 2,
+            "fromDept": "КГПО г.Астана - [802201]",
+            "toDept": "КГПО г.Караганда - [801401]",
+            "mails": [{
+                "id": 23,
+                "code": "kk123123123kk",
+                "mailType": "Посылка спец. связи",
+                "routeType": "Внутреннее",
+                "paymentType": "Счета к получению",
+                "mailCategory": "С объявленной ценностью",
+                "claimedWeight": 1000,
+                "actualWeight": 1000,
+                "from": {
+                    "name": "11",
+                    "address": "123",
+                    "contact": "+7123123"
+                },
+                "to": {
+                    "name": "11",
+                    "address": "123",
+                    "contact": "+7123123"
+                },
+                "mailStatus": "Arrived",
+                "arrivalStatus": "Unconfirmed",
+                "created": 1452575147232,
+                "createdBy": null,
+                "notes": null
+            }, {
+                "id": 24,
+                "code": "mm123123123mm",
+                "mailType": "Посылка спец. связи",
+                "routeType": "Внутреннее",
+                "paymentType": "Счета к получению",
+                "mailCategory": "С объявленной ценностью",
+                "claimedWeight": 2000,
+                "actualWeight": 1000,
+                "from": {
+                    "name": "11",
+                    "address": "123",
+                    "contact": "+7123123"
+                },
+                "to": {
+                    "name": "11",
+                    "address": "123",
+                    "contact": "+7123123"
+                },
+                "mailStatus": "Arrived",
+                "arrivalStatus": "Unconfirmed",
+                "created": 1452575147232,
+                "createdBy": null,
+                "notes": null
+            }],
+
+            "notes": "Not implemented yet"
+        },{
+            "id": 23,
+            "code": "PL20160112110547855",
+            "totalWeight": 2000,
+            "mailCount": 2,
+            "fromDept": "КГПО г.Астана - [802201]",
+            "toDept": "КГПО г.Караганда - [801401]",
+            "mails": [{
+                "id": 23,
+                "code": "kk123123123kk",
+                "mailType": "Посылка спец. связи",
+                "routeType": "Внутреннее",
+                "paymentType": "Счета к получению",
+                "mailCategory": "С объявленной ценностью",
+                "claimedWeight": 1000,
+                "actualWeight": 1000,
+                "from": {
+                    "name": "11",
+                    "address": "123",
+                    "contact": "+7123123"
+                },
+                "to": {
+                    "name": "11",
+                    "address": "123",
+                    "contact": "+7123123"
+                },
+                "mailStatus": "Arrived",
+                "arrivalStatus": "Unconfirmed",
+                "created": 1452575147232,
+                "createdBy": null,
+                "notes": null
+            }, {
+                "id": 24,
+                "code": "mm123123123mm",
+                "mailType": "Посылка спец. связи",
+                "routeType": "Внутреннее",
+                "paymentType": "Счета к получению",
+                "mailCategory": "С объявленной ценностью",
+                "claimedWeight": 2000,
+                "actualWeight": 1000,
+                "from": {
+                    "name": "11",
+                    "address": "123",
+                    "contact": "+7123123"
+                },
+                "to": {
+                    "name": "11",
+                    "address": "123",
+                    "contact": "+7123123"
+                },
+                "mailStatus": "Arrived",
+                "arrivalStatus": "Unconfirmed",
+                "created": 1452575147232,
+                "createdBy": null,
+                "notes": null
+            }],
+            "notes": "Not implemented yet"
+        }],
+        "packetListCount": 1,
+        "totalWeight": 2000,
+        "notes": "Not implemented yet"
+    }],
+    "totalWeight": 2000,
+    "count": 1,
+    "escort": "Not implemented yet",
+    "notes": "Not implemented yet"
+}
