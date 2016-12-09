@@ -1,0 +1,21 @@
+{
+    "ts": "2015-12-24T14:43:14.492+0600",
+    "status": "OK",
+    "data": [{
+        "code": "059907",
+        "deliveredCount": 1,
+        "deliveredExpireCount": 1
+    }, {
+        "code": "019931",
+        "receivedCount": 3,
+        "receivedAmount": 3953,
+        "deliveredCount": 66,
+        "deliveredExpireCount": 12
+    }, {
+        "code": "059921",
+        "deliveredCount": 11
+    }, {
+        "code": "019929",
+        "deliveredCount": 1
+    }]
+}

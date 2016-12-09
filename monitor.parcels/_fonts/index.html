@@ -1,0 +1,2724 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="background-color:#404248;">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Refresh" content="3600" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard : Ситуационный центр - АО Казпочта</title>
+    <link href="_css/style.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.png" /> 
+    <link rel="icon" type="image/x-icon" href="favicon.png" /> 
+    <link rel="stylesheet" type="text/css" href="_css/charts.css"/>
+	<link rel="stylesheet" type="text/css" href="_css/jquery.minical.plain.css"/>
+	<link rel="stylesheet" type="text/css" href="_css/jqx.base.css"/>
+    <link href="_css/jquery.datetimepicker.css" rel="stylesheet" />
+    <link rel="stylesheet" href="_css/BreadCrumb.css" type="text/css">
+    <link href="_css/sumoselect.css" rel="stylesheet" />
+    <link href="_css/filter.css" rel="stylesheet" />
+    <style>
+    	pre { display:none; }
+    	.breadCrumb a{
+    		font-size: 12px;
+    	}
+    </style>
+</head>
+<body>
+	<script type="text/javascript" src="_js/jquery-1.11.1.js"></script>
+	<script type="text/javascript">
+	 	var check = getCookie('hash_text');
+	 	var hash_int = getCookie('hash_int');
+	  	if(check != ''){
+		  	$.ajax({
+				url: "/api/kp_sys_utils/CheckLogin.html",
+				type: "GET",
+				data: {
+					"username": check,
+					"key": hash_int,
+				},
+				success: function(xml) {				
+					var xmltxt = $.parseXML(xml);
+					if ($(xmltxt).find('result').text() != '0'){
+		  				$(location).attr('href','https://monitor.kazpost.kz/login/autorization.html');
+					}
+				}
+			});
+	  	} else
+	  		$(location).attr('href','https://monitor.kazpost.kz/login/autorization.html');
+
+        function getCookie(cname) {
+		    var name = cname + "=";
+		    var ca = document.cookie.split(';');
+		    for(var i=0; i<ca.length; i++) {
+		        var c = ca[i];
+		        while (c.charAt(0)==' ') c = c.substring(1);
+		        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+		    }
+		    return "";
+		}
+		var delete_cookie = function(name) {
+		    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+		};
+	</script>
+
+  	<div id="fb-root"></div>
+	<script>
+	(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id; 
+		  js.src = "//connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.3";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+    </script>
+  
+  <div class="body">
+	
+	<div class="head">
+        <group>
+			<button class="group" tab="tabMonitor" id="btn_monitor">МОНИТОРИНГ</button>
+            <button class="selected group" tab="tabFin">ФИНАНСОВЫЕ</button>
+			<button class="group" tab="tabPost">ПОЧТОВЫЕ</button>
+			<!-- <button class="group" tab="tabSroki">КОНТРОЛЬНЫЕ СРОКИ</button> -->
+			<button class="group" tab="tabAgent">АГЕНТСКИЕ</button>
+			<button class="group" tab="tabCommerce">E-COMMERCE</button>
+			<button class="group" tab="tabTotal">ОБЩАЯ СТАТИСТИКА</button>
+			<button class="group" tab="tabZakup">ЗАКУП</button>			
+        </group>
+        
+        <group>
+			<button class="group" onclick="location.href='/очереди/index.xhtml'">ОЧЕРЕДИ</button>
+			<button class="group" title="Карта" onclick="location.href='/карта'">ФИЛПАСПОРТ</button>
+
+	        <!--button class="group" title="Карта" disabled>ТРЕКЕРЫ</button><button class="group" title="Видео Наблюдение" disabled>НАБЛЮДЕНИЕ</button-->
+			<!--
+			<button class="group" onclick="location.href='/очереди'">ОЧЕРЕДИ</button>
+			<button class="group" title="Карта" onclick="location.href='/карта'">ФИЛПАСПОРТ</button>-->
+        </group>
+        
+        <group>
+        	<button class="" onclick="location.href='/трекинг'">ТРЕКИНГ</button>
+	        <!--button class="group" title="Карта" onclick="window.open('/__demo_egov/', '_blank');">DEMO NITEC</button><button class="group" title="Видео Наблюдение" disabled>NETWORK</button-->
+	        <!--button title="Карта" onclick="window.open('/__demo_4k/', '_blank');">МНЕМО СХЕМА</button-->
+        </group>
+        
+        
+        <!--button title="Поручения" disabled>ПРОЕКТЫ</button-->
+        
+        <!-- Login menu -->	
+
+        <div class="menu-utils" style="float:right;text-align: right;">
+            <table cellspacing="0" cellpadding="0">
+        		<tr>
+        			<td>Пользователь :</td>
+        			<td style='text-align: center;'><b id="username"></b>
+        			<!-- <img id='logout' title='Выход' onclick='logOut();' src="_img/icon_logout.png">
+ -->				<a onclick='logOut();' style='float:right; font-size:12px;'>Выход</a>
+        			</td>
+        		</tr>
+        		<tr>
+        			<td>Режим :</td>
+        			<td>
+            <div class="settings-panel"><a href="/presentation">Презентация</a></div>
+        			</td>
+        		</tr>
+        	</table>
+        </div>
+
+    </div>
+    
+	<script type="text/javascript" src="_js/jquery-1.11.1.js"></script>
+    <div id="wrap" class="content">
+	<a href="#" class="scrollup">Scroll</a>	
+    <tab id="tabMonitor" style="display:none">
+
+			<main class="cd-main-content">
+				<section class="cd-gallery">
+					<div style="float:left; width:50%;">
+					<group style="float:left; margin: 20px 20px 0px 0px; width:150%;">
+						<button class="selected group" tabw="tabMap" id="btn_tabMap">Карта</button>
+						<button class="group" tabw="tabServices" id="btn_others">Услуги</button>
+						<!-- <button class="group" tabw="tabAdditional" id="btn_others">Доп.</button> -->
+						<!-- <button class="group" tabw="tabTerms" id="btn_others">Сроки</button> -->
+						<button class="group" tabw="tabTime" id="btn_others">Нагрузка</button>
+						<button class="group" tabw="tabIncomes" id="btn_others">Доходы</button>
+						<!-- <button class="group" tabw="tabLogistics" id="btn_others">Логистика</button> -->
+						<!-- <button class="group" tabw="tabProjects" id="btn_others">Проекты</button> -->
+						<!-- <button class="group" tabw="tabUser" id="btn_user_dtl">KPI</button> -->
+					</group>
+
+					<div id="breadCrumb0" class="breadCrumb module" style="background:gray;margin-top:20px; width:180%; height:30px;">
+			            <ul>
+			                <li>
+			                    <a onclick="comeBack()" id='' style='font-size: 14px;'>Казахстан</a>
+			                </li>
+			                <li id='dep_code_li' style='display:none;'>
+			                    <a onclick="removeTitle(2)" class='disabled' id='dep_code_title' style='font-size: 14px;'></a>
+			                </li>
+			                <li id='dep_code_rups_li' style='display:none;'>
+			                    <a onclick="removeTitle(3)" class='disabled' id='dep_code_rups_title'  style='font-size:14px;'></a>
+			                </li>
+			                <li id='dep_code_offices_li' style='display:none;'>
+			                    <a onclick="removeTitle(4)" class='disabled' id='dep_code_offices_title' disabled style='font-size:14px;'></a>
+			                </li>
+			                <li id='dep_code_operators_li' style='display:none;'>
+			                    <a onclick="removeTitle(5)" class='disabled' id='dep_code_operators_title' disabled style='font-size:14px;'></a>
+			                </li>
+			                <li id='dep_code_service_li' style='display:none;'>
+			                    <a onclick="removeTitle(6)" class='disabled' id='dep_code_service_title' disabled style='font-size:14px;'></a>
+			                </li>
+			            </ul>
+			        </div>
+
+					<tabw id="tabServices" style="display:none;">
+						<div class="panel" style="margin-top:20px; width: 200%;">
+							<div style="display:none;" id="tbl_kpi_amount"></div>
+							<h3><span class="icon graph"></span>Количество</h3>
+							
+							<h4>Количество платежей по Z_KPI2</h4>
+							Динамика за предыдущую День, база COLVIR PREV DAY 
+							<div class="sort_div" id='sort_services_div'><a>Сортитовать по: </a>
+								<select class="mySELECTOR" id='sort_services' size="1" style="width:130px;">
+									<option selected="selected" value="all">Все</option>
+									<option value="fin">Финансовым</option>
+									<option value="post">Почтовым</option>
+								</select></div>
+							<div class="sort_div" id='sort_services_div2' style='display:none;'><a>Сортитовать по: </a>
+								<select class="mySELECTOR" id='sort_services2' size="1" style=" width:130px;">
+									<option selected="selected" value="all">Все</option>
+									<option value="fin">Финансовым</option>
+									<option value="post">Почтовым</option>
+								</select></div>
+							<div class="sort_div" id='sort_services_div3' style='display:none;'><a>Сортитовать по: </a>
+								<select class="mySELECTOR" id='sort_services3' size="1" style="width:130px;">
+									<option selected="selected" value="all">Все</option>
+									<option value="fin">Финансовым</option>
+									<option value="post">Почтовым</option>
+								</select></div>
+							<div class="sort_div" id='sort_services_div4' style='display:none;'><a>Сортитовать по: </a>
+								<select class="mySELECTOR" id='sort_services4' size="1" style="width:130px;">
+									<option selected="selected" value="all">Все</option>
+									<option value="fin">Финансовым</option>
+									<option value="post">Почтовым</option>
+								</select>
+							</div>
+							<div id="graph_kpi_amount" class="agraph first_level kpi_services" style="height: 600px;margin-bottom:-10px;"></div>
+							<div id="graph_kpi_rups_amount" class="second_level kpi_services" style="display:none;height: 600px;margin-bottom:-10px;"></div>
+							<div id="graph_kpi_offices_amount" class="third_level kpi_services" style="display:none;margin-bottom:-10px;"></div>
+							<div id="graph_kpi_operators_amount" class="fourth_level kpi_services" style="display:none;height: 600px;margin-bottom:-10px;"></div>
+							<div id="tbl_kpi_dtl_amount" class="fifth_level" style="display:none;height:600px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+							<div id="tbl_operation_dtl_amount" class="six_level"  style="display:none;height:600px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+						</div>	
+					</tabw>
+
+					<tabw id="tabAdditional" style="display:none;">
+
+						<div style="display:none;" id="tbl_clients"></div>	
+						<div class="panel" style="float:left;width:47%; margin-top:20px;">
+							<h4>Количество услуг, оказанных</h4>
+							<h4>Физическими и Юридическими лицами</h4>
+							<div id="graph_clients" class="agraph first_level" style="height: 300px; margin-bottom:-10px;"></div>
+
+							<h4 id='clients_itog'></h4>
+						</div>
+						
+						<div style="display:none;" id="tbl_rezedent"></div>	
+						<div class="panel" style="float:left;width:47%; margin-top:20px;">
+							<h4>Количество услуг, оказанных</h4>
+							<h4>Резидентам и Нерезидентам</h4>
+							<div id="graph_rezedent" class="agraph first_level" style="height: 300px; margin-bottom:-10px;"></div>
+							<h4 id='rezedent_itog'></h4>
+						</div>
+						<br>
+						<!-- <div class="panel" style="float:left;width:96%;">
+							<h4>Количество услуг в разрезе филиалов</h4>
+							<h4></h4>
+							<div id="graph_service_filials" class="agraph" style="height: 300px; margin-bottom:-10px;"></div>
+							<h4 id='rezedent_itog'></h4>
+						</div> -->
+						
+					</tabw>
+
+					<tabw id="tabMap">
+						<script type="text/javascript" src="_js/new/filter_map.js"></script>
+						<div>
+							<div id="afterFilter"  style="display:none; " ></div>
+					        <div id="content" class='svg_kz'>
+					            <div id="map">
+					    			<!-- Raphaël JS Map Here -->		
+					    		</div>
+								<div id="tip"></div> 
+			        			<div id='div-data' style="display:none;" 
+			        				data-info=""  
+			        				data-almaty=""
+			        				data-atyrau=""
+			        				data-vostok=""
+			        				data-zhambyl=""
+			        				data-zapad=""
+			        				data-krg=""
+			        				data-kostanai=""
+			        				data-kyzylorda=""
+			        				data-astana=""
+			        				data-aktobe=""
+			        				data-mangystau=""
+			        				data-pavlodar=""
+			        				data-sever=""
+			        				data-yug="">
+			        			</div>
+							</div>
+
+							<br/>
+							<div>
+						         <div id="astana" style="display:none;" class='svg_region'>
+					            </div>
+					            <div id="aktobe" style="display:none;" class='svg_region'>
+					            </div>
+					            <div id="almaty" style="display:none;" class='svg_region'>
+					            </div>
+					            <div id="atyrau" style="display:none;" class='svg_region'>
+					            </div>
+					            <div id="karaganda" style="display:none;" class='svg_region'>
+					            </div>
+					            <div id="kostanai" style="display:none;" class='svg_region'>
+					            </div>
+					            <div id="kyzylorda" style="display:none;" class='svg_region'>
+					            </div>
+					            <div id="mangystau"  style="display:none;" class='svg_region'>
+					            </div>
+
+					            <div id="pavlodar" style="display:none;" class='svg_region'>
+					            </div>
+					            <div id="sever"  style="display:none;" class='svg_region'>
+					            </div>
+					            <div id="vostok" style="display:none;" class='svg_region'>
+					            </div>
+					            <div id="yug" style="display:none;" class='svg_region'>
+					            </div>
+					            <div id="zapad" style="display:none;" class='svg_region'>
+					            </div>
+					 		
+					            <div id="zhambyl" style="display:none;" class='svg_region'>
+					            </div>
+
+								<div id="tip2" style="color:white; background:black; font-size:14px; min-width:300px;">
+							    </div>
+							    <div id="map_rups" class="panel"  
+							    	style="display:none; height: 600px; overflow-y:hidden; overflow-x:hidden; margin-top:20px; margin-bottom:-10px; margin-left:50%;">
+								</div>
+							    <div id="map_offices" class="third_level panel"  
+							    	style="display:none;height: 600px; overflow-x:hidden; margin-top:20px; margin-bottom:-10px; margin-left:50%;">
+								</div>
+								<div id="map_operators" class="fourth_level panel"  
+									style="display:none;height:600px; overflow-y:hidden; overflow-x:hidden; margin-top:20px; margin-bottom:-10px; margin-left:50%;">
+								</div>
+								<div class="panel fifth_level" style="display:none; height:600px; margin-top:20px; width: 100%;margin-left:50%;">
+									<div id="tbl_map_dtl" style="display:none;height:600px; overflow-y:auto; margin-bottom:-10px; position:relative; "></div>
+								</div>
+								<div id="map_operations" class="six_level panel"  
+									style="display:none;height:600px; overflow-y:hidden; overflow-x:hidden; margin-top:20px; margin-bottom:-10px;width:200%;">
+								</div>
+				            </div>
+
+			   				<div id='color_indicator'><p class='top'>Max</p><p class='bottom'>Min</p><p class='zero'>Ноль</p></div>
+				        </div>
+
+						<script src="_js/raphael-min.js"></script>
+						<script src="_js/map.js" id='myscript'></script>
+
+						<script src="_js/regions/pavlodar.js" id='myscript'></script>
+			        	<script src="_js/regions/vostok.js" id='myscript'></script>
+						<script src="_js/regions/karaganda.js" id='myscript'></script>
+			        	<script src="_js/regions/almaty.js" id='myscript'></script>
+			        	<script src="_js/regions/sever.js" id='myscript'></script>
+						<script src="_js/regions/yug.js" id='myscript'></script>
+			        	<script src="_js/regions/zhambyl.js" id='myscript'></script>
+			        	<script src="_js/regions/astana.js" id='myscript'></script>
+			        	<script src="_js/regions/kyzylorda.js" id='myscript'></script>
+			        	<script src="_js/regions/kostanai.js" id='myscript'></script>
+			        	<script src="_js/regions/mangystau.js" id='myscript'></script>
+			        	<script src="_js/regions/atyrau.js" id='myscript'></script>
+			        	<script src="_js/regions/zapad.js" id='myscript'></script>
+			        	<script src="_js/regions/aktobe.js" id='myscript'></script>
+						
+						<script src="_js/jquery.easing.1.3.js" type="text/javascript" language="JavaScript">
+			        	</script>
+			        	<script src="_js/jquery.jBreadCrumb.1.1.js" type="text/javascript" language="JavaScript">
+			        	</script>
+					</tabw>	
+
+					<tabw id="tabTerms"  style="display:none">
+						<div id='experement'></div>
+					</tabw>
+					<tabw id="tabTime"  style="display:none; width:100%; height:100%;">
+						<br/>						
+						<div style="display:none;" id="tbl_kpi"></div>
+						<div style="display:none;" id="level_kpi">1</div>
+
+							
+						<div class="panel" style="margin-top:20px; width: 200%;">
+							<!-- <h4>Z_KPI на даработке, идет обновление Базы Данных...</h4> -->
+					    	<div style='float:right; margin-bottom:10px; margin-right:120px; margin-top:30px; position:relative'>
+							</div>
+							<h3><span class="icon graph"></span>Z_KPI2</h3>
+							
+							<h4>Количество платежей по Z_KPI2</h4>
+							<div style="font-size:14px;">Динамика за предыдущую День, база COLVIR PREV DAY </div>
+							
+							<div id="graph_kpi" class="agraph first_level" style="height: 600px;margin-bottom:-10px;"></div>
+							<div id="graph_kpi_rups" class="second_level"  style="display:none;height: 600px;margin-bottom:-10px;"></div>
+							<div id="graph_kpi_offices" class="third_level"  style="display:none;margin-bottom:-10px;"></div>
+							<div id="graph_kpi_operators" class="fourth_level"  style="display:none;height: 600px;margin-bottom:-10px;"></div>
+							<div id="tbl_kpi_dtl" class="fifth_level"  style="display:none;height:600px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+							<div id="tbl_operation_dtl" class="six_level"  style="display:none;height:600px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+						</div>
+						<br/>
+					</tabw>
+
+					<tabw id="tabIncomes"  style="display:none">
+						<div class="panel" style="margin-top:20px; width: 200%;">
+							<div style="display:none;" id="tbl_kpi_incomes"></div>
+							<h3><span class="icon graph"></span>Доходы</h3>
+							
+							<h4>Количество платежей по Z_KPI2</h4>
+							Динамика за предыдущую День, база COLVIR PREV DAY 
+							
+							<div id="graph_kpi_incomes" class="agraph first_level" style="height: 600px;margin-bottom:-10px;"></div>
+							<div id="graph_kpi_rups_incomes" class="second_level" style="display:none;height: 600px;margin-bottom:-10px;"></div>
+							<div id="graph_kpi_offices_incomes" class="third_level" style="display:none;margin-bottom:-10px;"></div>
+							<div id="graph_kpi_operators_incomes" class="fourth_level" style="display:none;height: 600px;margin-bottom:-10px;"></div>
+							<div id="tbl_kpi_dtl_incomes" class="fifth_level" style="display:none;height:600px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+							<div id="tbl_operation_dtl_incomes" class="six_level"  style="display:none;height:600px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+						</div>	
+					</tabw>
+
+					<tabw id="tabLogistics" style="display:none">
+
+					</tabw>
+					<tabw id="tabProjects"  style="display:none">
+					</tabw>
+					<tabw id="tabUser"  style="display:none">
+						<div class="panel" style="height: 600px;margin-left:50%; margin-top:20px; width:110%;">
+							Данные оператора и операций за предыдущий день, база COLVIR PREV DAY 
+							<div id="tbl_user_dtl"  class="agraph" style="height: 400px; width:100%;"></div>
+							<div id="tbl_operations_dtl"  style="height: 400px; width:100%;"></div>
+						</div>
+					</tabw>	
+					</div>
+
+					<div id="modal-background"></div>
+				</section> <!-- cd-gallery -->
+
+				<div class="cd-filter">
+		    		<script src="_js/jquery.sumoselect.js"></script>
+		    		<!-- <h2 align="center">Фильтр</h2> -->
+					<!-- <button id="modal-close" style='float:right;margin-top:-20px; font-size:10px;'>Закрыть</button> -->
+					<br><br>
+					<div class="scroller_filter">
+						<h3>Дата (с - по)</h3>
+						<br>
+						
+						<img src="_img/icon_calendar.png">
+						<input class="form_first" type="text" name="dfrom" id='doper_from' style='color: #000;'  data-sundayfirst="false" data-lang="ru">&mdash;&nbsp;
+						
+						<img src="_img/icon_calendar.png">
+						<input class="form_first" type="text" name="dto" id='doper_to' data-sundayfirst="false" data-lang="ru">
+						<br><br>
+						
+						<div id='changable_div'>
+							<h3><span class="form_third" >Тип услуги</span></h3>
+								<div class="marginDiv">
+								<select  class="form_third mySELECTOR" id="service_main" style="width:392px;">
+									<option disabled selected value="">Выберите</option>
+									<option value="1">Почтовые</option>
+									<option value="2">Финансовые</option>
+								</select></div>
+								<div id="services_div"></div>
+								<br>
+							<div id='additional_filter'>
+						 		<h4>Вид Статуса</h4>
+								<div class="marginDiv3">
+									<select  class="form_third mySELECTOR" id="type_status" style="width:392px;">
+										<option value="1">Внутренние</option>
+										<option value="2">Международные входящие</option>
+										<option value="3">Международные исходящие</option>
+									</select>
+								</div>
+								<br>
+								<br>
+						 		<h4>Статус</h4>
+								<div class="marginDiv3" id="status_rpo_div">
+								</div>
+								<br>
+								<br>
+						 		<h4>ШПИ</h4>
+								<div class="marginDiv3">
+									<input class="form_first" type="text" name="barcode" id='barcode'>
+								</div>
+							</div>
+								<br>
+								<br>
+							<h3><span class="form_third">Категория клиента</span><span class="form_third"  style="margin-left:-10px;">Признак резидентства</span></h3>
+							<div id='changable_div2'>
+								<div class="marginDiv3">
+								<select class="mySELECTOR" id="cli_jurfl" size="1" style="width:155px;">
+									<option selected value="">Все</option>
+									<option value="0">Физическое лицо</option>
+									<option value="1">Юридическое лицо</option>
+								</select></div>
+								<div class="marginDiv3" style="margin-left:20px;">
+								<select class="mySELECTOR" id="cli_residfl" size="1" style="width:155px;">
+									<option selected value="">Все</option>
+									<option value="1">Резидент</option>
+									<option value="0">Нерезидент</option>
+								</select></div>
+							</div>
+						</div>
+					</div>
+			<br>
+			<p align="center" style="margin-left:20px;"><a><button id="filter_btn" onclick="create_map('_js/map.js')">ОК</button></a></p>
+					<a href="#0" class="cd-close filter_a">Закрыть</a>
+					<p class="filter_title">Фильтр</p>
+				</div> <!-- cd-filter -->
+
+				<a href="#0" class="cd-filter-trigger filter_a">Фильтр</a>
+			</main> <!-- cd-main-content -->
+		<!-- <button id="modal-launcher"  style="position: fixed; bottom: 10px; left: 25px;">Задать фильтр</button> -->
+		
+    		<script src="_js/new/_statuses.js"></script>
+    		<script src="_js/new/jquery.datetimepicker.js"></script>
+			<script src="_js/moment.min.js"></script>
+        	<script src="_js/moment.ru.js"></script>
+    		<script src="_js/new/filter.js"></script>
+	</tab>
+	
+	<tab id="tabFin">
+	
+		<div>
+		    <div class="subhead" style="display:inline-block; float:left;">
+		        <h1>
+		            <span class="icon48 nedv"></span>Dashboard - Финансовые услуги
+		            <sub>Данные для графиков предоставлены из системы COLVIR и CPILS</sub>
+		        </h1>
+		    </div>
+		    <!--
+		    <div class="panel-filter filters" style="display:inline-block; float:right;">	        
+		        <div class="filter">Период : <a href="#" class="selected">Сегодня</a><a href="#">За неделю</a><a href="#">За месяц</a></div>
+		        <hr />
+		        <input style="width:30px;" type="button"/> <input type="text" value="07 Дек 2014"/> - <input type="text" value="07 Дек 2014"/>
+		        <button class="mini"><span class="icon reload"></span></button>
+		    </div>-->
+	    </div>
+
+	    <br/>
+	    
+	    <br/>
+		
+		<div style="display:none;" id="tbl_avon"></div>		
+		<div class="panel" style="float:left;width:100%" id="avon">
+			<h3><span class="icon graph"></span>AVON</h3>
+			<h4>Количество операций по AVON</h4>
+			Динамика за предыдущий день, база COLVIR PREV DAY
+			<div id="graph_avon"  class="agraph" style="height: 400px; margin-bottom:-10px;"></div>
+			<div id="tbl_avon_dtl" style="display:none;height:400px; overflow-y:none; margin-bottom:-10px; position:relative;"></div>
+			<img class="edit_icon" id='edited_icon1'
+						src='_img/edit_icon.png' onmouseover="this.src='_img/edit_icon2.png'"
+						onmouseout="this.src='_img/edit_icon.png'" STYLE='position:absolute; top:50px; right:120px;'
+						onclick="showPanel('admin_avon','edited_icon1')">
+			<div id="admin_avon" class="admin_prodazhy"  STYLE='position:absolute; top:50px; right:120px; display:none;'>
+			    <button STYLE='position:relative; width:115px; float:right;' onclick="openFile_avon()">Сохранить</button>
+			    <select class="admin_SELECTOR" id='avon_date' style=" margin-right:10px; float:right;" size="1">
+					<option selected="selected" value="">Выберите</option>
+					<option value="01.2015">Январь</option>
+					<option value="02.2015">Февраль</option>
+					<option value="03.2015">Март</option>
+					<option value="04.2015">Апрель</option>
+					<option value="05.2015">Май</option>
+					<option value="06.2015">Июнь</option>
+					<option value="07.2015">Июль</option>
+					<option value="08.2015">Август</option>
+					<option value="09.2015">Сентябрь</option>
+					<option value="10.2015">Октябрь</option>
+					<option value="11.2015">Ноябрь</option>
+					<option value="12.2015">Декабрь</option>
+				</select>
+			    <input type='file' class="file_upload" style="float:right; margin-top:5px; " accept='.csv' id="file_avon">
+		    </div>
+			<script>
+				var filials_ids = {"Акмолинский":"Акмолинский Областной филиал","Актюбинский":"Актюбинский Областной филиал","Алматинский":"Алматинский Областной филиал","Алматы":"Алматинский почтамт","Астана":"Астанинский почтамт","Атырауский":"Атырауский Областной филиал","ВКОФ":"Восточно-Казахстанский Областной филиал","Жамбылский":"Жамбылский Областной филиал","ЗКОФ":"Западно-Казахстанский Областной филиал","Карагандинский":"Карагандинский Областной филиал","Костанайский":"Костанайский Областной филиал","Кызылординский":"Кызылординский Областной филиал","Мангистауский":"Мангистауский Областной филиал","Павлодарский":"Павлодарский Областной филиал","СКОФ":"Северо-Казахстанский Областной филиал","ЮКОФ":"Южно-Казахстанский Областной филиал","Общийитог":"Общий итог"};
+
+			    var openFile_avon = function() {
+			        var input = document.getElementById('file_avon');
+			        if(input.value!=''){
+				        var reader = new FileReader();
+				        reader.onload = function(){
+				          var text = reader.result;
+				          processData_avon(reader.result);
+				        };
+				        reader.readAsText(input.files[0], 'CP1251');
+			        } else {
+			        	alert("Выберите файл");
+				    	$("#admin_avon").hide();
+				    	$("#edited_icon1").show();
+			        }
+			    };
+
+				function processData_avon(allText) {
+				    var allTextLines = allText.split(/\r\n|\n/);
+				    var headers = allTextLines[0].split(';');
+				    var ready = true;
+				    var date = $("#avon_date").val();
+				    var filial_cnt = [];
+					var filial_id = [];
+					var header = headers[0].toLowerCase();
+				    if(!stringStartsWith(header, 'принятые платежи avon')){
+				    	ready = false;
+				    	alert("Не верный формат внутренних данных");
+				    	$("#admin_avon").hide();
+				    	$("#edited_icon1").show();
+				    }
+
+				    if(date==""){
+				    	ready = false;
+			    		alert("Выберите месяц");
+				    	$("#admin_avon").hide();
+				    	$("#edited_icon1").show();
+				    }
+
+				    if (ready) {
+						for (var i=2; i<allTextLines.length-1; i++) {
+					        var data = allTextLines[i].split(';');
+					        var founded = null;
+					        data[1] = data[1].replace(/\s/g, '');
+					        founded = filials_ids[data[1]];
+					        if(founded!=null){
+					        	console.log(founded + " : " + data[2]);
+					        	data[2] = data[2].replace(/\s/g, '');
+					        	filial_id.push(founded);
+					        	filial_cnt.push(data[2]);
+					        }
+					    }
+					    for (var i = 0; i < filial_cnt.length; i++) {
+					    	if(i==filial_cnt.length-1)
+					    		insert_to_table_avon(filial_id[i],filial_cnt[i],date,true);
+					    	else
+					    		insert_to_table_avon(filial_id[i],filial_cnt[i],date,false);
+					    }
+				    }
+				}
+
+				function insert_to_table_avon(id,cnt,month,is_last){
+					$.ajax({
+						url: "/api/filters/update_avon.html",
+						type: "GET",
+						data: {
+							"filial_id": id,
+							"filial_count": cnt,
+							"v_month": month,
+						},
+						success: function(xml) {
+							console.log("Finished "+id);
+							if(is_last){
+								alert("Сохранено успешно!");
+						    	$("#admin_avon").hide();
+						    	$("#edited_icon1").show();
+							}
+						}
+					});
+				}
+			</script>
+		</div>
+		<br/>
+
+		<div style="display:none;" id="tbl_oriflame"></div>		
+		<div class="panel" style="float:left;width:100%" id="oriflame">
+			<h3><span class="icon graph"></span>ТОО "Орифлэйм"</h3>
+			<h4>Количество операций по ТОО "Орифлэйм"</h4>
+			Динамика за предыдущий день, база COLVIR PREV DAY
+			<div id="graph_oriflame"  class="agraph" style="height: 400px; margin-bottom:-10px;"></div>
+			<div id="tbl_oriflame_dtl" style="display:none;height:400px; overflow-y:none; margin-bottom:-10px; position:relative;"></div>
+			<img class="edit_icon" id='edited_icon2'
+						src='_img/edit_icon.png' onmouseover="this.src='_img/edit_icon2.png'"
+						onmouseout="this.src='_img/edit_icon.png'" STYLE='position:absolute; top:50px; right:120px;'
+						onclick="showPanel('admin_oriflame','edited_icon2')">
+			<div id="admin_oriflame" class="admin_prodazhy"  STYLE='position:absolute; top:50px; right:120px; display:none;'>
+			    <button STYLE='position:relative; width:115px; float:right;' onclick="openFile_oriflame()">Сохранить</button>
+			    <select class="admin_SELECTOR" id='oriflame_date' style=" margin-right:10px; float:right;" size="1">
+					<option selected="selected" value="">Выберите</option>
+					<option value="01.2015">Январь</option>
+					<option value="02.2015">Февраль</option>
+					<option value="03.2015">Март</option>
+					<option value="04.2015">Апрель</option>
+					<option value="05.2015">Май</option>
+					<option value="06.2015">Июнь</option>
+					<option value="07.2015">Июль</option>
+					<option value="08.2015">Август</option>
+					<option value="09.2015">Сентябрь</option>
+					<option value="10.2015">Октябрь</option>
+					<option value="11.2015">Ноябрь</option>
+					<option value="12.2015">Декабрь</option>
+				</select>
+			    <input type='file' class="file_upload" style="float:right; margin-top:5px; " accept='.csv' id="file_oriflame">
+		    </div>
+			<script>
+				var filials_ids = {"Акмолинский":"Акмолинский Областной филиал","Актюбинский":"Актюбинский Областной филиал","Алматинский":"Алматинский Областной филиал","Алматы":"Алматинский почтамт","Астана":"Астанинский почтамт","Атырауский":"Атырауский Областной филиал","ВКОФ":"Восточно-Казахстанский Областной филиал","Жамбылский":"Жамбылский Областной филиал","ЗКОФ":"Западно-Казахстанский Областной филиал","Карагандинский":"Карагандинский Областной филиал","Костанайский":"Костанайский Областной филиал","Кызылординский":"Кызылординский Областной филиал","Мангистауский":"Мангистауский Областной филиал","Павлодарский":"Павлодарский Областной филиал","СКОФ":"Северо-Казахстанский Областной филиал","ЮКОФ":"Южно-Казахстанский Областной филиал","Общийитог":"Общий итог"};
+
+			    var openFile_oriflame = function() {
+			    	console.log("first_check");
+			        var input = document.getElementById('file_oriflame');
+			        if(input.value!=''){
+				        var reader = new FileReader();
+				        reader.onload = function(){
+				          var text = reader.result;
+				          processData_oriflame(reader.result);
+				        };
+				        reader.readAsText(input.files[0], 'CP1251');
+			        } else {
+			        	alert("Выберите файл");
+				    	$("#admin_oriflame").hide();
+				    	$("#edited_icon2").show();
+			        }
+			    };
+				
+				function processData_oriflame(allText) {
+			    	console.log("second_check");
+				    var allTextLines = allText.split(/\r\n|\n/);
+				    var headers = allTextLines[0].split(';');
+				    var ready = true;
+				    var filial_cnt = [];
+					var filial_id = [];
+				    var date = $("#oriflame_date").val();
+					var header = headers[0].toLowerCase();
+					console.log(header);
+				    if(!stringStartsWith(header, 'принятые платежи oriflame')){
+				    	ready = false;
+				    	alert("Не верный формат внутренних данных");
+				    	$("#admin_oriflame").hide();
+				    	$("#edited_icon2").show();
+				    }
+
+				    if(date==""){
+				    	ready = false;
+			    		alert("Выберите месяц");
+				    	$("#admin_oriflame").hide();
+				    	$("#edited_icon2").show();
+				    }
+
+				    if (ready) {
+						for (var i=2; i<allTextLines.length-1; i++) {
+					        var data = allTextLines[i].split(';');
+					        var founded = null;
+					        data[1] = data[1].replace(/\s/g, '');
+					        founded = filials_ids[data[1]];
+					        if(founded!=null){
+					        	console.log(founded + " : " + data[2]);
+					        	data[2] = data[2].replace(/\s/g, '');
+					        	filial_id.push(founded);
+					        	filial_cnt.push(data[2]);
+					        }
+					    }
+					    for (var i = 0; i < filial_cnt.length; i++) {
+					    	if(i==filial_cnt.length-1)
+					    		insert_to_table_oriflame(filial_id[i],filial_cnt[i],date,true);
+					    	else
+					    		insert_to_table_oriflame(filial_id[i],filial_cnt[i],date,false);
+					    }
+				    }
+				}
+
+				function insert_to_table_oriflame(id,cnt,month,is_last){
+					$.ajax({
+						url: "/api/filters/update_oriflame.html",
+						type: "GET",
+						data: {
+							"filial_id": id,
+							"filial_count": cnt,
+							"v_month": month,
+						},
+						success: function(xml) {				
+							console.log("Finished "+id);
+							if(is_last){
+								alert("Сохранено успешно!");
+						    	$("#admin_oriflame").hide();
+						    	$("#edited_icon2").show();
+							}
+						}
+					});
+				}
+			</script>
+
+		</div>
+		<br/>
+
+		<div style="display:none;" id="tbl_unistream"></div>			
+		<div class="panel" style="width:100%;">
+			<h3><span class="icon graph"></span>Прием и выдача переводов Unistream</h3>
+			<h4>Количество принятых и выданных переводов Unistream</span></h4>
+			Динамика за текущую и предыдущую недели, база COLVIR PREV DAY
+			<div id="graph_unistream" class="agraph" style="height: 430px; margin-bottom:-10px;"></div>
+			<div id="tbl_unistream_dtl" style="display:none;height:430px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+			<img class="edit_icon" id='edited_icon3'
+						src='_img/edit_icon.png' onmouseover="this.src='_img/edit_icon2.png'"
+						onmouseout="this.src='_img/edit_icon.png'" STYLE='position:absolute; top:50px; right:120px;'
+						onclick="showPanel('admin_unistream','edited_icon3')">
+			<div id="admin_unistream" class="admin_prodazhy"  STYLE='position:absolute; top:50px; right:120px; display:none;'>
+			    <button STYLE='position:relative; width:115px; float:right;' onclick="openFile_unistream()">Сохранить</button>
+			    <select class="admin_SELECTOR" id='unistream_date' style=" margin-right:10px; float:right;" size="1">
+					<option selected="selected" value="">Выберите</option>
+					<option value="01.2015">Январь</option>
+					<option value="02.2015">Февраль</option>
+					<option value="03.2015">Март</option>
+					<option value="04.2015">Апрель</option>
+					<option value="05.2015">Май</option>
+					<option value="06.2015">Июнь</option>
+					<option value="07.2015">Июль</option>
+					<option value="08.2015">Август</option>
+					<option value="09.2015">Сентябрь</option>
+					<option value="10.2015">Октябрь</option>
+					<option value="11.2015">Ноябрь</option>
+					<option value="12.2015">Декабрь</option>
+				</select>
+			    <input type='file' class="file_upload" style="float:right; margin-top:5px; " accept='.csv' id="file_unistream">
+		    </div>
+			<script>
+				var filials_ids = {"Акмолинский":"Акмолинский Областной филиал","Актюбинский":"Актюбинский Областной филиал","Алматинский":"Алматинский Областной филиал","Алматы":"Алматинский почтамт","Астана":"Астанинский почтамт","Атырауский":"Атырауский Областной филиал","ВКОФ":"Восточно-Казахстанский Областной филиал","Жамбылский":"Жамбылский Областной филиал","ЗКОФ":"Западно-Казахстанский Областной филиал","Карагандинский":"Карагандинский Областной филиал","Костанайский":"Костанайский Областной филиал","Кызылординский":"Кызылординский Областной филиал","Мангистауский":"Мангистауский Областной филиал","Павлодарский":"Павлодарский Областной филиал","СКОФ":"Северо-Казахстанский Областной филиал","ЮКОФ":"Южно-Казахстанский Областной филиал","Общийитог":"Общий итог"};
+
+			    var openFile_unistream = function() {
+			        var input = document.getElementById('file_unistream');
+			        if(input.value!=''){
+				        var reader = new FileReader();
+				        reader.onload = function(){
+				          var text = reader.result;
+				          processData_unistream(reader.result);
+				        };
+				        reader.readAsText(input.files[0], 'CP1251');
+			        } else {
+			        	alert("Выберите файл");
+				    	$("#admin_unistream").hide();
+				    	$("#edited_icon3").show();
+			        }
+			    };
+				
+				function processData_unistream(allText) {
+				    var allTextLines = allText.split(/\r\n|\n/);
+				    var headers = allTextLines[0].split(';');
+				    var ready = true;
+				    var filial_cnt = [];
+					var filial_id = [];
+				    var date = $("#unistream_date").val();
+					var header = headers[0].toLowerCase();
+
+				    if(!stringStartsWith(header, 'принятые платежи unistream')){
+				    	ready = false;
+				    	alert("Не верный формат внутренних данных");
+				    	$("#admin_unistream").hide();
+				    	$("#edited_icon3").show();
+				    }
+
+				    if(date==""){
+				    	ready = false;
+			    		alert("Выберите месяц");
+				    	$("#admin_unistream").hide();
+				    	$("#edited_icon3").show();
+				    }
+
+				    if (ready) {
+						for (var i=2; i<allTextLines.length-1; i++) {
+					        var data = allTextLines[i].split(';');
+					        var founded = null;
+					        data[1] = data[1].replace(/\s/g, '');
+					        founded = filials_ids[data[1]];
+					        if(founded!=null){
+					        	console.log(founded + " : " + data[2]);
+					        	data[2] = data[2].replace(/\s/g, '');
+					        	filial_id.push(founded);
+					        	filial_cnt.push(data[2]);
+					        }
+					    }
+					    for (var i = 0; i < filial_cnt.length; i++) {
+					    	if(i==filial_cnt.length-1)
+					    		insert_to_table_unistream(filial_id[i],filial_cnt[i],date,true);
+					    	else
+					    		insert_to_table_unistream(filial_id[i],filial_cnt[i],date,false);
+					    }
+				    }
+				}
+
+				function insert_to_table_unistream(id,cnt,month,is_last){
+					$.ajax({
+						url: "/api/filters/update_unistream.html",
+						type: "GET",
+						data: {
+							"filial_id": id,
+							"filial_count": cnt,
+							"v_month": month,
+						},
+						success: function(xml) {				
+							console.log("Finished "+id);
+							if(is_last){
+								alert("Сохранено успешно!");
+						    	$("#admin_unistream").hide();
+						    	$("#edited_icon3").show();
+							}
+						}
+					});
+				}
+			</script>
+		</div>
+		<br/>	
+
+
+		<div style="display:none;" id="tbl_wu"></div>								
+		<div class="panel" style="width:100%;" id="pensions">
+			<h3><span class="icon graph"></span>Переводы "Western Union"</h3>
+			<h4>Количество принятых и выданных переводов в разере валют</h4>
+			Динамика за предыдущий день, база COLVIR PREV DAY 
+			<div id="graph_wu" class="agraph" style="height: 400px; margin-bottom:-10px;"></div>
+			<div id="tbl_wu_dtl" style="display:none;height:400px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>	
+		</div>
+		
+		<br/>
+
+		<div style="display:none;" id="tbl_e_not"></div>		
+		<div class="panel" style="float:left;width:100%" id="e_not">
+			<h3><span class="icon graph"></span>Е-Нотариат</h3>
+			<h4>Количество операций по Е-Нотариат: <span name="e_not_date">с октября</span></h4>
+			Динамика за предыдущий день, база COLVIR PREV DAY
+			<div id="graph_e_not"  class="agraph" style="height: 400px; margin-bottom:-10px;"></div>
+			<div id="tbl_e_not_dtl" style="display:none;height:400px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+		</div>
+		<br/>
+
+		
+		<div style="display:none;" id="tbl_course_exchange"></div>		
+		<div class="panel" style="float:left;width:100%" id="course_exchange">
+			<h3><span class="icon graph"></span>Купля-продажа наличной валюты в обменных пунктах</h3>
+			<h4>Количество обменных операций за текущий месяц</h4>
+			Динамика за предыдущий день, база COLVIR PREV DAY
+			<div id="graph_course_exchange"  class="agraph" style="height: 400px; margin-bottom:-10px;"></div>
+			<div id="tbl_course_exchange_dtl" style="display:none;height:400px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+		</div>
+		<br/>
+
+	    <br/>						
+		
+		<div style="display:none;" id="tbl_penaltypdd"></div>			
+		<div class="panel" style="width:100%;">
+			<h3><span class="icon graph"></span>Онлайн оплата штрафов за нарушение ПДД</h3>
+			<h4>Количество принятых онлайн платежей по оплате штрафов за нарушение ПДД</span></h4>
+			Динамика за текущую и предыдущую недели, база COLVIR PREV DAY
+			<div id="graph_penaltypdd" class="agraph" style="height: 430px; margin-bottom:-10px;"></div>
+			<div id="tbl_penaltypdd_dtl" style="display:none;height:430px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+		</div>
+
+		<br/>	
+
+		
+		<div style="display:none;" id="tbl_quicktr"></div>						
+		<div class="panel" style="width:100%;">
+			<h3><span class="icon graph"></span>«SALEM TENGE»</h3>
+			<h4>Количество  переводов «Salem, tenge» <span name="quicktr_date"></span></h4>
+			Динамика за текущую и предыдущую недели, база COLVIR PREV DAY 
+			<div id="graph_quicktr" class="agraph" style="height: 400px; margin-bottom:-10px;"></div>
+			<div id="tbl_quicktr_dtl" style="display:none;height:400px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+		</div>
+					
+		<br/>			
+		
+		<div style="display:none;" id="tbl_mpu"></div>		
+		<div class="panel" style="float:left;width:100%" id="gep1">
+			<h3><span class="icon graph"></span>Услуги, оказанные через МПУ</h3>
+			<h4>Количество услуг, оказанных через МПУ <span name="mpu_date"></span></h4>
+			Динамика за текущий и предыдущий периоды, база COLVIR PREV DAY
+			<div class="sort_div mpu_div" id='sort_services_div' style="display:none;"><a>Выводить по: </a>
+			<select class="mySELECTOR" id='mpu_selector' size="1" style="width:130px;">
+				<option selected="selected" value="">Рупсам</option>
+				<option value="2">Услугам</option>
+			</select></div>
+			<div id="graph_mpu"  class="agraph" style="height: 400px; margin-bottom:-10px;"></div>
+			<div id="tbl_mpu_dtl" style="display:none;height:400px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+			<script type="text/javascript">
+				$j('#mpu_selector').SumoSelect();
+				$j("#mpu_selector").change(function() {
+					console.log("MPU selector");
+					var mpu_value = $("#mpu_selector").val();
+					$.get('/api/reports/mpu_dtl'+mpu_value+'.html?p_filial='+mpu_filial+'&p_period='+mpu_period, 
+                    	function(xml) {
+                    		$("#tbl_mpu_dtl").html(xml);
+                    		
+                    		var array_td_width = [];
+							var counter = 0;
+							  //var firstColumnWidth = table.find("td:first").width();
+							$(".mpu_table2 tr:last td").each(function() {              // Define a minimum
+								array_td_width[counter] = $(this).width()+1;
+								counter = counter + 1;     // css attribute of your <td> width:15px; i.e.
+							});
+							var last = counter - 1;
+							counter = 0;
+							$(".mpu_table tr:first th").each(function() {              // Define a minimum
+							  	if(counter!=last)
+							  		$(this).css("width", array_td_width[counter] + "px");     // css attribute of your <td> width:15px; i.e.
+								counter = counter + 1;
+							});
+                    	}
+                    );
+				});
+			</script>
+		</div>
+					
+		<br/>
+		
+		<div style="display:none;" id="tbl_postals"></div>			
+		<div class="panel" style="width:100%;">
+			<h3><span class="icon graph"></span>Почтовые Денежные Переводы</h3>
+			<h4>Количество почтовых денежных переводов внутри РК</h4>
+			Динамика за предыдущий день, база COLVIR PREV DAY 
+			<div id="graph_postals" class="agraph" style="height: 400px; margin-bottom:-10px;"></div>
+			<div id="tbl_postals_dtl" style="display:none;height:400px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+		</div>
+
+		<br/>			
+		
+		<div style="display:none;" id="tbl_int_postals"></div>							
+		<div class="panel" style="width:100%;">
+			<h3><span class="icon graph"></span>Международные Почтовые Денежные Переводы</h3>
+			<h4>Количество международных почтовых переводов</h4>
+			Динамика за предыдущий день, база COLVIR PREV DAY 
+			<div id="graph_int_postals" class="agraph" style="height: 400px; margin-bottom:-10px;"></div>
+			<div id="tbl_int_postals_dtl" style="display:none;height:400px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+		</div>			
+		
+		<br/>															   	
+		
+		<div style="display:none;" id="tbl_pensions"></div>								
+		<div class="panel" style="width:100%;" id="pensions">
+			<h3><span class="icon graph"></span>Счета "Пенсий и пособий"</h3>
+			<h4>Количество открытых счетов для выдачи пенсий и пособий на <span name="pensions_date"></span></h4>
+			Динамика за предыдущий день, база COLVIR PREV DAY 
+			<div id="graph_pensions" class="agraph" style="height: 400px; margin-bottom:-10px;"></div>
+			<div id="tbl_pensions_dtl" style="display:none;height:400px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+			<br>
+			<h4>Общее количество открытых счетов на <span name="pensions_date"></span>:  <span name="pens_total_count"></span></h4>
+		</div>
+		
+		<br/>
+		
+		<div style="display:none;" id="tbl_pensions_opened"></div>							
+		<div class="panel" style="width:100%;">
+			<h3><span class="icon graph"></span>Открытые счета пенсий и пособий</h3>
+			<h4>Количество открытых счетов пенсий и пособий за период</h4>
+			Динамика за предыдущий день, база COLVIR PREV DAY 
+			<div id="graph_pensions_opened" class="agraph" style="height: 400px; margin-bottom:-10px;"></div>
+			<div id="tbl_pensions_opened_dtl" style="display:none;height:400px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+		</div>			
+		
+		<br/>
+		
+		
+		
+		   
+		<div style="display:none;" id="tbl_opencsh"></div>				
+		<div class="panel" style="float:left;width:49%" id="opencsh">
+			<h3><span class="icon graph"></span>Незакрытые кассы в филиалах</h3>
+			<h4><span name="opencsh_date"></span></h4>
+			Список незакрытых касс
+			<h4><span name="opencsh_info"></span></h4>
+			<div id="graph_opencsh"  class="agraph" style="height: 400px; margin-bottom:-10px; aligh-text:center;"></div>
+			<div id="tbl_opencsh_dtl" style="display:none;height:400px; overflow-y:auto; margin-bottom:-10px;"></div>
+		</div>
+
+		<div style="display:none;" id="tbl_opencsh_web"></div>				
+		<div class="panel" style="float:right;width:48%;margin-right:-1px;" id="opencsh_web">
+			<h3><span class="icon graph"></span>Открытые виртуальные кассы</h3>
+			<h4><span name="opencsh_date_web"></span></h4>
+			Список открытых касс
+			<h4><span name="opencsh_info_web"></span></h4>
+			<div id="graph_opencsh_web"  class="agraph" style="height: 400px; margin-bottom:-10px;"></div>
+			<div id="tbl_opencsh_dtl_web" style="display:none;height:400px; overflow-y:auto; margin-bottom:-10px;"></div>
+		</div>
+    </tab>  
+
+    <tab id="tabPost" style="display:none">
+        
+		<div>
+			<div class="subhead" style="display:inline-block; float:left;">
+				<h1>
+					<span class="icon48 nedv"></span>Dashboard - Почтовые услуги
+					<sub>Данные для графиков предоставлены из системы COLVIR и CPILS</sub>
+				</h1>
+			</div>
+			<!--
+			<div class="panel-filter filters" style="display:inline-block; float:right;">	        
+				<div class="filter">Период : <a href="#" class="selected">Сегодня</a><a href="#">За неделю</a><a href="#">За месяц</a></div>
+				<hr />
+				<input style="width:30px;" type="button"/> <input type="text" value="07 Дек 2014"/> - <input type="text" value="07 Дек 2014"/>
+				<button class="mini"><span class="icon reload"></span></button>
+			</div>-->
+		</div>
+
+		<br/>
+		<br/>
+		
+		<div style="display:none;" id="tbl_printtocard"></div>
+		<div class="panel" style="width:100%;">
+			<h3><span class="icon graph"></span>PRINT2CARD</h3>
+			<h4>Количество принятых почтовых карточек Print2Card  <span name="printtocard_date"></span></h4>
+			Динамика за предыдущий день, база COLVIR PREV DAY 
+			<div id="graph_printtocard" class="agraph" style="height: 400px; margin-bottom:-10px;"></div>
+			<div id="tbl_printtocard_dtl" style="display:none;height:400px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+		</div>
+		
+		<br/>
+		
+		<div style="display:none;" id="tbl_postamat"></div>
+		<div style="display:none;" id="tbl_postamat_filial"></div>
+		<div class="panel" style="width:100%;" id="postamat">
+			<h3><span class="icon graph"></span>Отчет по постаматам</h3>
+			<h4 id="postamat_header" style="display:none;">Количество РПО, находящихся в постаматах, на <span name="postamat_date"></span></h4>
+			<h4 id="postamat_filial_header">Количество постаматов по филиалам</h4>
+			Динамика на текущий день 
+			<div id="graph_postamat" class="agraph" style="height: 400px; margin-bottom:-10px; display: none;"></div>
+			<div id="graph_postamat_filial" class="agraph" style="height: 400px; margin-bottom:-10px;"></div>
+			<div id="tbl_postamat_dtl" style="display:none;height:400px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+		</div>
+		
+		<br/>
+		
+		<div style="display:none;" id="tbl_oldmail"></div>				
+		<div class="panel" style="width:100%;">
+			<h3><span class="icon graph"></span>РПО, находящихся в филиалах свыше 14 и 30 дней дней</h3>
+			<h4>Количество почтовых отправлений, находящихся в филиалах свыше 14 и 30 дней </h4>
+			Динамика за предыдущий день, база COLVIR PREV DAY 
+			<div id="graph_oldmail" class="agraph" style="height: 400px; margin-bottom:-10px;"></div>
+			<div id="tbl_oldmail_dtl" style="display:none;height:400px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+		</div>
+		
+		<br/>
+		
+		<div style="display:none;" id="tbl_gep"></div>			
+		<div class="panel" style="float:left;width:100%" id="gep1">
+			<h3><span class="icon graph"></span>ГЭП (ВС РК)</h3>
+			<h4>Количество почтовых отправлений в рамках ГЭП от ВС РК <span name="gep_date"></span></h4>
+			Динамика за предыдущий день, база COLVIR PREV DAY 
+			<div id="graph_gep" class="agraph" style="height: 400px; margin-bottom:-10px;"></div>
+			<div id="tbl_gep_dtl" style="display:none;height:400px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+		</div>
+		
+		<br/>
+
+		<div style="display:none;" id="tbl_gep2"></div>			
+		<div class="panel" style="float:left;width:100%" id="gep1">
+			<h3><span class="icon graph"></span>ГЭП (просроченные и без статуса в системе ВС РК)</h3>
+			<h4>Количество почтовых отправлений (просроченные и без статуса в системе ВС РК) в рамках ГЭП на <span name="gep2_date"></span></h4>
+			Динамика за предыдущий день, база COLVIR PREV DAY 
+			<div id="graph_gep2" class="agraph" style="height: 400px; margin-bottom:-10px;"></div>
+			<div id="tbl_gep2_dtl" style="display:none;height:400px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+		</div>
+		
+		<br/>
+		
+		<div style="display:none;" id="tbl_subscribe"></div>			
+		<div class="panel" style="float:left;width:100%" id="subscribe">
+			<h3><span class="icon graph"></span>Подписка</h3>
+			<h4>Количество заказов на подписку</h4>
+			<h4>за <span name="subscribe_date"></span></h4>
+			<div id="graph_subscribe"  class="agraph" style="height: 400px; margin-bottom:-10px;"></div>
+			<div id="tbl_subscribe_dtl" style="display:none;height:400px; margin-bottom:-10px;"></div>			
+			<br>
+			<h4>Общее количество за <span name="subscribe_date"></span>:   <span name="subscribe_cnt"></h4>
+		</div>
+								 
+		<br/>
+		   
+		<div style="display:none;" id="tbl_mpu_ems"></div>								
+		<div class="panel" style="width:100%;" id="pensions">
+			<h3><span class="icon graph"></span>Отчет по принятым отправлениям EMS через МПУ</h3>
+			<h4>Количество отправлениям EMS через МПУ на <span name="mpu_ems_date"></span></h4>
+			Динамика за предыдущий день, база COLVIR PREV DAY 
+			<div id="graph_mpu_ems" class="agraph" style="height: 400px; margin-bottom:-10px;"></div>
+			<div id="tbl_mpu_ems_dtl" style="display:none; overflow-y:auto; height:400px; margin-bottom:-10px;"></div>
+			<br>
+		</div>
+		
+		<br/>
+		<div style="display:none;" id="tbl_ems_001"></div>		
+		<div class="panel" style="float:left;width:100%" id="ems_001">
+			<h3><span class="icon graph"></span>Отчет по доставленным отправлениям EMS</h3>
+			<h4>Отчет по доставленным отправлениям EMS <span name="ems_001_date"></span></h4>
+			Динамика за текущий и предыдущий периоды, база COLVIR PREV DAY
+			<div id="graph_ems_001"  class="agraph my_highchart_main" style="height: 410px; margin-bottom:-10px;"></div>
+			<div id="tbl_ems_001_dtl" style="display:none;height:410px; margin-bottom:-10px;"></div>
+
+			<h4>Общее количество доставленных отправлений EMS :  <span name="ems_001_total"></span> шт</h4>	
+		</div>
+
+		<br/>
+
+		<div style="display:none;" id="tbl_ems_002"></div>		
+		<div class="panel" style="float:left;width:100%" id="ems_002">
+			<h3><span class="icon graph"></span>Отправления EMS на хранении</h3>
+			<h4>Отправления EMS на хранении <span name="ems_002_date"></span></h4>
+			Динамика за текущий и предыдущий периоды, база COLVIR PREV DAY
+			<div id="graph_ems_002"  class="agraph my_highchart_main" style="height: 400px; margin-bottom:-10px;"></div>
+			<div id="tbl_ems_002_dtl" style="display:none;height:400px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+
+			<h4>Общее количество отправления EMS на хранении :  <span name="ems_002_total"></span> шт</h4>	
+		</div>
+
+		<br/>
+
+		<div style="display:none;" id="tbl_ems_mas"></div>		
+		<div class="panel" style="float:left;width:100%" id="ems_001">
+			<h3><span class="icon graph"></span>Мастер отчет EMS</h3>
+			<h4>Мастер отчет EMS по неделям</h4>
+			Динамика за текущий и предыдущий периоды, база COLVIR PREV DAY
+			<div id="graph_ems_mas"  class="agraph my_highchart_main" style="height: 400px; margin-bottom:-10px;"></div>
+			<div id="tbl_ems_mas_dtl" style="display:none;height:400px; margin-bottom:-10px;"></div>
+		</div>
+
+		<!-- <div style="display:none;" id="tbl_inet_subscr"></div>			
+		<div class="panel" style="float:left;width:100%" id="inet_subscr">
+			<h3><span class="icon graph"></span>Интернет подписка</h3>
+			<h4>Количество заказов на интернет подписку </h4>
+			<h4>за <span name="inet_subscr_date"></span></h4>
+			<div id="graph_inet_subscr"  class="agraph" style="height: 400px; margin-bottom:-10px;"></div>
+			<div id="tbl_inet_subscr_dtl" style="display:none;height:400px; margin-bottom:-10px;"></div>
+			
+			<br>
+			<h4>Общее количество за <span name="inet_subscr_date"></span>:   <span name="total_count"></h4>
+		</div> -->
+								 
+		<br/>
+		
+		<!-- <div style="display:none;" id="tbl_mmpo"></div>			
+		<div class="panel" style="float:left;width:100%" id="mmpo">
+			<h3><span class="icon graph"></span>ММПО</h3>
+			<h4>Количество входящих международных отправлений</h4>
+			Динамика за предыдущий день, база COLVIR PREV DAY
+			<br>
+			<h4><span name="mmpo_info"></span></h4>
+			<br>
+			<div id="graph_mmpo" class="agraph" style="height: 400px; margin-bottom:-10px;"></div>
+			<div id="tbl_mmpo_dtl" style="display:none;height:400px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+		</div>
+		<br>
+		<div style="display:none;" id="tbl_mmpo_ems"></div>			
+		<div class="panel" style="float:left;width:100%" id="mmpo_ems">
+			<h3><span class="icon graph"></span>ММПО EMS</h3>
+			<h4>Количество входящих международных отправлений EMS</h4>
+			Динамика за предыдущий день, база COLVIR PREV DAY 
+			<br>
+			<h4><span name="mmpo_ems_info"></span></h4>
+			<br>
+			<div id="graph_mmpo_ems" class="agraph" style="height: 400px; margin-bottom:-10px;"></div>
+			<div id="tbl_mmpo_ems_dtl" style="display:none;height:400px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+		</div> -->
+		
+		
+		<!--
+		<div class="panel" style="width:100%">
+			<h3><span class="icon icon-table"></span>Таблица РПО</h3>
+			<h4>Таблица количество РПО в разрезе статусов и отдельно по филиалам <span name="rpo_date"></span></h4>
+			<div id="tbl_rpo"></div>
+			<div class="buttons">
+			  <button class="prefered" onclick="window.open('/api/reports/rpo.html', '_blank')"><span class="icon newsite"></span>Открыть отчет</button>
+			</div>
+		</div>
+		
+		<br/>
+		
+		<div class="panel" style="width:100%;">
+			<h3><span class="icon graph"></span>График РПО</h3>
+			<h4>Таблица количество РПО в разрезе статусов и отдельно по филиалам <span name="rpo_date"></span></h4>
+			Динамика за предыдущий день, база CPILS PREV DAY 
+			<div id="graph_rpo" class="agraph" style="height: 400px; margin-bottom:-10px;"></div>
+			<div id="tbl_rpo_dtl" style="display:none;height:400px; overflow-y:auto; margin-bottom:-10px;"></div>
+		</div>									
+		-->
+		<br/>					
+			
+			
+    </tab>	
+	
+	<tab id="tabSroki" style="display:none">
+		<br>
+		<br>
+		<br>
+		<div style="display:none;" id="tbl_sroki"></div>			
+		<div class="panel" style="float:left;width:100%" id="gep1">
+			<h4>Контрольные сроки по почтовым отправлениям</h4>
+			<br>
+			<br>
+			<div id="graph_sroki" class="agraph" style="height:600px; margin-bottom:-10px;"></div>
+			<div id="tbl_sroki_dtl" style="display:none;height:600px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+		</div>
+		<br>		
+	</tab>
+	<tab id="tabAgent" style="display:none">
+		<div>
+			<div class="subhead" style="display:inline-block; float:left;">
+				<h1>
+					<span class="icon48 nedv"></span>Dashboard - Агентские услуги
+					<sub>Данные для графиков предоставлены из системы COLVIR и CPILS</sub>
+				</h1>
+			</div>
+		</div>
+    	<div style="display:none;" id="tbl_tnp"></div>		
+		<div class="panel" style="float:left;width:100%" id="tnp">
+			<h3><span class="icon graph"></span>ТНП</h3>
+			<h4>Количество проданных ТНП <span name="tnp_date"></span></h4>
+			Динамика за текущий и предыдущий периоды, база COLVIR PREV DAY
+			<div id="graph_tnp"  class="agraph" style="height: 400px; margin-bottom:-10px;"></div>
+			<div id="tbl_tnp_dtl" style="display:none;height:400px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+		</div>
+					
+		<br/>
+		
+		<div style="display:none;" id="tbl_tnp_ost"></div>		
+		<div class="panel" style="float:left;width:100%" id="tnp">
+			<h3><span class="icon graph"></span>ТНП</h3>
+			<h4>Количество всех групп ТНП по филиалам на <span name="tnp_ost_date"></span></h4>
+			Динамика за предыдущий день, база COLVIR PREV DAY
+			<div id="graph_tnp_ost"  class="agraph" style="height: 400px; margin-bottom:-10px;"></div>
+			<section id="tbl_tnp_ost_dtl" style="display:none; height:400px; margin-bottom:-10px;"></section>
+			<h4>Общее количество всех групп ТНП :  <span name="tnp_ost_total"></span></h4>			
+		</div>
+					
+		<br/>
+		
+		<div style="display:none;" id="tbl_tickets"></div>		
+		<div class="panel" style="float:left;width:100%" id="tickets">
+			<h3><span class="icon graph"></span>Продажа авиа/жд билетов</h3>
+			<h4>Количество проданных авиа/жд билетов <span name="tickets_date"></span></h4>
+			Динамика за текущий и предыдущий периоды, база COLVIR PREV DAY
+			<div id="graph_tickets"  class="agraph" style="height: 400px; margin-bottom:-10px;"></div>
+			<div id="tbl_tickets_dtl" style="display:none;height:400px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+		</div>
+					
+		<br/>
+	</tab>
+	<tab id="tabCommerce" style="display:none">
+    	<div>
+			<div class="subhead" style="display:inline-block; float:left;">
+				<h1>
+					<span class="icon48 nedv"></span>Dashboard - E-COMMERCE
+					<sub>Данные для графиков предоставлены из системы COLVIR и CPILS</sub>
+				</h1>
+			</div>
+			
+		</div>
+
+		<br/>
+		<br/>
+		<div style="float:left;width:75%;display:table;">	
+			<!-- <div class="panel" style="float:left;width:30%;" id="total_other">
+				<h4>Postmarket.kz Подписки, Данные по месяцам 2015</h4>
+				<div id="graph_postmarket2" class="agraph" style="height: 260px; margin-bottom:-10px;"></div>
+				<br>
+				<div id="tbl_postmarket_dtl2" style="display:none;height:240px; overflow-y:auto; margin-bottom:-10px; position:relative;">
+					<table cellpadding="0" cellspacing='0' class='table' id='postmarket_table'></table>
+				</div>
+			</div> -->
+			<div style="display:none;" id="tbl_inet_subscr"></div>			
+			<div class="panel" style="float:left;width:61.5%" id="inet_subscr">
+				<h4>Интернет подписка, Количество заказов на интернет подписку </h4>
+				<!-- <h4>за <span name="inet_subscr_date"></span></h4> -->
+				<div id="graph_inet_subscr"  class="agraph" style="height: 235px; margin-top:20px;"></div>
+				<div id="tbl_inet_subscr_dtl" style="display:none;height:235px; margin-top:25px;"></div>
+				<br>
+				<!-- <h4>Общее количество за <span name="inet_subscr_date"></span>:   <span name="total_count"></h4> -->
+			</div>
+			<div class="panel" style="float:left;width:30%;" id="total_eshop">
+				<img class="edit_icon" id='edit_icon4' 
+					src='_img/edit_icon.png' onmouseover="this.src='_img/edit_icon2.png'"
+					onmouseout="this.src='_img/edit_icon.png'"
+					onclick="showPanel('admin_panel4','edit_icon4')">
+
+				<div class='admin_panel' id="admin_panel4" style='display:none;'>
+					<select class="admin_SELECTOR" id='eshop' size="1">
+						<option selected="selected" disabled value="">Месяц</option>
+						<option value="01.2015">Январь</option>
+						<option value="02.2015">Февраль</option>
+						<option value="03.2015">Март</option>
+						<option value="04.2015">Апрель</option>
+						<option value="05.2015">Май</option>
+						<option value="06.2015">Июнь</option>
+						<option value="07.2015">Июль</option>
+						<option value="08.2015">Август</option>
+						<option value="09.2015">Сентябрь</option>
+						<option value="10.2015">Октябрь</option>
+						<option value="11.2015">Ноябрь</option>
+						<option value="12.2015">Декабрь</option>
+					</select>
+					<div  class="admin_input_div" > 
+					<input class="admin_input" placeholder="Введите значения" type="number" id="value_eshop"></div>
+					<button class="admin_button" onClick="updateInformation('eshop')">ОК</button>
+					<button class="admin_button" onClick="deleteInformation('eshop')">delete</button>
+				</div>
+				<h4>Количество ГЗПО, реализованных через интернет-магазин</span>
+				<br>
+				<h4></h4>
+				<div id='tbl_total_eshop' style="display:none;"></div>
+				<div id="graph_total_eshop" class="agraph" style="height: 260px; margin-bottom:-10px;"></div>
+			</div>
+			<br>
+
+			<div style="display:none;" id="tbl_postamat2"></div>		
+			<div class="panel" style="float:left;width:61.5%;" id="postamat2">
+				<h4>Перенаправление на постамат через post.kz (<span name="postamat2_date"></span>)</h4>
+				Данные с post.kz 
+				<div id="graph_postamat2"  class="agraph" style="height: 260px; margin-bottom:-10px;"></div>
+				<div id="tbl_postamat2_dtl" style="display:none;height:400px; overflow-y:auto; margin-bottom:-10px;">
+				</div>
+			</div>
+			<div class="panel" style="float:left;width:30%;" id="total_subscr">
+				<h4>Количество заказов по подписке</h4>
+				<div id="graph_total_subscr" class="agraph" style="margin-bottom:-10px;height:280px;"></div>
+			</div>
+			<br>
+			<div class="panel" style="float:left;width:61.5%;" id="total_other">
+				<h4>Post.kz</h4>
+				<div id="graph_postkz" class="agraph" style="height: 260px; margin-bottom:-10px;"></div>
+				<br>
+				<div id="tbl_postkz" style="display:none;height:240px; overflow-y:auto; margin-bottom:-10px; position:relative;">
+				</div>
+			</div>
+			<div class="panel" style="float:left;width:30%;" id="total_postmarket">
+				<h4>Postmarket.kz товары, <span id="postmarket_title">Данные по месяцам 2015</span></h4>
+				<div id="graph_postmarket" class="agraph" style="height: 260px; margin-bottom:-10px;"></div>
+				<br>
+				<div id="tbl_postmarket_dtl" style="display:none;height:260px; overflow-y:auto; margin-bottom:-10px; position:relative;">
+				<table cellpadding="0" cellspacing='0' class='table' id='postmarket_table' style='margin-top:20px;'></table>
+				</div>
+			</div>
+			<br>
+
+			<div style="display:none;" id="tbl_postmarket_subcr"></div>		
+			<div class="panel" style="float:left;width:61.5%;" id="postmarket_subcr">
+				<h4>Доходы epay по подпискам и товарам на postmarket.kz (<span name="postmarket_subcr_date"></span>)</h4>
+				Данные с post.kz 
+				<div id="graph_postmarket_subcr"  class="agraph" style="height: 400px; margin-bottom:-10px;"></div>
+				<div id="tbl_postmarket_subcr_dtl" style="display:none;height:400px; overflow-y:auto; margin-bottom:-10px;">
+				</div>
+			</div>
+			<br>
+		</div> 
+	</tab>	
+
+	<tab id="tabTotal" style="display:none">
+		
+		<div>
+			<div class="subhead" style="display:inline-block; float:left;">
+				<h1>
+					<span class="icon48 nedv"></span>Dashboard - Общая статистика
+					<sub>Данные для графиков предоставлены из системы COLVIR и CPILS</sub>
+				</h1>
+			</div>
+			
+			<!--
+			<div class="panel-filter filters" style="display:inline-block; float:right;">	        
+				<div class="filter">Период : <a href="#" class="selected">Сегодня</a><a href="#">За неделю</a><a href="#">За месяц</a></div>
+				<hr />
+				<input style="width:30px;" type="button"/> <input type="text" value="07 Дек 2014"/> - <input type="text" value="07 Дек 2014"/>
+				<button class="mini"><span class="icon reload"></span></button>
+			</div>-->
+		</div>
+
+		<br/>
+		<br/>
+		
+		<div style="display:none;" id="tbl_total_postomat"></div>
+		<div style="display:none;" id="tbl_total_gep"></div>
+		<div style="display:none;" id="tbl_total_subscr"></div>		
+		<div style="display:none;" id="tbl_total_pensacc"></div>
+		<div style="display:none;" id="tbl_total_indicators"></div>
+		<div style="display:none;" id="tbl_total_eshop"></div>
+		<div style="display:none;" id="tbl_sms"></div>		
+		<div style="display:none;" id="tbl_postmarket"></div>
+		<div style="display:none;" id="tbl_postmarket2"></div>
+		<div style="display:none;" id="tbl_postkz"></div>		
+		<div style="float:left;width:75%;">	
+		
+				
+				<!--  -->
+				<div class="panel" style="float:left;width:30%;" id="kazpostbot">
+					<!-- <h3><span class="icon graph"></span>KazPostBot</h3> -->
+					<h4>Статистика Телеграм Бота - @KazPostBot</h4>
+					<div id="graph_kazpostbot"  class="agraph" style="height: 190px; margin-bottom:-10px;"></div>
+					<h4 style="margin-top:10px;">Общее количество пользователей: <span name="kazpostbot_total_users"></span></h4>
+				</div>
+				
+				
+				<div class="panel" style="float:left;width:30%;" id="total_pensacc">
+
+					<img class="edit_icon" id='edit_icon1' 
+						src='_img/edit_icon.png' onmouseover="this.src='_img/edit_icon2.png'"
+						onmouseout="this.src='_img/edit_icon.png'"
+						onclick="showPanel('admin_panel1','edit_icon1')">
+					<div class='admin_panel' id="admin_panel1" style='display:none;'>
+						<select class="admin_SELECTOR" id='pensacc' size="1">
+							<option selected="selected" disabled value="">Месяц</option>
+							<option value="01.2015">Январь</option>
+							<option value="02.2015">Февраль</option>
+							<option value="03.2015">Март</option>
+							<option value="04.2015">Апрель</option>
+							<option value="05.2015">Май</option>
+							<option value="06.2015">Июнь</option>
+							<option value="07.2015">Июль</option>
+							<option value="08.2015">Август</option>
+							<option value="09.2015">Сентябрь</option>
+							<option value="10.2015">Октябрь</option>
+							<option value="11.2015">Ноябрь</option>
+							<option value="12.2015">Декабрь</option>
+						</select>
+						<div  class="admin_input_div" > 
+						<input class="admin_input" placeholder="Введите значения" type="number" id="value_pensacc"></div>
+						<button class="admin_button" onClick="updateInformation('pensacc')">ОК</button>
+						<button class="admin_button" onClick="deleteInformation('pensacc')">delete</button>
+					</div>
+					<h4>Динамика открытых лицевых и карточных счетов пенсий и пособий за 2015г</h4>
+					<div id="tbl_total_pensacc" style="display:none;"></div>
+					<div id="graph_total_pensacc" class="agraph"  style="height: 200px; margin-bottom:-10px;"></div>
+				</div>
+				
+				<!-- <div class="panel" style="float:left;width:30%;height:280px;">
+					<h1 style="color:#FFFFFF " align="center">Количество отправлений за  <span name="total_orders_date"></h1>
+					<br>
+					<br>
+					<h1 style="color:#FFFFFF " align="center">ГЭП принято - <span name="total_gep"></h1>						
+					<h1 style="color:#FFFFFF " align="center">с нарушением - <span name="total_gep2"></h1>						
+					<div id="graph_total_indicators" class="agraph" style="height: 200px; margin-bottom:-10px"></div>
+				</div> -->
+				
+				<div class="panel" style="float:left;width:30%;height:280px;">
+					<h1 style="color:#FFFFFF" align="center">SALEM TENGE</h1>
+					<br>
+					<h1 style="color:#FFFFFF" align="center"><span name="total_quicktr_date" style="display:inline;"></span></h1>
+					<br>
+					<br>	
+					<h1 style="color:#FFFFFF " align="center">прирост по количеству   <span name="total_quicktr_growth" style="display:inline;"></h1>
+					<h1 style="color:#FFFFFF " align="center">прирост по объему   <span name="total_quicktr_sdok_growth" style="display:inline;"></h1>
+					<h1 style="color:#FFFFFF " align="center">прирост по доходу   <span name="total_quicktr_comiss_growth" style="display:inline;"></h1>
+					<h2 style="color:#87CEEB " align="center">(в сравнении с аналогичным периодом прошлого года)</h2>
+					<div id="graph_total_indicators" class="agraph" style="height: 200px; margin-bottom:-10px"></div>
+				</div>								
+
+				<br>
+					
+				<div class="panel" style="float:left;width:30%;" id="total_postomat">
+					<h4>Количество постаматов:  <span name="total_postomat_count"></h4></span>
+					<br>
+					<h4></h4>
+					<div id="graph_total_postomat" class="agraph" style="height: 200px; margin-bottom:-10px;"></div>
+				</div>
+				
+				<div class="panel" style="float:left;width:30%;" id="total_branches">
+					<img class="edit_icon" id='edit_icon2' 
+						src='_img/edit_icon.png' onmouseover="this.src='_img/edit_icon2.png'"
+						onmouseout="this.src='_img/edit_icon.png'">
+
+					<div class='admin_panel_lines' id="admin_panel_lines1" style='display:none;'>
+						<a style="margin-left:15%; margin-bottom:10px; font-size:18px;">Автоматизировано отделений</a>
+						<table id="admin_table" style="margin-top:10px;">
+							<tr>
+								<td>Акмолинский</td>
+								<td><input type="number" id="reg1" placeholder="ведите значения" class="admin_input_text"></td>
+							</tr>
+							<tr>
+								<td>Актюбинский</td>
+								<td><input type="number" id="reg2" placeholder="ведите значения" class="admin_input_text"></td>
+							</tr>
+							<tr>
+								<td>Алматинский</td>
+								<td><input type="number" id="reg3" placeholder="ведите значения" class="admin_input_text"></td>
+							</tr>
+							<tr>
+								<td>Алматинский почтамт</td>
+								<td><input type="number" id="reg4" placeholder="ведите значения" class="admin_input_text"></td>
+							</tr>
+							<tr>
+								<td>Астанинский почтамт</td>
+								<td><input type="number" id="reg5" placeholder="ведите значения" class="admin_input_text"></td>
+							</tr>
+							<tr>
+								<td>Атырауский</td>
+								<td><input type="number" id="reg6" placeholder="ведите значения" class="admin_input_text"></td>
+							</tr>
+							<tr>
+								<td>Восточно-Казахстанский</td>
+								<td><input type="number" id="reg7" placeholder="ведите значения" class="admin_input_text"></td>
+							</tr>
+							<tr>
+								<td>Жамбылский</td>
+								<td><input type="number" id="reg8" placeholder="ведите значения" class="admin_input_text"></td>
+							</tr>
+							<tr>
+								<td>Западно-Казахстанский</td>
+								<td><input type="number" id="reg9" placeholder="ведите значения" class="admin_input_text"></td>
+							</tr>
+							<tr>
+								<td>Карагандинский</td>
+								<td><input type="number" id="reg10" placeholder="ведите значения" class="admin_input_text"></td>
+							</tr>
+							<tr>
+								<td>Костанайский</td>
+								<td><input type="number" id="reg11" placeholder="ведите значения" class="admin_input_text"></td>
+							</tr>
+							<tr>
+								<td>Кызылординский</td>
+								<td><input type="number" id="reg12" placeholder="ведите значения" class="admin_input_text"></td>
+							</tr>
+							<tr>
+								<td>Мангистауский</td>
+								<td><input type="number" id="reg13" placeholder="ведите значения" class="admin_input_text"></td>
+							</tr>
+							<tr>
+								<td>Павлодарский</td>
+								<td><input type="number" id="reg14" placeholder="ведите значения" class="admin_input_text"></td>
+							</tr>
+							<tr>
+								<td>Северо-Казахстанский</td>
+								<td><input type="number" id="reg15" placeholder="ведите значения" class="admin_input_text"></td>
+							</tr>
+							<tr>
+								<td>Южно-Казахстанский</td>
+								<td><input type="number" id="reg16" placeholder="ведите значения" class="admin_input_text"></td>
+							</tr> 
+						</table>
+						<br>
+						<button class="admin_button2" onClick="updateInf_canals('branches')">ОК</button>
+						<br>
+					</div>
+					<!-- <div class='admin_panel_lines' id="admin_panel_lines2" style='display:none;'>
+						<table id="admin_table">
+							<tr>
+								<td>Регион</td>
+								<td><a id="region_admin" region='1'>Акмолинский</a></td>
+							</tr>
+							<tr>
+								<td>Автоматизировано за предыдущий месяц</td>
+								<td><input type="number" id="region_input1" placeholder="Введите " class="admin_input_text2"></td>
+							</tr>
+							<tr>
+								<td>Всего автоматизировано ОПС</td>
+								<td><input type="number" id="region_input2" placeholder="Введите " class="admin_input_text2"></td>
+							</tr>
+							<tr>
+								<td>Всего ОПС( автом. + не автом.)</td>
+								<td><input type="number" id="region_input3" placeholder="Введите " class="admin_input_text2"></td>
+							</tr>
+						</table>
+						<br>
+						<button class="admin_button2" onClick="updateInf_automated('branches')">ОК</button>
+						<br>
+					</div> -->
+					<div class='admin_panel' id="admin_panel2" style='display:none;'>
+						<select class="admin_SELECTOR" id='branches' size="1">
+							<option selected="selected" disabled value="">Месяц</option>
+							<option value="01.2015">Январь</option>
+							<option value="02.2015">Февраль</option>
+							<option value="03.2015">Март</option>
+							<option value="04.2015">Апрель</option>
+							<option value="05.2015">Май</option>
+							<option value="06.2015">Июнь</option>
+							<option value="07.2015">Июль</option>
+							<option value="08.2015">Август</option>
+							<option value="09.2015">Сентябрь</option>
+							<option value="10.2015">Октябрь</option>
+							<option value="11.2015">Ноябрь</option>
+							<option value="12.2015">Декабрь</option>
+						</select>
+						<div  class="admin_input_div" > 
+						<input class="admin_input" placeholder="Введите значения" type="number" id="value_branches" style=""></div>
+						<button class="admin_button" onClick="updateInformation('branches')">ОК</button>
+						<button class="admin_button" onClick="deleteInformation('branches')">delete</button>
+					</div>
+					<h4>Почтовые отделения</h4>
+					<h4>
+						Автоматизировано - 
+						<a class="a_value_admin_panel2" id='branches_first'>0</a>
+						<input class="input_value_admin_panel2" id='branches_input' value='0' type="number" style="width:60px;display:none;position:relative;">
+						, неавтоматизировано - 
+						<a class="a_value_admin_panel2" id='branches_second'>0</a>
+						<input class="input_value_admin_panel2" id='branches_input2' value='0' type="number" style="width:60px;display:none;position:relative;">
+					</h4>
+					<div id="tbl_total_branches" style="display:none;"></div>
+					<div id="graph_total_branches" class="agraph" style="height: 200px; margin-bottom:-10px;"></div>
+				</div>
+				
+				<div class="panel" style="float:left;width:30%;" id="total_branches">
+					<img class="edit_icon" id='edit_icon3' 
+						src='_img/edit_icon.png' onmouseover="this.src='_img/edit_icon2.png'"
+						onmouseout="this.src='_img/edit_icon.png'"
+						onclick="showPanel('admin_panel3','edit_icon3')">
+					<div class='admin_panel' id="admin_panel3" style='display:none;'>
+						<select class="admin_SELECTOR" id='cards' size="1">
+							<option selected="selected" disabled value="">Месяц</option>
+							<option value="01.2015">Январь</option>
+							<option value="02.2015">Февраль</option>
+							<option value="03.2015">Март</option>
+							<option value="04.2015">Апрель</option>
+							<option value="05.2015">Май</option>
+							<option value="06.2015">Июнь</option>
+							<option value="07.2015">Июль</option>
+							<option value="08.2015">Август</option>
+							<option value="09.2015">Сентябрь</option>
+							<option value="10.2015">Октябрь</option>
+							<option value="11.2015">Ноябрь</option>
+							<option value="12.2015">Декабрь</option>
+						</select>
+						<div  class="admin_input_div" > 
+						<input class="admin_input" placeholder="Введите значения" type="number" id="value_cards" style=""></div>
+						<button class="admin_button" onClick="updateInformation('cards')">ОК</button>
+						<button class="admin_button" onClick="deleteInformation('cards')">delete</button>
+					</div>
+					<h4>Выпуск платежных карточек</h4>
+					<h4>
+						Всего - 
+						<a class="a_value_admin_panel3" id='cards_first'>0</a>
+						<input class="input_value_admin_panel3" id='cards_input' value='0' type="number" style="width:60px;display:none;position:relative;">
+						, активные - 
+						<a class="a_value_admin_panel3" id='cards_second'>0</a>
+						<input class="input_value_admin_panel3" id='cards_input2' value='0' type="number" style="width:60px;display:none;position:relative;">
+					</h4>
+					<div id="tbl_total_cards" style="display:none;"></div>
+					<div id="graph_total_cards" class="agraph"  style="height: 200px; margin-bottom:-10px;"></div>
+				</div>
+				
+				<br>	
+						
+				
+				
+				<div class="panel" style="float:left;width:30%;height:280px;">				
+					<h1 style="color:#FFFFFF;" align="center">Количество РПО за <span name="total_rpo_date"></h1>
+					<h1 style="color:#FFFFFF " align="center"><span name="total_rpo" style="display:inline;"></span>  <span name="total_rpo_growth" style="display:inline;"></span></h1>
+					<h2 style="color:#87CEEB " align="center">(в сравнении с аналогичным периодом прошлого года)</h2>
+					<br>
+					<h1 style="color:#FFFFFF;" align="center">в том числе EMS <span name="total_ems_date"></h1>
+					<h1 style="color:#FFFFFF " align="center"><span name="total_ems" style="display:inline;"></span>  <span name="total_ems_growth" style="display:inline;"></span></h1>
+					<h2 style="color:#87CEEB " align="center">(в сравнении с аналогичным периодом прошлого года)</h2>
+					<br>
+					<div id="graph_total_indicators" class="agraph" style="margin-bottom:-10px"></div>
+				</div>
+
+				<div class="panel" style="float:left;width:30%;height:280px;">
+					<h1 style="color:#FFFFFF " align="center">Количество переводов за  <span name="total_orders_date"></h1>
+					<h1 style="color:#FFFFFF " align="center"><span name="total_orders" style="display:inline;"></span>  <span name="total_orders_growth" style="display:inline;"></span></h1>
+					<h2 style="color:#87CEEB " align="center">(в сравнении с аналогичным периодом прошлого года)</h2>
+					<br>
+					<h1 style="color:#FFFFFF " align="center">Объем платежей за  <span name="total_payments_date"></h1>
+					<h1 style="color:#FFFFFF " align="center"><span name="total_payments_sdok" style="display:inline;"></span>  <span name="total_payments_sdok_growth" style="display:inline;"></span></h1>
+					<h2 style="color:#87CEEB " align="center">(в сравнении с аналогичным периодом прошлого года)</h2>
+					<div id="graph_total_indicators" class="agraph" style="height: 200px; margin-bottom:-10px"></div>
+				</div>
+
+				<div class="panel" style="float:left;width:30%;height:280px;" id="sms">
+					<h4>Количество sms-уведомлений</h4>
+					<br>
+					<div id="graph_sms" class="agraph" style="height: 200px; margin-bottom:-10px;"></div>
+					<br>
+					<div id="tbl_sms_dtl" style="display:none;height:180px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+				</div>
+				<br>
+				<!-- <div style="width:123.5%;"> -->
+					<div style="display:none;" id="tbl_sms_rashod"></div>		
+					<div class="panel" style="float:left;width:61.5%;" id="sms_rashod">
+						<h4>SMS - Уведомления по расходным операций по счетам пенсий и пособий</h4>
+						Динамика за предыдущий день, база COLVIR PREV DAY
+						<div id="graph_sms_rashod"  class="agraph" style="height: 250px; margin-bottom:-10px;"></div>
+						<div id="tbl_sms_rashod_dtl" style="display:none;height:250px; overflow-y:auto; margin-bottom:-10px; position:relative;"></div>
+					</div>
+					<br>
+					<div class="panel" style="float:left;width:61.5%;" id="total_gep">
+						<h4>Количество отправлений по ГЭП:  <span name="total_gep_count"></h4></span>
+						<br>
+						<h4></h4>
+						<div id="graph_total_gep" class="agraph" style="height: 245px; margin-bottom:-10px;"></div>
+					</div>
+				<!-- </div> -->
+					
+				<!-- <br/> -->
+					
+				<script type="text/javascript">
+					$j('.admin_SELECTOR').SumoSelect();
+				</script>
+									
+		</div>
+		<div style="float:left;width:25%">
+			<div style="padding-bottom:50px;">
+			<group style="float:right;">
+				<button class="selected group" tabw="tabTwitter">TWITTER</button>
+				<button class="group" tabw="tabVk">VK</button>
+				<button class="group" tabw="tabFacebook">FACEBOOK</button>
+			</group>
+			</div>
+			<div>	
+			<tabw id="tabTwitter">
+				<!-- Twitter widget-->
+				<div style="margin:auto; float:right; width:340px;">
+				<a class="twitter-timeline" href="https://twitter.com/search?q=%22%D0%9A%D0%B0%D0%B7%D0%BF%D0%BE%D1%87%D1%82%D0%B0%22%20%20OR%20%22KazPost%22%20OR%20%22Postkaz%22%20OR%20%22%D0%BF%D0%BE%D1%87%D1%82%D0%B0%20%D0%9A%D0%B0%D0%B7%D0%B0%D1%85%D1%81%D1%82%D0%B0%D0%BD%D0%B0%22%20OR%20%22EMS%20Kazpost%22%20OR%20%22%D0%9C%D1%83%D1%81%D0%B8%D0%BD%20%D0%91%D0%B0%D0%B3%D0%B4%D0%B0%D1%82%22%20OR%20%22%D0%91%D0%B0%D0%B3%D0%B4%D0%B0%D1%82%20%D0%9C%D1%83%D1%81%D0%B8%D0%BD%22%20OR%20%22%D0%91%D0%B0%D0%B9%D1%80%D0%B0%D0%BC%20%D0%90%D0%B7%D0%B8%D0%B7%D0%BE%D0%B2%22" data-widget-id="610999635973419009">
+				Твиты о "Казпочта" OR "KazPost" OR "Postkaz" OR "почта Казахстана" OR "EMS Kazpost" OR "Мусин Багдат" OR "Багдат Мусин" OR "Байрам Азизов"</a>
+				<script>
+				!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+				if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}
+				(document,"script","twitter-wjs");
+				</script>
+				</div>
+			</tabw>
+			</div>
+			<div>
+			<tabw id="tabVk" style="display:none;">
+				<!-- VK widget-->
+				<script type="text/javascript" src="//vk.com/js/api/openapi.js?116"></script>
+				<div style="margin:auto; float:right; width:340px;">
+				<div id="vk_groups"></div>
+				</div>
+				<script type="text/javascript">
+					VK.Widgets.Group("vk_groups", {mode: 2, width: "auto", height: "800"}, 45292452);
+				</script>
+			</tabw>
+			</div>
+			<tabw id="tabFacebook" style="display:none;">
+				<!-- Facebook widget--> 
+				<div style="margin:auto; float:right; width:340px;">
+				<div class="fb-page" data-href="https://www.facebook.com/kazpost" data-width="100%" data-height="800" data-small-header="false" data-adapt-container-width="false" data-hide-cover="false" data-show-facepile="false" data-show-posts="true">
+					<div class="fb-xfbml-parse-ignore">
+						<blockquote cite="https://www.facebook.com/kazpost">
+							<a href="https://www.facebook.com/kazpost">Kazpost</a>
+						</blockquote>
+					</div>
+				</div>
+				</div>
+			</tabw>
+		</div>		
+	</tab>
+	<tab id="tabZakup" style="display:none">
+		<div>
+			<div class="subhead" style="display:inline-block; float:left;">
+				<h1>
+					<span class="icon48 nedv"></span>Dashboard - Информация по закупам
+				</h1>
+			</div>
+			
+			<!--
+			<div class="panel-filter filters" style="display:inline-block; float:right;">	        
+				<div class="filter">Период : <a href="#" class="selected">Сегодня</a><a href="#">За неделю</a><a href="#">За месяц</a></div>
+				<hr />
+				<input style="width:30px;" type="button"/> <input type="text" value="07 Дек 2014"/> - <input type="text" value="07 Дек 2014"/>
+				<button class="mini"><span class="icon reload"></span></button>
+			</div>-->
+		</div>
+		<div class="panel" style="display:inline-block;width:100%" id="zakup">
+				<h4 style="color:#DCDCDC">План закупок АО «Казпочта» на 2015 год по состоянию на <a class="zakup_date">15.06.2015</a> г. составляет </h4>
+				<h4><a id="zakup_plan">15 626,02</a>  млн. тенге с учетом НДС.</h4>
+				<h4 style="color:#DCDCDC">По состоянию на <a class="zakup_date">15.06.2015</a> г. заключено <a id="zakup_total_govorov">1009</a> договоров на сумму <a id="zakup_itogo">4 914,93</a> млн. тенге,</h4>
+				<h4 style="color:#DCDCDC">из них по центральному аппарату заключено <a id="zakup_ca_dorogovor">159</a> договоров на сумму <a id="zakup_ca">3 810,01</a> млн. тенге</h4>
+				<h4>Исполнение составляет <a id="zakup_procent">31%</a></h4>
+				<br>
+				<h4>Сумма заключенных договоров в разрезе филиалов, млн.тенге</h4>
+
+				<!-- <input type="file" name="zakup_excel" accept=".csv" STYLE='position:relative;'>
+					<button onclick="readTextFile('file:///C:/Users/Techsupport/Desktop/ZAKUP_demo.csv')">DEMO</button> -->
+				<div id='tbl_zakup' style="display:none;"></div>
+				<div id="graph_zakup" class="agraph" style="height: 450px; margin-bottom:-10px;"></div>
+			    <div id="admin_zakup"  STYLE='position:absolute; top:20px; right:20px; display:none;'>
+				    <input type='file' class="file_upload" accept='.csv' id="file_input">
+			    	<br><br>
+					<input type="text" id='doper_zakup' style='color: #000; width:110px;'  data-sundayfirst="false" data-lang="ru">
+			    	<br>
+				    <button class="save" STYLE='position:relative; margin-top:20px;  width:115px; float:left;' onclick="openFile()">Сохранить</button>
+			    </div>
+				<script>
+					var today = moment().subtract(0,'d').format('DD.MM.YYYY');
+					jQuery("#doper_zakup").val(today);
+					
+	        		jQuery("#doper_zakup").datetimepicker({
+						format:'d.m.Y',
+						timepicker:false,
+						lang:'ru'
+					});
+				    var openFile = function() {
+				        var input = document.getElementById('file_input');
+				        if(input.value!=''){
+					        var reader = new FileReader();
+					        reader.onload = function(){
+					          var text = reader.result;
+					          processData(reader.result);
+					        };
+					        reader.readAsText(input.files[0], 'CP1251');
+				        }else{
+				        	alert("Выберите файл");
+				        }
+				    };
+
+					function processData(allText) {
+					    var allTextLines = allText.split(/\r\n|\n/);
+					    var headers = allTextLines[0].split(';');
+					    var filial_cnt = [];
+					    var extra_cnt = [];
+					    var date = $("#doper_zakup").val();
+					    
+					    if(headers[2]=='Сумма заключенных договоров, млн.тенге'){
+						    for (var i=1; i<allTextLines.length; i++) {
+						        var data = allTextLines[i].split(';');
+						        if (data.length == headers.length) {
+
+						            var tarr = [];
+						            for (var j=0; j<headers.length; j++) {
+						                tarr.push(headers[j]+":"+data[j]);
+						            }
+						            if(i!=23 && i!=25 && i!=24)
+								    	console.log(data[headers.length-2]);
+						            else
+						            	console.log("NEW: "+data[headers.length-1]);
+						            	
+						            if(i<21)
+								    	filial_cnt.push(data[headers.length-2]);
+								    else if(i==21 || i==22 || i==26)
+								    	extra_cnt.push(data[headers.length-2])
+								    else if(i==23 || i==25 || i==24)
+								    	extra_cnt.push(data[headers.length-1])
+						        }
+						    }
+
+						    for (var i = 0; i < filial_cnt.length; i++) {
+						    	filial_cnt[i] = filial_cnt[i].replace(/\s/g, '');
+						    };
+							console.log(filial_cnt);
+						    
+						    for (var i = 0; i < extra_cnt.length; i++) {
+								console.log(extra_cnt[i]);
+						    };
+
+
+							$.ajax({
+								url: "/api/filters/update_zakup.html",
+								type: "GET",
+								data: {
+									"v1": filial_cnt[0],
+									"v2": filial_cnt[1],
+									"v3": filial_cnt[2],
+									"v4": filial_cnt[3],
+									"v5": filial_cnt[4],
+									"v6": filial_cnt[5],
+									"v7": filial_cnt[6],
+									"v8": filial_cnt[7],
+									"v9": filial_cnt[8],
+									"v10": filial_cnt[9],
+									"v11": filial_cnt[10],
+									"v12": filial_cnt[11],
+									"v13": filial_cnt[12],
+									"v14": filial_cnt[13],
+									"v15": filial_cnt[14],
+									"v16": filial_cnt[15],
+									"v17": filial_cnt[16],
+									"v18": filial_cnt[17],
+									"v19": filial_cnt[18],
+									"v20": filial_cnt[19],
+								},
+								success: function(xml) {				
+									$.ajax({
+										url: "/api/filters/update_zakup_extra.html",
+										type: "GET",
+										data: {
+											"v1": extra_cnt[0],
+											"v2": extra_cnt[1],
+											"v3": extra_cnt[2],
+											"v4": extra_cnt[3],
+											"v5": extra_cnt[4],
+											"v6": extra_cnt[5],
+											"v_date": date,
+										},
+										success: function(xml) {				
+											graph_zakup();
+											console.log("Finished last!!!");
+										}
+									});
+									console.log("Finished first level!!!");
+								}
+							});
+						} else {
+					    	alert("Не верный формат внутренних данных");
+					    }
+					}
+				</script>
+		</div>
+			
+	</tab>
+    </div>
+  <!--
+  <div>   
+    <footer>&copy; 2014 Copyright. ИАС Ситуационный центр. Департамент Информационных Технологий. АО Казпочта. Email:<a href="mailto:monitor@kazpost.kz">monitor@kazpost.kz</a> 
+    	<span>Менеджеры проекта: <a href="mailto:aliya.kairbekova@kazpost.kz">Каирбекова Алия</a> (Tel:1318), <a href="mailto:tj@kazpost.kz">Баглан Исраилов</a> (Tel:1995)</span>		
+    </footer>
+    
+  </div>
+  -->
+     
+    <script type="text/javascript" src="_js/jquery.min.js"></script>
+    <script type="text/javascript" src="_assets/highcharts/highcharts.js"></script>
+    <script type="text/javascript" src="_js/jquery.apear.js"></script>
+    <script type="text/javascript" src="_js/charts_post.js"></script>
+	<script type="text/javascript" src="_js/charts_totalstat.js"></script>
+	<script type="text/javascript" src="_js/charts_fin.js"></script>
+	<script type="text/javascript" src="_js/charts_monitor.js"></script>
+
+	<script type="text/javascript" src="_js/jquery.minical.plain.js"></script>	
+	<script type="text/javascript" src="_js/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="_js/jqwidgets/jqxbuttons.js"></script>
+    <script type="text/javascript" src="_js/jqwidgets/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="_js/jqwidgets/jqxpanel.js"></script>
+    <script type="text/javascript" src="_js/jqwidgets/jqxtree.js"></script>
+    
+    <script type="text/javascript" >
+    	val = 0;
+  //   	setInterval(function() {
+  //   		Math.random()*10 >= 5 ? val++ : val--;
+  //   		if(val < 0) val = 0;
+		// 	setBadge();
+		// }, 5000);
+    	
+  //   	function setBadge(){
+  //   		badge.style.opacity = (val > 0) ? 1 : 0;
+  //   		badge.innerText = ( val > 0) ?  val : 1;
+  //   	}
+    	var admin_regions_logins = ["erkebulant","saltanats","samatba","bahtiyare","kuanyshk","daurenka","samaltu","nazgulk","nurgazyk","galymzhanda","temirm","zhaslane","orynbasara","n.sabitova","erlanak","b.alseitov","elenat","rustami"];
+		var admin_regions_text = {"erkebulant":"Акмолинский","saltanats":"Актюбинский","samatba":"Алматинский","bahtiyare":"Алматинский почтамт","kuanyshk":"Астанинский почтамт","daurenka":"Атырауский","samaltu":"Восточно-Казахстанский","nazgulk":"Жамбылский","nurgazyk":"Западно-Казахстанский","galymzhanda":"Карагандинский","temirm":"Карагандинский","zhaslane":"Костанайский","orynbasara":"Кызылординский","n.sabitova":"Мангистауский","erlanak":"Павлодарский","b.alseitov":"Южно-Казахстанский","elenat":"Северо-Казахстанский","rustami":"Западно-Казахстанский"}; 
+		var admin_regions_ids = {"erkebulant":1,"saltanats":2,"samatba":3,"bahtiyare":4,"kuanyshk":5,"daurenka":6,"samaltu":7,"nazgulk":8,"nurgazyk":9,"rustami":9,"galymzhanda":10,"temirm":10,"zhaslane":11,"orynbasara":12,"n.sabitova":13,"erlanak":14,"b.alseitov":15,"elenat":16};	
+		
+   		//$("#username").text(document.cookie.match("USERNAME"+"=([^;]+)")[1]);
+    	var user_login = getCookie('hash_text');
+    	user_login = user_login.toLowerCase();
+		$('#username').html(user_login);
+		if(user_login!='n.kurmashov' && user_login!='a.tursunova' && user_login!='a.elyubaev')
+			$('.edit_icon').hide();
+
+		if(user_login=='idanuyar'){
+			$("#edit_icon1").show();
+			$("#edited_icon1").show();
+			$("#edited_icon2").show();
+			$("#edited_icon3").show();
+			$("#edited_icon4").show();
+		}	
+		if(user_login=='bolatk' || user_login=='n.kurmashov2'){
+			$("#edit_icon2").show();
+			$('#edit_icon2').click(function() {showPanel('admin_panel_lines1','edit_icon2');});
+		}
+		if(user_login=='asemgulk')
+			$("#edit_icon3").show();
+		if(user_login=='gulzada')
+			$("#edit_icon4").show();
+		
+		if(user_login=='n.kurmashov' || user_login=='s.saruar' || user_login=='a.elyubaev')
+			$("#admin_zakup").show();
+
+
+		if($.inArray(user_login, admin_regions_logins)>=0){
+			$('#edit_icon2').click(function() {showPanel('admin_panel_lines2','edit_icon2');});
+    		$("#region_admin").attr("region", admin_regions_ids[user_login]);
+			$('#region_admin').html(admin_regions_text[user_login]);
+			$("#edit_icon2").show();	
+		}
+
+		function logOut(){
+			// $.removeCookie('login');
+			$.ajax({
+				url: "/api/kp_sys_utils/DeleteLogin.html",
+				type: "GET",
+				data: {
+					"username": $('#username').html(),
+				}
+			});
+			delete_cookie('hash_text');
+			delete_cookie('isOperator');
+	  		$(location).attr('href','https://monitor.kazpost.kz/login/autorization.html');
+		}
+    </script>
+	<script type="text/javascript">
+			
+		function MyClass () { // constructor function
+		  this.counter = 0;  // Public variable 
+		}
+
+		var myInstance = new MyClass();
+		myInstance.counter = 0;
+		
+		function showDepTree() {					
+			// Create jqxTree
+			$('#jqxTree').jqxTree({ height: '300px', width: '500px' });
+			$('#jqxTree').bind('select', function (event) {
+				var htmlElement = event.args.element;
+				var item = $('#jqxTree').jqxTree('getItem', htmlElement);
+			});
+		}														
+				
+		$(function() {
+			$('button[tab]').click(function(){
+			    $('tab').hide(); // прячем все табы
+			    $('button[tab]').removeClass('selected'); // в меню удалем все выбранные кнопки
+			    $(this).addClass('selected'); // отмечаем в меню текущую кликнутую кнопку
+			    $('#'+$(this).attr('tab')).show(); // извлекаем из кнопки таб который надо показать
+			    $.force_appear(); // подгружаем отчеты те которые видные
+			    $('.content').scrollTop(0); // скроллим наверх страницу
+			
+				if($(this).attr('tab')=='tabTotal'){
+				   $('tabw').hide(); // прячем все табы
+				   $('button[tabw]').removeClass('selected'); // в меню удалем все выбранные кнопки
+				   $("button[tabw=tabTwitter]").addClass('selected'); // отмечаем в меню текущую кликнутую кнопку
+				   $('#tabTwitter').show(); // извлекаем из кнопки таб который надо показать
+				   $.force_appear();
+				}
+			});
+			
+			$('button[tabw]').click(function(){
+			   $('tabw').hide(); // прячем все табы
+			   $('button[tabw]').removeClass('selected'); // в меню удалем все выбранные кнопки
+			   $(this).addClass('selected'); // отмечаем в меню текущую кликнутую кнопку
+			   $('#'+$(this).attr('tabw')).show(); // извлекаем из кнопки таб который надо показать
+			   $.force_appear();
+			});	
+			
+			// Проставляем элементы которые надо показать
+			$('.agraph').appear({force_process:true,interval:500});
+			
+			$(document.body).on('appear', '.agraph', function(e, $affected) {
+			    $affected.each(function() {
+				     if(!$(this).attr('loaded')){
+				       console.log('loading report ' + $(this).attr('id'));
+			      	   window[$(this).attr('id')]();
+			      	   $(this).attr('loaded','yes')
+			      	}
+			    })
+				
+				// $.get('/api/reports/dep.html', 
+    //             	function(xml) {
+    //             		$("#jqxTree").html(xml);//s -- Adilbek
+    //             	}
+    //             );
+			});
+		});
+		
+		var docHeadObj = document.getElementsByTagName("head")[0];
+		
+        var data_array = ["data-astana","data-aktobe","data-almaty","data-atyrau","data-vostok","data-zhambyl","data-zapad","data-krg","data-kostanai","data-kyzylorda","data-mangystau","data-pavlodar","data-sever","data-yug"];
+		 
+		var CURRENT_REPORT = null;
+		
+		var srv_type = '';
+		var srv = '';
+		var srv_cat = '';
+		var srv_vid = '';
+		var srv_sign = '';
+		var srv_tarif = '';
+		var srv_level2 ='';
+		var srv_level4 ='';
+		var cli_jurfl ='';
+		var cli_residfl ='';
+		var v_barcode = "";
+		var v_status = "";
+		var counter = 0;
+		
+		function create_map(scriptName) {
+			//
+			srv_type=$("#service_main").val();
+    
+			if ($("#service").length ) {
+		        srv = $("#service").val();
+		  	} else {
+		  		srv='';
+		  	}
+
+		  	console.log("demo srv is: "+srv);
+		    if ($("#level2_select").length ) {
+		        var x_international=$("#level2_select").next().next().html();
+		        $('.selected label',x_international).each(function() {
+		            srv_level2 = $(this).html();
+		        });
+		       
+		        if(srv_level2=='для внутренних и международных')
+		          srv_level2='';
+		      	else if(srv_level2=='Выберите')
+		          srv_level2='';
+		    } else {
+		    	srv_level2='';
+		  	}
+
+		 	if ($("#level3_select").length ) {
+		        var x=$("#level3_select").next().next().html();
+		        $('.selected label',x).each(function() {
+		            srv_vid = $(this).html();
+		        });
+		        if(srv_vid=='Выберите')
+		          srv_vid='';
+		  	} else {
+		  		srv_vid='';
+		  	}
+
+		  	if ($("#level4_select").length ) {
+		        var x=$("#level4_select").next().next().html();
+		        $('.selected label',x).each(function() {
+		            srv_level4 = $(this).html();
+		        });
+		        if(srv_level4=='Выберите')
+		          srv_level4 = '';
+		  	} else {
+		  		srv_level4 = '';
+		  	}
+
+		  	if ($("#cli_jurfl").length ) {
+		        cli_jurfl=$("#cli_jurfl").val();
+		        console.log("cli_jurfl: "+cli_jurfl);
+		  	} else {
+		  		cli_jurfl = '';
+		  	}
+
+		  	if ($("#cli_residfl").length ) {
+		        cli_residfl=$("#cli_residfl").val();
+		        console.log("cli_residfl: "+cli_residfl);
+		  	} else {
+		  		cli_residfl = '';
+		  	}
+
+		  	if ($("#status_rpo").length ) {
+		        v_status = $("#status_rpo").val();
+		  	} else {
+		  		v_status='';
+		  	}
+
+		  	v_barcode = $("#barcode").val();
+		  	v_barcode = v_barcode.toUpperCase();
+
+		  	console.log("v_status: "+v_status);
+		  	console.log("v_barcode: "+v_barcode);
+
+
+            var div_data = document.getElementById("div-data");
+            comeBack();
+        	//loader.realoadVariables();
+            div_data.setAttribute("data-info","reloaded");
+            $('#content').hide();
+            $('#afterFilter').html("<load></load>");
+            $('#afterFilter').show();
+
+            $('#myscript').remove();
+        	$('#map').html("");	
+            var dynamicScript = document.createElement("script");
+            dynamicScript.type = "text/javascript";
+            dynamicScript.src = scriptName;
+            dynamicScript.id = 'myscript';
+            docHeadObj.appendChild(dynamicScript);
+
+			$('.svg_region').removeClass('second_level');
+		    backAll();
+			$('.first_level').removeAttr("loaded");
+		    $('.first_level').addClass('agraph');
+			$('.first_level').show();
+			// $("#modal-content,#modal-background").toggleClass("active");
+        }
+
+		//var CURRENT_REPORT = null;
+		function replaceRegions(divId, src){
+			console.log("replaced: "+divId);
+			$(divId).html("");	
+            var dynamicScript = document.createElement("script");
+            dynamicScript.type = "text/javascript";
+            dynamicScript.src = src;
+            dynamicScript.id = 'myscript';
+            docHeadObj.appendChild(dynamicScript);
+		}
+
+
+		function drill(graph_container,table_container){
+			$(graph_container).hide(); 
+			$(table_container).show();
+			$(table_container).parent().prepend('<button style="position:absolute; z-index: 1; top:50px;right:14px;"  id="first_back" onclick="back(\''+table_container+'\', \''+graph_container+'\');">Назад</button>');
+		}
+
+		function back(table,graph_container){
+			if(table == "#tbl_avon_dtl" || table == "#tbl_oriflame_dtl" || table == "#tbl_unistream_dtl")
+				$(table).parent().find("#first_back").remove();
+			else
+				$(table).parent().find("button").remove();
+				
+			if(table == "#tbl_postamat_dtl")
+				$(table).parent().prepend('<button style="position:absolute; z-index: 1; top:50px;right:14px;"  id="first_back" onclick="back(\''+"#graph_postamat"+'\', \''+"#graph_postamat_filial"+'\');">Назад</button>');
+				
+			$(table).hide();
+			$(graph_container).show();
+			//$(CURRENT_REPORT).show();
+			// if (table == '#tbl_opencsh_dtl') //отчет по кассам, возвращаем исходные размеры диаграммы, после выхода из детализации
+			//   $("#opencsh").css("width", "30%");
+			// if (table == '#tbl_opencsh_dtl_web') //отчет по кассам, возвращаем исходные размеры диаграммы, после выхода из детализации
+			//   $("#opencsh_web").css("width", "30%");
+			if (table == '#tbl_pensions_dtl') //отчет по пенсиям, возвращаем первоначальную ширину
+			  $("#pensions").css("width", "100%");  
+		  	$('span[name="mmpo_ems_info"]').text('');
+		  	$('span[name="mmpo_info"]').text('');
+			if (table == '#tbl_mpu_dtl')
+    		  $(".mpu_div").hide();				  				
+			if(table != '#tbl_postmarket_dtl'){
+				$(table).html('');
+			}
+			if(table == '#graph_kpi_rups') {
+                $("#dep_code").html("");
+			}
+		}	
+
+		function drill1(graph_container,table_container){
+			$('.first_level').hide(); 
+			$('.second_level').show();
+			/*
+			$('.second_level').parent().prepend('<button style="position:absolute; z-index: 2; top:50px;right:14px;" id="first_back" onclick="back1(\''+table_container+'\', \''+graph_container+'\');">Назад</button>');*/
+			$('#sort_services_div').hide(); 
+			$('#sort_services_div2').show(); 
+		}
+
+		function back1(first,second){
+			//$('#graph_kpi').addClass('my_highchart');
+			//$('#graph_kpi_incomes').addClass('my_highchart');
+			//$('#graph_kpi_amount').addClass('my_highchart');
+
+			$('.first_level').removeAttr("loaded");
+		    $('.first_level').addClass('agraph');
+			$("#map_rups").hide(); 
+			$("#map_rups").removeClass('second_level'); 
+		    var isEmpty = $(second).html();
+			if(isEmpty!=''){
+				$(second).removeClass("agraph");
+			};
+
+		    //$(second).removeClass("agraph");
+
+			$('.svg_region').removeClass('second_level');
+		    backAll();
+
+			$('.second_level').parent().find("button").remove();
+			$('.first_level').show();
+
+			if(first!='From Map'){
+				document.getElementById("pavlodar").style.display = 'none';
+                document.getElementById("zhambyl").style.display = 'none';
+                document.getElementById("zapad").style.display = 'none';
+                document.getElementById("yug").style.display = 'none';
+                document.getElementById("vostok").style.display = 'none';
+                document.getElementById("sever").style.display = 'none';
+                document.getElementById("mangystau").style.display = 'none';
+                document.getElementById("kyzylorda").style.display = 'none';
+                document.getElementById("kostanai").style.display = 'none';
+                document.getElementById("karaganda").style.display = 'none';
+                document.getElementById("atyrau").style.display = 'none';
+                document.getElementById("almaty").style.display = 'none';
+                document.getElementById("aktobe").style.display = 'none';
+                document.getElementById("astana").style.display = 'none';
+                $("#content").fadeIn();
+            }
+	        $("#dep_code_li").hide();
+	        $("#dep_code_rups_li").hide();
+	        $("#dep_code_offices_li").hide();
+	        $("#dep_code_operators_li").hide();
+
+			$('#sort_services_div4').hide(); 
+			$('#sort_services_div3').hide(); 
+			$('#sort_services_div2').hide(); 
+			$('#sort_services_div').show(); 
+            $.force_appear(); 
+		}
+		function backAll(){
+		    //$('.first_level').html('');
+			//$(".first_level").hide(); 
+		    $('.second_level').html('');
+			$(".second_level").hide();
+			$(".third_level").hide();
+			$('.third_level').html('');
+			$(".fourth_level").hide();
+			$('.fourth_level').html('');
+			$(".fifth_level").hide();
+			$('.fifth_level').html('');
+			$('.six_level').hide();
+			$('.six_level').html('');
+		}
+
+		function drill2(graph_container,graph_container2,button_id){
+			// $('.second_level').parent().find("#first_back").hide(); 
+			$('.second_level').hide(); 
+			$('.third_level').show();
+			// $('.third_level').parent().prepend('<button style="position:absolute; z-index: 1; top:50px;right:14px;" id="second_back" onclick="back2(\''+graph_container2+'\', \''+graph_container+'\');">Назад</button>');
+			$('#dep_code_li a').removeClass('disabled');
+			$('#sort_services_div2').hide(); 
+			$('#sort_services_div3').show(); 
+
+		}
+		
+		function back2(table,graph_container){
+			// $('.third_level').parent().find("#second_back").remove();
+			$('.six_level').hide();
+			$('.six_level').html('');
+			$('.fifth_level').hide();
+			$('.fifth_level').html('');
+			$('.fourth_level').hide();
+			$('.fourth_level').html('');
+			$('.third_level').hide();
+			$('.third_level').html('');
+			$('.second_level').show();
+			// $('.second_level').parent().find("#first_back").show();
+
+            $("#dep_code_service_li").hide();
+            $('#dep_code_service_li a').addClass('disabled');
+            $("#dep_code_rups_li").hide();
+            $('#dep_code_rups_li a').addClass('disabled');
+            $("#dep_code_offices_li").hide();
+            $('#dep_code_offices_li a').addClass('disabled');
+            $("#dep_code_operators_li").hide();
+            $('#dep_code_operators_li a').addClass('disabled');
+            $('#dep_code_rups_li a').addClass('disabled');
+
+            $('.second_level').removeAttr("loaded");
+		    $('.second_level').addClass('agraph');
+		    var isEmpty = $(graph_container).html();
+			if(isEmpty!=''){
+				$(graph_container).removeClass("agraph");
+			};
+            $.force_appear(); 
+
+            $('#sort_services_div4').hide(); 
+            $('#sort_services_div3').hide(); 
+			$('#sort_services_div2').show(); 
+		}	
+
+        function drill3(graph_container,graph_container2){
+            // $('.third_level').parent().find("#second_back").hide(); 
+            $('.third_level').hide(); 
+            $('.fourth_level').show();
+            // $('.fourth_level').parent().prepend('<button style="position:absolute; z-index: 1; top:50px;right:14px;" id="third_back" onclick="back3(\''+graph_container2+'\', \''+graph_container+'\');">Назад</button>');
+			$('#dep_code_rups_li a').removeClass('disabled');
+            $('#sort_services_div3').hide(); 
+			$('#sort_services_div4').show();
+        }
+        
+        function back3(table,graph_container){
+            // $('.fourth_level').parent().find("#third_back").remove();
+            $('.six_level').hide();
+			$('.six_level').html('');
+            $('.fifth_level').hide();
+			$('.fifth_level').html('');
+            $('.fourth_level').hide();
+            $('.fourth_level').html('');
+            $('.third_level').show();
+            // $('.third_level').parent().find("#second_back").show();
+			
+            $("#dep_code_service_li").hide();
+            $('#dep_code_service_li a').addClass('disabled');
+            $("#dep_code_offices_li").hide();
+            $('#dep_code_offices_li a').addClass('disabled');
+            $("#dep_code_operators_li").hide();
+            $('#dep_code_operators_li a').addClass('disabled');
+            $('#dep_code_rups_li a').addClass('disabled');
+
+            $('.third_level').removeAttr("loaded");
+		    $('.third_level').addClass('agraph');
+		    var isEmpty = $(graph_container).html();
+			if(isEmpty!=''){
+				$(graph_container).removeClass("agraph");
+			};
+            $.force_appear(); 
+            $('#sort_services_div4').hide(); 
+			$('#sort_services_div3').show();
+        } 
+
+        function drill4(graph_container,graph_container2){
+            // $('.fourth_level').parent().find("#third_back").hide(); 
+            $('.fourth_level').hide(); 
+            $('.fifth_level').show();
+            // $('.fifth_level').parent().prepend('<button style="position:absolute; z-index: 1; top:50px;right:14px;" id="fourth_back" onclick="back4(\''+graph_container2+'\', \''+graph_container+'\');">Назад</button>');
+			$('#dep_code_offices_li a').removeClass('disabled');
+        }
+        
+        function back4(table,graph_container){
+            // $('.fifth_level').parent().find("#fourth_back").remove();
+            $('.six_level').hide();
+			$('.six_level').html('');
+            $('.fifth_level').hide();
+            $('.fifth_level').html('');
+            $('.fourth_level').show();
+            // $('.fourth_level').parent().find("#third_back").show();
+
+            $("#dep_code_service_li").hide();
+			$('#dep_code_service_li a').addClass('disabled');
+            $("#dep_code_operators_li").hide();
+			$('#dep_code_operators_li a').addClass('disabled');
+			$('#dep_code_offices_li a').addClass('disabled');
+            $('.fourth_level').removeAttr("loaded");
+		    $('.fourth_level').addClass('agraph');
+		    var isEmpty = $(graph_container).html();
+			if(isEmpty!=''){
+				$(graph_container).removeClass("agraph");
+			};
+            $.force_appear(); 
+        }
+
+        function back5(table,graph_container){
+            // $('.six_level').parent().find("#fifth_back").remove();
+            $('.six_level').hide();
+            $('.six_level').html('');
+            $('.fifth_level').show();
+            // $('.fifth_level').parent().find("#fourth_back").show();
+
+            $("#dep_code_service_li").hide();
+			$('#dep_code_service_li a').addClass('disabled');
+			$('#dep_code_operators_li a').addClass('disabled');
+            $('.fourth_level').removeAttr("loaded");
+		    $('.fourth_level').addClass('agraph');
+        }
+
+        function updateInformation(id){
+        	var month = $("#"+id).val();
+        	var value = $("#value_"+id).val();
+        	if(month!='' && value!=''){
+	        	$.ajax({
+					url: "/api/kp_sys_utils/updateInformation.html",
+					type: "GET",
+					data: {
+						"admin_type": id,
+						"v_month": month,
+						"amount": value,
+					},
+					success: function(xml) {				
+						if (id=='pensacc'){
+							graph_total_pensacc();
+							$("#edit_icon1").show();
+							$("#admin_panel1").hide();
+							$(".admin_input").val("");
+							console.log("Finished 1!!!");
+						} else if (id=='eshop'){
+							graph_total_eshop();
+							$("#edit_icon4").show();
+							$("#admin_panel4").hide();
+							$(".admin_input").val("");
+
+							console.log("Finished new!!!");
+						}
+					}
+				});
+        	} else {
+        		if (id=='pensacc'){
+					graph_total_pensacc();
+					$("#edit_icon1").show();
+					$("#admin_panel1").hide();
+					$(".admin_input").val("");
+				}else if (id=='eshop'){
+					graph_total_eshop();
+					$("#edit_icon4").show();
+					$("#admin_panel4").hide();
+					$(".admin_input").val("");
+				}
+        	}
+
+        	if(id=='cards'){
+        		var first = $("#cards_input").val();
+        		var second = $("#cards_input2").val();
+        		$.ajax({
+					url: "/api/kp_sys_utils/updateInformation2.html",
+					type: "GET",
+					data: {
+						"admin_type": id,
+						"first": first,
+						"second": second,
+					},
+					success: function(xml) {				
+						graph_total_cards();
+						$("#edit_icon3").show();
+						$("#admin_panel3").hide();
+						$(".admin_input").val("");
+				    	$("#cards_first").show();
+				    	$("#cards_second").show();
+			    		$("#cards_input").hide();
+			    		$("#cards_input2").hide();
+						console.log("Finished 2!!!");
+					}
+				});
+			}
+			else if(id=='branches'){
+        		var first = $("#branches_input").val();
+        		var second = $("#branches_input2").val();
+				$.ajax({
+					url: "/api/kp_sys_utils/updateInformation2.html",
+					type: "GET",
+					data: {
+						"admin_type": id,
+						"first": first,
+						"second": second,
+					},
+					success: function(xml) {				
+						graph_total_branches();
+						$("#edit_icon2").show();
+						$("#admin_panel2").hide();
+						$(".admin_input").val("");
+				    	$("#branches_first").show();
+				    	$("#branches_second").show();
+			    		$("#branches_input").hide();
+			    		$("#branches_input2").hide();
+						console.log("Finished 3!!!");
+					}
+				});
+			}
+        }
+
+
+        function updateInf_canals(id){
+			console.log("Finished Branches!!!");
+		    var canals_cnt = [];
+		    var all_entered = true;
+		    for (var i=0; i<16; i++) {
+		    	canals_cnt[i] = $("#reg"+(i+1)).val();
+		    	if(canals_cnt[i]=='')
+		    		all_entered=false;
+		    }
+
+			console.log(canals_cnt);
+			console.log(all_entered);
+			if(all_entered){
+				$.ajax({
+					url: "/api/filters/update_branches_canals.html",
+					type: "GET",
+					data: {
+						"v1": canals_cnt[0],
+						"v2": canals_cnt[1],
+						"v3": canals_cnt[2],
+						"v4": canals_cnt[3],
+						"v5": canals_cnt[4],
+						"v6": canals_cnt[5],
+						"v7": canals_cnt[6],
+						"v8": canals_cnt[7],
+						"v9": canals_cnt[8],
+						"v10": canals_cnt[9],
+						"v11": canals_cnt[10],
+						"v12": canals_cnt[11],
+						"v13": canals_cnt[12],
+						"v14": canals_cnt[13],
+						"v15": canals_cnt[14],
+						"v16": canals_cnt[15],
+					},
+					success: function(xml) {
+						alert("Данные сохранены!");				
+						console.log("Finished first level!!!");			
+						graph_total_branches();
+						$("#edit_icon2").show();
+						$("#admin_panel_lines1").hide();
+					}
+				});
+			} else {
+				$("#edit_icon2").show();
+				$("#admin_panel_lines1").hide();
+				alert("Ошибка не все данные введены!");
+			}
+        }
+        function updateInf_automated(){
+
+			var amount_automated = $("#region_input1").val();
+			var amount_total = $("#region_input2").val();
+			var amount_total_all = $("#region_input3").val();
+			var region_id = $('#region_admin').attr('region');
+
+			if(amount_automated!='' && amount_total!=''){
+				$.ajax({
+					url: "/api/filters/update_branches_automated.html",
+					type: "GET",
+					data: {
+						"region": region_id,
+						"a_automated": amount_automated,
+						"a_total": amount_total,
+						"a_total_all": amount_total_all,
+					},
+					success: function(xml) {				
+						console.log("Finished first level!!!");
+						$("#edit_icon2").show();
+						$("#admin_panel_lines2").hide();
+						$.ajax({
+							url: "/api/filters/check_branches.html",
+							type: "GET",
+							success: function(xml) {
+								var xmltxt = $.parseXML(xml);				
+								console.log("Finished first second!!!");
+								if ($(xmltxt).find('result').text() == '1')
+									graph_total_branches();
+								else 
+									console.log('Sorry man');
+
+								alert("Данные сохранены!");		
+							}
+						});
+					}
+				});
+			} else {
+				$("#edit_icon2").show();
+				$("#admin_panel_lines2").hide();
+				alert("Ошибка не все данные введены!");
+			}
+			console.log("Finished Branches automated!!!");
+        }
+
+        function deleteInformation(id){
+        	var month = $("#"+id).val();
+        	if(month!=''){
+	        	$.ajax({
+					url: "/api/kp_sys_utils/deleteInformation.html",
+					type: "GET",
+					data: {
+						"admin_type": id,
+						"v_month": month,
+					},
+					success: function(xml) {				
+						console.log("Finished!!!");
+						if (id=='pensacc'){
+							graph_total_pensacc();
+						}else if(id=='branches'){
+							graph_total_branches();
+						}else if(id=='cards'){
+							graph_total_cards();
+						}else if(id=='eshop'){
+							graph_total_eshop();
+						}
+					}
+				});
+        	} else {
+        		alert("Выберите месяц!");
+        	}
+        }
+
+        function stringStartsWith (string, prefix) {
+		    return string.slice(0, prefix.length) == prefix;
+		}
+
+        function showPanel(id,icon_id){
+        	$("#"+id).show();
+        	$("#"+icon_id).hide();
+        	$(".a_value_"+id).hide();
+        	$(".input_value_"+id).show();
+        }
+
+		function getParam(name) {
+		    var query = location.search.substring(1);
+		    var pos = query.indexOf('=');
+			console.log(pos);
+				if (query.substring(0,pos) == name) {
+		            return query.substring(++pos,query.length);
+				}
+				return 0;
+		}
+
+		$(function() {
+		    var defaultTab = (getParam('tab'));
+			if(defaultTab != 0){
+				$('tab').hide(); // прячем все табы
+				$('button[tab]').removeClass('selected'); // в меню удалем все выбранные кнопки
+				$("button[tab="+defaultTab+"]").addClass('selected'); // отмечаем в меню текущую кликнутую кнопку
+				$("#"+$("button[tab="+defaultTab+"]").attr('tab')).show(); // извлекаем из кнопки таб который надо показать
+				$.force_appear(); // подгружаем отчеты те которые видные
+				$('.content').scrollTop(0); // скроллим наверх страницу
+			};
+		});	
+		
+	</script>	
+	</div>
+</body>
+</html>
+
